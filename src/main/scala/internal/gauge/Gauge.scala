@@ -1,7 +1,6 @@
 package io.prometheus.client.scala.internal.gauge
 
 import java.util.concurrent.atomic.DoubleAdder
-import java.util.concurrent.locks.ReentrantReadWriteLock
 
 import io.prometheus.client.scala._
 
@@ -14,7 +13,6 @@ import io.prometheus.client.scala._
   */
 final class Gauge0[N <: String](val name: N) extends Collector[N] {
   private[scala] val adder = new DoubleAdder
-  private[scala] val rwlock = new ReentrantReadWriteLock
 
   def incBy(v: Double): Unit = adder.add(v)
 
