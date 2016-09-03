@@ -5,14 +5,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 
 import io.prometheus.client.scala._
 
-//  def inc(): Unit
-//  def inc(v: Double): Unit
-//  def dec(): Unit
-//  def dec(v: Double): Unit
-//  def set(v: Double): Unit
-//
-//  def setToCurrentTime() = set(System.nanoTime() / 1e9)
-
 /** This represents a Prometheus internal.gauge with no labels.
   *
   * A Prometheus internal.gauge should be used for values which go up and down.
