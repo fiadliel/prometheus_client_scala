@@ -18,7 +18,7 @@ scala> import io.prometheus.client.scala._
 import io.prometheus.client.scala._
 
 scala> implicit val totalRequests = Counter.create("total_requests")
-totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@48ed195f
+totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@4d35d06
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -41,4 +41,12 @@ scala> Counter.lookup("no_such_variable").inc
 <console>:17: error: could not find implicit value for parameter e: io.prometheus.client.scala.internal.counter.Counter0[String("no_such_variable")]
        Counter.lookup("no_such_variable").inc
                      ^
+```
+
+You can always use the counter variable directly, though
+there is no performance benefit in this (it could make your
+code clearer in some cases):
+
+```scala
+scala> totalRequests.inc
 ```

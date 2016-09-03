@@ -37,3 +37,11 @@ compilation error:
 ```tut:fail
 Counter.lookup("no_such_variable").inc
 ```
+
+You can always use the counter variable directly, though
+there is no performance benefit in this (it could make your
+code clearer in some cases):
+
+```tut
+totalRequests.inc
+```
