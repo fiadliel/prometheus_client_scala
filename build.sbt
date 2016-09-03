@@ -1,6 +1,8 @@
-val commonSettings = Seq(
+val commonSettings = ghpages.settings ++ Seq(
   scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.11.8", "2.12.0-M5")
+  crossScalaVersions := Seq("2.11.8", "2.12.0-M5"),
+  git.remoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git",
+  site.includeScaladoc()
 )
 
 val core = project.in(file("core")).settings(commonSettings).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(
