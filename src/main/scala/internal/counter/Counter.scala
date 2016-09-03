@@ -5,12 +5,12 @@ import java.util.concurrent.atomic.DoubleAdder
 import io.prometheus.client.scala._
 
 
-/** This represents a Prometheus internal.counter with no labels.
+/** This represents a Prometheus counter with no labels.
   *
-  * A Prometheus internal.counter should be used for values which only increase in value.
+  * A Prometheus counter should be used for values which only increase in value.
   *
-  * @param name The name of the internal.counter
-  * @tparam N The singleton type for the internal.counter's name
+  * @param name The name of the counter
+  * @tparam N The singleton type for the counter's name
   */
 final class Counter0[N <: String](val name: N) extends Collector[N] {
   private[scala] val adder = new DoubleAdder
@@ -20,12 +20,12 @@ final class Counter0[N <: String](val name: N) extends Collector[N] {
   def inc(): Unit = adder.add(1d)
 }
 
-/** This represents a Prometheus internal.counter with 1 label.
+/** This represents a Prometheus counter with 1 label.
   *
-  * A Prometheus internal.counter should be used for values which only increase in value.
+  * A Prometheus .counter should be used for values which only increase in value.
   *
-  * @param name The name of the internal.counter
-  * @tparam N The singleton type for the internal.counter's name
+  * @param name The name of the counter
+  * @tparam N The singleton type for the counter's name
   * @tparam L1 The singleton string type for label 1
   */
 final class Counter1[N <: String, L1 <: String](val name: N) extends Collector[N] {
