@@ -18,7 +18,27 @@ scala> import io.prometheus.client.scala._
 import io.prometheus.client.scala._
 
 scala> implicit val totalRequests = Counter.create("total_requests")
-totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@338a1d99
+totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@48ed195f
 ```
 
+Note that the counter is a `Counter0`, which means that it
+has no labels. Therefore, it needs no corresponding label values
+when incrementing the counter.
 
+### Finding the collector
+
+You can find this counter in the implicit scope like this:
+
+```scala
+scala> Counter.lookup("total_requests").inc
+```
+
+If the variable is not currently available, this would be a
+compilation error:
+
+```scala
+scala> Counter.lookup("no_such_variable").inc
+<console>:17: error: could not find implicit value for parameter e: io.prometheus.client.scala.internal.counter.Counter0[String("no_such_variable")]
+       Counter.lookup("no_such_variable").inc
+                     ^
+```
