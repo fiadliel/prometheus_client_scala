@@ -45,3 +45,26 @@ code clearer in some cases):
 ```tut
 totalRequests.inc
 ```
+
+### Creating collectors with labels
+
+Any extra strings passed when creating a collector, represent
+labels for any monitoring variables. Whenever any information is
+passed to the monitoring system, an appropriate number of label
+values need to be provided; one for each label.
+
+```tut
+implicit val totalErrors = Counter.create("total_errors", "code")
+```
+
+### Using collectors with labels
+
+The types of the collectors include the label names, so we can
+look these up in implicit scope again.
+
+To increment a counter with an error code of "404", one might
+do the following:
+
+```tut
+Counter.lookup("total_errors", "code").inc("404")
+```

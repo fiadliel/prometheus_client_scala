@@ -18,7 +18,7 @@ scala> import io.prometheus.client.scala._
 import io.prometheus.client.scala._
 
 scala> implicit val totalRequests = Counter.create("total_requests")
-totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@4d35d06
+totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@47c308c7
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -49,4 +49,28 @@ code clearer in some cases):
 
 ```scala
 scala> totalRequests.inc
+```
+
+### Creating collectors with labels
+
+Any extra strings passed when creating a collector, represent
+labels for any monitoring variables. Whenever any information is
+passed to the monitoring system, an appropriate number of label
+values need to be provided; one for each label.
+
+```scala
+scala> implicit val totalErrors = Counter.create("total_errors", "code")
+totalErrors: io.prometheus.client.scala.internal.counter.Counter1[String("total_errors"),String("code")] = io.prometheus.client.scala.internal.counter.Counter1@5a5dd769
+```
+
+### Using collectors with labels
+
+The types of the collectors include the label names, so we can
+look these up in implicit scope again.
+
+To increment a counter with an error code of "404", one might
+do the following:
+
+```scala
+scala> Counter.lookup("total_errors", "code").inc("404")
 ```
