@@ -1,4 +1,4 @@
-package io.prometheus.client.scala.gauge
+package io.prometheus.client.scala.internal.gauge
 
 import java.util.concurrent.atomic.DoubleAdder
 import java.util.concurrent.locks.ReentrantReadWriteLock

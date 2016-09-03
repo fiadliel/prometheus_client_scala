@@ -1,4 +1,4 @@
-package io.prometheus.client.scala.counter
+package io.prometheus.client.scala.internal.counter
 
 import java.util.concurrent.atomic.DoubleAdder
 

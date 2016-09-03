@@ -1,4 +1,4 @@
-package io.prometheus.client.scala.histogram
+package io.prometheus.client.scala.internal.histogram
 
 import java.util.concurrent.atomic.DoubleAdder
 
