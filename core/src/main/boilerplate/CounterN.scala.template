@@ -1,0 +1,25 @@
+package io.prometheus.client.scala.counter
+
+import io.prometheus.client.scala._
+
+[1..21#
+/** This represents a Prometheus counter with 2 labels.
+  *
+  * A Prometheus counter should be used for values which only increase in value.
+  *
+  * @param name The name of the counter
+  * @tparam N The singleton type for the counter's name
+  * @tparam L##1 The singleton string type for label ##1
+[#  * @tparam L2 The singleton string type for label 2#
+]
+  */
+final class Counter2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N) extends Collector[N] {
+  private[scala] val adders = new Adders[Tuple2[String, [#String#]]]
+
+  def incBy(l##1: String, [#l2: String#])(v: Double): Unit =
+    adders(l##1, [#l2#]).add(v)
+
+  def inc(l##1: String, [#l2: String#]): Unit =
+    adders(l##1, [#l2#]).add(##1d)
+}#
+]

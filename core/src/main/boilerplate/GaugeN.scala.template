@@ -1,0 +1,41 @@
+package io.prometheus.client.scala.gauge
+
+import io.prometheus.client.scala._
+
+[1..21#
+/** This represents a Prometheus gauge with 2 labels.
+  *
+  * A Prometheus gauge should be used for values which go up and down.
+  *
+  * @param name The name of the gauge
+  * @tparam N The singleton type for the gauge's name
+  * @tparam L##1 The singleton string type for label ##1
+[#  * @tparam L2 The singleton string type for label 2#
+]
+  */
+final class Gauge2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N) extends Collector[N] {
+  private[scala] val adders = new Adders[Tuple2[String, [#String#]]]
+
+  def incBy(l##1: String, [#l2: String#])(v: Double): Unit =
+    adders(l##1, [#l2#]).add(v)
+
+  def inc(l##1: String, [#l2: String#]): Unit =
+    adders(l##1, [#l2#]).add(##1d)
+
+  def decBy(l##1: String, [#l2: String#])(v: Double): Unit =
+    adders(l##1, [#l2#]).add(-v)
+
+  def dec(l##1: String, [#l2: String#]): Unit =
+    adders(l##1, [#l2#]).add(-##1d)
+
+  def set(l##1: String, [#l2: String#])(v: Double): Unit = {
+    val adder = adders(l##1, [#l2#])
+    synchronized {
+      adder.reset()
+      adder.add(v)
+    }
+  }
+
+  def setToCurrentTime(l##1: String, [#l2: String#]) = set(l##1, [#l2#])(System.nanoTime() / ##1e9)
+}#
+]

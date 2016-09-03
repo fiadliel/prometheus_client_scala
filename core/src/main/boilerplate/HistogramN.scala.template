@@ -1,0 +1,22 @@
+package io.prometheus.client.scala.histogram
+
+import io.prometheus.client.scala._
+
+[1..21#
+/** This represents a Prometheus histogram with 2 labels.
+  *
+  * @param name The name of the histogram
+  * @tparam N The singleton type for the histogram's name
+  * @tparam L##1 The singleton string type for label ##1
+[#  * @tparam L2 The singleton string type for label 2#
+]
+  */
+final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, _buckets: IndexedSeq[Double]) extends Collector[N] {
+  val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
+
+  private[scala] val adders = new BucketedAdders[Tuple2[String, [#String#]]](buckets.size + 1)
+
+  def observe(l##1: String, [#l2: String#])(v: Double): Unit =
+    Histogram.observe(buckets, adders(l##1, [#l2#]), v)
+}#
+]
