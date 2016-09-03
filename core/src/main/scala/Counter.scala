@@ -14,7 +14,7 @@ object Counter {
     val className = TypeName(s"Counter${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.counter._
+     import _root_.io.prometheus.client.scala.internal.counter._
      new $className[..${List(name) ++ labels}]($name)
     """
   }
@@ -25,7 +25,7 @@ object Counter {
     val className = TypeName(s"Counter${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.counter._
+     import _root_.io.prometheus.client.scala.internal.counter._
      implicitly[$className[..${List(name) ++ labels}]]
     """
   }

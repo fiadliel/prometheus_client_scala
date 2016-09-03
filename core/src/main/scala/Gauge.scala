@@ -14,7 +14,7 @@ object Gauge {
     val className = TypeName(s"Gauge${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.gauge._
+     import _root_.io.prometheus.client.scala.internal.gauge._
      new $className[..${List(name) ++ labels}]($name)
     """
   }
@@ -25,7 +25,7 @@ object Gauge {
     val className = TypeName(s"Gauge${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.gauge._
+     import _root_.io.prometheus.client.scala.internal.gauge._
      implicitly[$className[..${List(name) ++ labels}]]
     """
   }

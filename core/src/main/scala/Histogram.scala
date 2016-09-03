@@ -14,7 +14,7 @@ object Histogram {
     val className = TypeName(s"Histogram${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.histogram._
+     import _root_.io.prometheus.client.scala.internal.histogram._
      new $className[..${List(name) ++ labels}]($name)
     """
   }
@@ -25,7 +25,7 @@ object Histogram {
     val className = TypeName(s"Histogram${labels.size}")
 
     q"""
-     import _root_.io.prometheus.client.scala.histogram._
+     import _root_.io.prometheus.client.scala.internal.histogram._
      implicitly[$className[..${List(name) ++ labels}]]
     """
   }

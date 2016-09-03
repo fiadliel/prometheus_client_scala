@@ -13,12 +13,12 @@ import io.prometheus.client.scala._
 //
 //  def setToCurrentTime() = set(System.nanoTime() / 1e9)
 
-/** This represents a Prometheus gauge with no labels.
+/** This represents a Prometheus internal.gauge with no labels.
   *
-  * A Prometheus gauge should be used for values which go up and down.
+  * A Prometheus internal.gauge should be used for values which go up and down.
   *
-  * @param name The name of the gauge
-  * @tparam N The singleton type for the gauge's name
+  * @param name The name of the internal.gauge
+  * @tparam N The singleton type for the internal.gauge's name
   */
 final class Gauge0[N <: String](val name: N) extends Collector[N] {
   private[scala] val adder = new DoubleAdder
@@ -41,12 +41,12 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
   def setToCurrentTime() = set(System.nanoTime() / 1e9)
 }
 
-/** This represents a Prometheus gauge with 1 label.
+/** This represents a Prometheus internal.gauge with 1 label.
   *
-  * A Prometheus gauge should be used for values which go up and down.
+  * A Prometheus internal.gauge should be used for values which go up and down.
   *
-  * @param name The name of the gauge
-  * @tparam N The singleton type for the gauge's name
+  * @param name The name of the internal.gauge
+  * @tparam N The singleton type for the internal.gauge's name
   * @tparam L1 The singleton string type for label 1
   */
 final class Gauge1[N <: String, L1 <: String](val name: N) extends Collector[N] {
