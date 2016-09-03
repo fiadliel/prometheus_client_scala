@@ -22,3 +22,12 @@ val benchmark =
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
     )
     .dependsOn(core)
+
+val doc =
+  project.in(file("doc"))
+    .settings(commonSettings)
+    .settings(tutSettings)
+    .settings(
+      tutSourceDirectory := baseDirectory.value / "src",
+      tutTargetDirectory := baseDirectory.value
+    ).dependsOn(core)
