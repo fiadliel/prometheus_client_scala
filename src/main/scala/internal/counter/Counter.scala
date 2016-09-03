@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.DoubleAdder
 
 import io.prometheus.client.scala._
 
-
 /** This represents a Prometheus counter with no labels.
   *
   * A Prometheus counter should be used for values which only increase in value.
@@ -31,9 +30,8 @@ final class Counter0[N <: String](val name: N) extends Collector[N] {
 final class Counter1[N <: String, L1 <: String](val name: N) extends Collector[N] {
   private[scala] val adders = new Adders[String]
 
-  def incBy(l1: String)(v: Double): Unit = {
+  def incBy(l1: String)(v: Double): Unit =
     adders(l1).add(v)
-  }
 
   def inc(l1: String): Unit =
     adders(l1).add(1d)

@@ -42,9 +42,8 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
 final class Gauge1[N <: String, L1 <: String](val name: N) extends Collector[N] {
   private[scala] val adders = new Adders[String]
 
-  def incBy(l1: String)(v: Double): Unit = {
+  def incBy(l1: String)(v: Double): Unit =
     adders(l1).add(v)
-  }
 
   def inc(l1: String): Unit =
     adders(l1).add(1d)
