@@ -68,3 +68,64 @@ do the following:
 ```tut
 Counter.lookup("total_errors", "code").inc("404")
 ```
+
+This is supported up to 22 labels, for example:
+
+```tut
+implicit val lotsOfLabels =
+  Counter.create("lots_of_labels",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22"
+  )
+```
+
+We will obviously get a compilation error if we try to provide an incorrect
+number of values when using this collector:
+
+```tut:fail
+Counter.lookup("lots_of_labels",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22"
+  ).inc("1val", "2val")
+```
+  

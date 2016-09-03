@@ -18,7 +18,7 @@ scala> import io.prometheus.client.scala._
 import io.prometheus.client.scala._
 
 scala> implicit val totalRequests = Counter.create("total_requests")
-totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@47c308c7
+totalRequests: io.prometheus.client.scala.internal.counter.Counter0[String("total_requests")] = io.prometheus.client.scala.internal.counter.Counter0@6547b39e
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -60,7 +60,7 @@ values need to be provided; one for each label.
 
 ```scala
 scala> implicit val totalErrors = Counter.create("total_errors", "code")
-totalErrors: io.prometheus.client.scala.internal.counter.Counter1[String("total_errors"),String("code")] = io.prometheus.client.scala.internal.counter.Counter1@5a5dd769
+totalErrors: io.prometheus.client.scala.internal.counter.Counter1[String("total_errors"),String("code")] = io.prometheus.client.scala.internal.counter.Counter1@19f3ff90
 ```
 
 ### Using collectors with labels
@@ -74,3 +74,69 @@ do the following:
 ```scala
 scala> Counter.lookup("total_errors", "code").inc("404")
 ```
+
+This is supported up to 22 labels, for example:
+
+```scala
+scala> implicit val lotsOfLabels =
+     |   Counter.create("lots_of_labels",
+     |     "1",
+     |     "2",
+     |     "3",
+     |     "4",
+     |     "5",
+     |     "6",
+     |     "7",
+     |     "8",
+     |     "9",
+     |     "10",
+     |     "11",
+     |     "12",
+     |     "13",
+     |     "14",
+     |     "15",
+     |     "16",
+     |     "17",
+     |     "18",
+     |     "19",
+     |     "20",
+     |     "21",
+     |     "22"
+     |   )
+lotsOfLabels: io.prometheus.client.scala.internal.counter.Counter22[String("lots_of_labels"),String("1"),String("2"),String("3"),String("4"),String("5"),String("6"),String("7"),String("8"),String("9"),String("10"),String("11"),String("12"),String("13"),String("14"),String("15"),String("16"),String("17"),String("18"),String("19"),String("20"),String("21"),String("22")] = io.prometheus.client.scala.internal.counter.Counter22@4903d875
+```
+
+We will obviously get a compilation error if we try to provide an incorrect
+number of values when using this collector:
+
+```scala
+scala> Counter.lookup("lots_of_labels",
+     |     "1",
+     |     "2",
+     |     "3",
+     |     "4",
+     |     "5",
+     |     "6",
+     |     "7",
+     |     "8",
+     |     "9",
+     |     "10",
+     |     "11",
+     |     "12",
+     |     "13",
+     |     "14",
+     |     "15",
+     |     "16",
+     |     "17",
+     |     "18",
+     |     "19",
+     |     "20",
+     |     "21",
+     |     "22"
+     |   ).inc("1val", "2val")
+<console>:42: error: not enough arguments for method inc: (l1: String, l2: String, l3: String, l4: String, l5: String, l6: String, l7: String, l8: String, l9: String, l10: String, l11: String, l12: String, l13: String, l14: String, l15: String, l16: String, l17: String, l18: String, l19: String, l20: String, l21: String, l22: String)Unit.
+Unspecified value parameters l3, l4, l5...
+         ).inc("1val", "2val")
+              ^
+```
+  
