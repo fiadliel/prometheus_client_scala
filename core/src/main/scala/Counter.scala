@@ -4,13 +4,9 @@ object Counter {
   import scala.reflect.macros.whitebox
   import scala.language.experimental.macros
 
-  def create(name: String, labels: String*): Any =
-  macro createCounterImpl
+  def create(name: String, labels: String*): Any = macro createCounterImpl
 
-  def lookup(name: String, labels: String*): Any =
-  macro lookupCounterImpl
-
-    import scala.language.experimental.macros
+  def lookup(name: String, labels: String*): Any = macro lookupCounterImpl
 
   def createCounterImpl(c: whitebox.Context)(name: c.Tree, labels: c.Tree*): c.Tree = {
     import c.universe._
