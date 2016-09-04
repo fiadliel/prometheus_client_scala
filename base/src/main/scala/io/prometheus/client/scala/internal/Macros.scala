@@ -6,6 +6,24 @@ object Macros {
   def createCounterImpl(c: scala.reflect.macros.whitebox.Context)(name: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
 
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+        c.enclosingPosition,
+        "Must provide a String constant for the name."
+      )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
+
     val className = TypeName(s"Counter${labels.size}")
 
     q"""
@@ -16,6 +34,24 @@ object Macros {
 
   def lookupCounterImpl(c: scala.reflect.macros.whitebox.Context)(name: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
+
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
 
     val className = TypeName(s"Counter${labels.size}")
 
@@ -28,6 +64,24 @@ object Macros {
   def createGaugeImpl(c: whitebox.Context)(name: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
 
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
+
     val className = TypeName(s"Gauge${labels.size}")
 
     q"""
@@ -38,6 +92,24 @@ object Macros {
 
   def createGaugeWithDefaultImpl(c: whitebox.Context)(name: c.Tree, defaultValue: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
+
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
 
     val className = TypeName(s"Gauge${labels.size}")
     val default = q"Some($defaultValue)"
@@ -51,6 +123,24 @@ object Macros {
   def lookupGaugeImpl(c: whitebox.Context)(name: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
 
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
+
     val className = TypeName(s"Gauge${labels.size}")
 
     q"""
@@ -62,6 +152,24 @@ object Macros {
   def createHistogramImpl(c: whitebox.Context)(name: c.Tree, buckets: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
 
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
+
     val className = TypeName(s"Histogram${labels.size}")
 
     q"""
@@ -72,6 +180,24 @@ object Macros {
 
   def lookupHistogramImpl(c: whitebox.Context)(name: c.Tree)(labels: c.Tree*): c.Tree = {
     import c.universe._
+
+    name match {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for the name."
+        )
+    }
+
+    labels foreach {
+      case Literal(Constant(ct)) =>
+      case _ =>
+        c.abort(
+          c.enclosingPosition,
+          "Must provide a String constant for labels."
+        )
+    }
 
     val className = TypeName(s"Histogram${labels.size}")
 
