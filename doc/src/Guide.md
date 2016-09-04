@@ -128,4 +128,20 @@ Counter.lookup("lots_of_labels")(
     "22"
   ).inc("1val", "2val")
 ```
-  
+
+## The Registry
+
+The `Registry` is a service to which collectors are registered. You can
+then call `collect` to obtain current monitoring values for all the
+registered collectors.
+
+There is a default registry available, which is used if no other registry
+is specified.
+
+```tut
+implicit val activeRequests = Gauge.create("active_requests")().register
+implicit val numErrors = Counter.create("num_errors")().register
+Gauge.lookup("active_requests")().set(50)
+Counter.lookup("num_errors")().inc
+implicitly[Registry].collect
+```

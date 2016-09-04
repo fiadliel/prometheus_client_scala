@@ -139,4 +139,27 @@ Unspecified value parameters l3, l4, l5...
          ).inc("1val", "2val")
               ^
 ```
-  
+
+## The Registry
+
+The `Registry` is a service to which collectors are registered. You can
+then call `collect` to obtain current monitoring values for all the
+registered collectors.
+
+There is a default registry available, which is used if no other registry
+is specified.
+
+```scala
+scala> implicit val activeRequests = Gauge.create("active_requests")().register
+activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0[String("active_requests")] = Gauge0(active_requests)()
+
+scala> implicit val numErrors = Counter.create("num_errors")().register
+numErrors: io.prometheus.client.scala.internal.counter.Counter0[String("num_errors")] = Counter0(num_errors)()
+
+scala> Gauge.lookup("active_requests")().set(50)
+
+scala> Counter.lookup("num_errors")().inc
+
+scala> implicitly[Registry].collect
+res7: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(active_requests,Vector(),50.0), RegistryMetric(num_errors,Vector(),1.0))
+```
