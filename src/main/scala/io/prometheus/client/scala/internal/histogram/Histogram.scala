@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.DoubleAdder
 import io.prometheus.client.scala._
 
 object Histogram {
-  def observe(bucketValues: IndexedSeq[(Double, Int)], buckets: Array[DoubleAdder], v: Double): Unit = {
+  def observe(bucketValues: Seq[(Double, Int)], buckets: Array[DoubleAdder], v: Double): Unit = {
     bucketValues.foreach {
       case (upperBound, idx) =>
         if (v <= upperBound)
@@ -16,13 +16,16 @@ object Histogram {
     buckets(buckets.length - 1).add(v)
   }
 
-  def bucketsWithInf(buckets: IndexedSeq[Double]): IndexedSeq[Double] = {
+  def bucketsWithInf(buckets: Seq[Double]): List[Double] = {
     val sortedBuckets = buckets.sorted
 
-    if (sortedBuckets.last == Double.MaxValue)
-      sortedBuckets
-    else
-      sortedBuckets :+ Double.MaxValue
+    val withInf =
+      if (sortedBuckets.last == Double.MaxValue)
+        sortedBuckets
+      else
+        sortedBuckets :+ Double.MaxValue
+
+    withInf.toList
   }
 }
 
@@ -31,17 +34,22 @@ object Histogram {
   * @param name The name of the internal.histogram
   * @tparam N The singleton type for the internal.histogram's name
   */
-final class Histogram0[N <: String](val name: N, _buckets: IndexedSeq[Double]) extends Collector[N] {
+final class Histogram0[N <: String](val name: N, _buckets: Seq[Double])() extends Collector[N] {
   val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
 
   private[scala] val adder = Array.fill(buckets.size + 1)(new DoubleAdder)
 
   def observe(v: Double): Unit = Histogram.observe(buckets, adder, v)
 
-  def collect(): Vector[RegistryMetric] =
-    (buckets.map { case (bucket, idx) =>
-      RegistryMetric(s"${name}_$bucket", Vector.empty, adder(idx).sum())
-    } :+ RegistryMetric(s"${name}_total" , Vector.empty, adder.last.sum())).toVector
+  override def collect(): List[RegistryMetric] = {
+    RegistryMetric(s"${name}_total" , Vector.empty, adder.last.sum()) ::
+      buckets.map { case (bucket, idx) =>
+        RegistryMetric(s"${name}_$bucket", Vector.empty, adder(idx).sum())
+      }
+  }
+
+  override def toString(): String =
+    s"Histogram0($name, ${buckets.map(_._1)})()"
 }
 
 /** This represents a Prometheus internal.histogram with 1 label.
@@ -50,18 +58,22 @@ final class Histogram0[N <: String](val name: N, _buckets: IndexedSeq[Double]) e
   * @tparam N The singleton type for the internal.histogram's name
   * @tparam L1 The singleton string type for label 1
   */
-final class Histogram1[N <: String, L1 <: String](val name: N, label: String, _buckets: IndexedSeq[Double]) extends Collector[N] {
+final class Histogram1[N <: String, L1 <: String](val name: N, _buckets: Seq[Double])(label: String) extends Collector[N] {
   val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
 
-  private[scala] val adders = new BucketedAdders[String](buckets.size + 1)
+  private[scala] val adders = new BucketedAdders[String](buckets.size + 1, None)
 
   def observe(l1: String)(v: Double): Unit = Histogram.observe(buckets, adders(l1), v)
 
-  def collect(): Vector[RegistryMetric] =
+  def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({
       case (labelValue, value) =>
+        RegistryMetric(s"${name}_total" , Vector.empty, value.last) ::
         buckets.map { case (bucket, idx) =>
           RegistryMetric(s"${name}_$bucket", Vector.empty, value(idx))
-        } :+ RegistryMetric(s"${name}_total" , Vector.empty, value.last)
-    }).toVector
+        }
+    })
+
+  override def toString(): String =
+    s"Histogram1($name, ${buckets.map(_._1)})($label)"
 }

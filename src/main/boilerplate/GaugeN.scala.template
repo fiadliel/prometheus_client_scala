@@ -13,8 +13,8 @@ import io.prometheus.client.scala._
 [#  * @tparam L2 The singleton string type for label 2#
 ]
   */
-final class Gauge2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, val labels: Vector[String]) extends Collector[N] {
-  private[scala] val adders = new Adders[Tuple2[String, [#String#]]]
+final class Gauge2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, initialValue: Option[Double] = None)(val labels: String*) extends Collector[N] {
+  private[scala] val adders = new Adders[Tuple2[String, [#String#]]](initialValue)
 
   def incBy(l##1: String, [#l2: String#])(v: Double): Unit =
     adders(l##1, [#l2#]).add(v)
@@ -38,11 +38,14 @@ final class Gauge2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, v
 
   def setToCurrentTime(l##1: String, [#l2: String#]) = set(l##1, [#l2#])(System.nanoTime() / ##1e9)
 
-  def collect(): Vector[RegistryMetric] =
+  override def collect(): List[RegistryMetric] =
     adders.getAll.map({
       case (labelValues, value) =>
-        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).toVector
         RegistryMetric(name, labelAndValue, value)
-    }).toVector
+    })
+
+  override def toString(): String =
+    s"Gauge1($name)(${labels.mkString(",")})"
 }#
 ]

@@ -16,7 +16,7 @@ Here is an example where a simple counter is created:
 ```tut
 import io.prometheus.client.scala._
 
-implicit val totalRequests = Counter.create("total_requests")
+implicit val totalRequests = Counter.create("total_requests")()
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -28,14 +28,14 @@ when incrementing the counter.
 You can find this counter in the implicit scope like this:
 
 ```tut
-Counter.lookup("total_requests").inc
+Counter.lookup("total_requests")().inc
 ```
 
 If the variable is not currently available, this would be a
 compilation error:
 
 ```tut:fail
-Counter.lookup("no_such_variable").inc
+Counter.lookup("no_such_variable")().inc
 ```
 
 You can always use the counter variable directly, though
@@ -54,7 +54,7 @@ passed to the monitoring system, an appropriate number of label
 values need to be provided; one for each label.
 
 ```tut
-implicit val totalErrors = Counter.create("total_errors", "code")
+implicit val totalErrors = Counter.create("total_errors")("code")
 ```
 
 ### Using collectors with labels
@@ -66,14 +66,14 @@ To increment a counter with an error code of "404", one might
 do the following:
 
 ```tut
-Counter.lookup("total_errors", "code").inc("404")
+Counter.lookup("total_errors")("code").inc("404")
 ```
 
 This is supported up to 22 labels, for example:
 
 ```tut
 implicit val lotsOfLabels =
-  Counter.create("lots_of_labels",
+  Counter.create("lots_of_labels")(
     "1",
     "2",
     "3",
@@ -103,7 +103,7 @@ We will obviously get a compilation error if we try to provide an incorrect
 number of values when using this collector:
 
 ```tut:fail
-Counter.lookup("lots_of_labels",
+Counter.lookup("lots_of_labels")(
     "1",
     "2",
     "3",

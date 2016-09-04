@@ -5,5 +5,5 @@ trait Collector[+N <: String] {
   def register(implicit registry: Registry): Unit =
     registry.register(this)
 
-  def collect(): Vector[RegistryMetric]
+  def collect(): List[RegistryMetric]
 }

@@ -11,21 +11,25 @@ import io.prometheus.client.scala._
 [#  * @tparam L2 The singleton string type for label 2#
 ]
   */
-final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, val labels: Vector[String], _buckets: IndexedSeq[Double]) extends Collector[N] {
+final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, _buckets: Seq[Double])(val labels: String*) extends Collector[N] {
   val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
 
-  private[scala] val adders = new BucketedAdders[Tuple2[String, [#String#]]](buckets.size + 1)
+  private[scala] val adders = new BucketedAdders[Tuple2[String, [#String#]]](buckets.size + 1, None)
 
   def observe(l##1: String, [#l2: String#])(v: Double): Unit =
     Histogram.observe(buckets, adders(l##1, [#l2#]), v)
 
-  def collect(): Vector[RegistryMetric] =
+  override def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({
       case (labelValues, value) =>
-        val labelsAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-        buckets.map { case (bucket, idx) =>
-          RegistryMetric(s"${name}_$bucket", labelsAndValues, value(idx))
-        } :+ RegistryMetric(s"${name}_total" , labelsAndValues, value.last)
-    }).toVector
+        val labelsAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).toVector
+        RegistryMetric(s"${name}_total" , labelsAndValues, value.last) ::
+          buckets.map { case (bucket, idx) =>
+            RegistryMetric(s"${name}_$bucket", labelsAndValues, value(idx))
+          }
+    })
+
+  override def toString(): String =
+    s"Histogram1($name, ${buckets.map(_._##1)})(${labels.mkString(",")})"
 }#
 ]

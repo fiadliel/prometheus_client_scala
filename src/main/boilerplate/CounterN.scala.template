@@ -13,21 +13,25 @@ import io.prometheus.client.scala._
 [#  * @tparam L2 The singleton string type for label 2#
 ]
   */
-final class Counter2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, val labels: Vector[String]) extends Collector[N] {
+final class Counter2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N)(val labels: String*) extends Collector[N] {
   private[scala] val adders = new Adders[Tuple2[String, [#String#]]]
 
-  def incBy(l##1: String, [#l2: String#])(v: Double): Unit =
+  def incBy(l##1: String, [#l2: String#])(v: Double): Unit = {
+    assert(v >= 0)
     adders(l##1, [#l2#]).add(v)
+  }
 
   def inc(l##1: String, [#l2: String#]): Unit =
     adders(l##1, [#l2#]).add(##1d)
 
-  def collect(): Vector[RegistryMetric] =
+  override def collect(): List[RegistryMetric] =
     adders.getAll.map({
       case (labelValues, value) =>
-        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).toVector
         RegistryMetric(name, labelAndValue, value)
-    }).toVector
+    })
 
+  override def toString(): String =
+    s"Counter1($name)(${labels.mkString(",")})"
 }#
 ]

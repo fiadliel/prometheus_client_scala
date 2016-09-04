@@ -11,8 +11,9 @@ import io.prometheus.client.scala._
   * @param name The name of the internal.gauge
   * @tparam N The singleton type for the internal.gauge's name
   */
-final class Gauge0[N <: String](val name: N) extends Collector[N] {
+final class Gauge0[N <: String](val name: N, initialValue: Option[Double] = None)() extends Collector[N] {
   private[scala] val adder = new DoubleAdder
+  initialValue.foreach(adder.add)
 
   def incBy(v: Double): Unit = adder.add(v)
 
@@ -30,8 +31,11 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
 
   def setToCurrentTime() = set(System.nanoTime() / 1e9)
 
-  def collect(): Vector[RegistryMetric] =
-    Vector(RegistryMetric(name, Vector.empty, adder.sum()))
+  override def collect(): List[RegistryMetric] =
+    RegistryMetric(name, Vector.empty, adder.sum()) :: Nil
+
+  override def toString(): String =
+    s"Gauge0($name)()"
 }
 
 /** This represents a Prometheus internal.gauge with 1 label.
@@ -42,8 +46,8 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
   * @tparam N The singleton type for the internal.gauge's name
   * @tparam L1 The singleton string type for label 1
   */
-final class Gauge1[N <: String, L1 <: String](val name: N, val label: String) extends Collector[N] {
-  private[scala] val adders = new Adders[String]
+final class Gauge1[N <: String, L1 <: String](val name: N, initialValue: Option[Double] = None)(val label: String) extends Collector[N] {
+  private[scala] val adders = new Adders[String](initialValue)
 
   def incBy(l1: String)(v: Double): Unit =
     adders(l1).add(v)
@@ -65,8 +69,11 @@ final class Gauge1[N <: String, L1 <: String](val name: N, val label: String) ex
 
   def setToCurrentTime(l1: String) = set(l1)(System.nanoTime() / 1e9)
 
-  def collect(): Vector[RegistryMetric] =
+  override def collect(): List[RegistryMetric] =
     adders.getAll.map({
       case (labelValue, value) => RegistryMetric(name, Vector(label -> labelValue), value)}
-    ).toVector
+    )
+
+  override def toString(): String =
+    s"Gauge1($name)($label)"
 }
