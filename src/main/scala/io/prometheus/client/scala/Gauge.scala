@@ -15,7 +15,7 @@ object Gauge {
 
     q"""
      import _root_.io.prometheus.client.scala.internal.gauge._
-     new $className[..${List(name) ++ labels}]($name)
+     new $className[..${List(name) ++ labels}](..${List(name) ++ labels})
     """
   }
 

@@ -37,6 +37,11 @@ final class Histogram0[N <: String](val name: N, _buckets: IndexedSeq[Double]) e
   private[scala] val adder = Array.fill(buckets.size + 1)(new DoubleAdder)
 
   def observe(v: Double): Unit = Histogram.observe(buckets, adder, v)
+
+  def collect(): Vector[RegistryMetric] =
+    (buckets.map { case (bucket, idx) =>
+      RegistryMetric(s"${name}_$bucket", Vector.empty, adder(idx).sum())
+    } :+ RegistryMetric(s"${name}_total" , Vector.empty, adder.last.sum())).toVector
 }
 
 /** This represents a Prometheus internal.histogram with 1 label.
@@ -45,10 +50,18 @@ final class Histogram0[N <: String](val name: N, _buckets: IndexedSeq[Double]) e
   * @tparam N The singleton type for the internal.histogram's name
   * @tparam L1 The singleton string type for label 1
   */
-final class Histogram1[N <: String, L1 <: String](val name: N, _buckets: IndexedSeq[Double]) extends Collector[N] {
+final class Histogram1[N <: String, L1 <: String](val name: N, label: String, _buckets: IndexedSeq[Double]) extends Collector[N] {
   val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
 
   private[scala] val adders = new BucketedAdders[String](buckets.size + 1)
 
   def observe(l1: String)(v: Double): Unit = Histogram.observe(buckets, adders(l1), v)
+
+  def collect(): Vector[RegistryMetric] =
+    adders.getAll.flatMap({
+      case (labelValue, value) =>
+        buckets.map { case (bucket, idx) =>
+          RegistryMetric(s"${name}_$bucket", Vector.empty, value(idx))
+        } :+ RegistryMetric(s"${name}_total" , Vector.empty, value.last)
+    }).toVector
 }

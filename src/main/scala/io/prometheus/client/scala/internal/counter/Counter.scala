@@ -17,6 +17,9 @@ final class Counter0[N <: String](val name: N) extends Collector[N] {
   def incBy(v: Double): Unit = adder.add(v)
 
   def inc(): Unit = adder.add(1d)
+
+  def collect(): Vector[RegistryMetric] =
+    Vector(RegistryMetric(name, Vector.empty, adder.sum()))
 }
 
 /** This represents a Prometheus counter with 1 label.
@@ -27,7 +30,7 @@ final class Counter0[N <: String](val name: N) extends Collector[N] {
   * @tparam N The singleton type for the counter's name
   * @tparam L1 The singleton string type for label 1
   */
-final class Counter1[N <: String, L1 <: String](val name: N) extends Collector[N] {
+final class Counter1[N <: String, L1 <: String](val name: N, val label: String) extends Collector[N] {
   private[scala] val adders = new Adders[String]
 
   def incBy(l1: String)(v: Double): Unit =
@@ -35,4 +38,9 @@ final class Counter1[N <: String, L1 <: String](val name: N) extends Collector[N
 
   def inc(l1: String): Unit =
     adders(l1).add(1d)
+
+  def collect(): Vector[RegistryMetric] =
+    adders.getAll.map({
+      case (labelValue, value) => RegistryMetric(name, Vector(label -> labelValue), value)}
+    ).toVector
 }

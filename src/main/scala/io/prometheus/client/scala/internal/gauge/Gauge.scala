@@ -29,6 +29,9 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
     }
 
   def setToCurrentTime() = set(System.nanoTime() / 1e9)
+
+  def collect(): Vector[RegistryMetric] =
+    Vector(RegistryMetric(name, Vector.empty, adder.sum()))
 }
 
 /** This represents a Prometheus internal.gauge with 1 label.
@@ -39,7 +42,7 @@ final class Gauge0[N <: String](val name: N) extends Collector[N] {
   * @tparam N The singleton type for the internal.gauge's name
   * @tparam L1 The singleton string type for label 1
   */
-final class Gauge1[N <: String, L1 <: String](val name: N) extends Collector[N] {
+final class Gauge1[N <: String, L1 <: String](val name: N, val label: String) extends Collector[N] {
   private[scala] val adders = new Adders[String]
 
   def incBy(l1: String)(v: Double): Unit =
@@ -61,4 +64,9 @@ final class Gauge1[N <: String, L1 <: String](val name: N) extends Collector[N] 
   }
 
   def setToCurrentTime(l1: String) = set(l1)(System.nanoTime() / 1e9)
+
+  def collect(): Vector[RegistryMetric] =
+    adders.getAll.map({
+      case (labelValue, value) => RegistryMetric(name, Vector(label -> labelValue), value)}
+    ).toVector
 }
