@@ -150,7 +150,7 @@ implicitly[Registry].collect
 
 ## Using with FS2 Task
 
-Both gauges and histograms can be used to time FS2 Tasks (or any type which implements `fs2.util.Suspendable`).
+Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Suspendable` instance).
 
 Certain imports are needed:
 

@@ -171,7 +171,7 @@ res8: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(acti
 
 ## Using with FS2 Task
 
-Both gauges and histograms can be used to time FS2 Tasks (or any type which implements `fs2.util.Suspendable`).
+Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Suspendable` instance).
 
 Certain imports are needed:
 
@@ -198,5 +198,5 @@ myTimedSleepyTask: fs2.Task[Unit] = Task
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> Histogram.lookup("request_latency")().collect
-res10: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List(),7.857873365), RegistryMetric(request_latency_sum,List(),9.0), RegistryMetric(request_latency_bucket,List((le,0.02)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05)),0.0), RegistryMetric(request_latency_bucket,List((le,0.1)),0.0), RegistryMetric(request_latency_bucket,List((le,0.2)),0.0), RegistryMetric(request_latency_bucket,List((le,0.5)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0)),6.0), RegistryMetric(request_latency_bucket,List((le,+Inf)),9.0))
+res10: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List(),4.092219021), RegistryMetric(request_latency_sum,List(),9.0), RegistryMetric(request_latency_bucket,List((le,0.02)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05)),0.0), RegistryMetric(request_latency_bucket,List((le,0.1)),1.0), RegistryMetric(request_latency_bucket,List((le,0.2)),2.0), RegistryMetric(request_latency_bucket,List((le,0.5)),6.0), RegistryMetric(request_latency_bucket,List((le,1.0)),8.0), RegistryMetric(request_latency_bucket,List((le,+Inf)),9.0))
 ```
