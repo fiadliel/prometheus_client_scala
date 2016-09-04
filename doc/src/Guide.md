@@ -141,7 +141,9 @@ is specified.
 ```tut
 implicit val activeRequests = Gauge.create("active_requests")().register
 implicit val numErrors = Counter.create("num_errors")().register
+implicit val requestLatency = Histogram.create("request_latency", Seq(1, 2, 5, 10, 20, 50, 100))("path").register
 Gauge.lookup("active_requests")().set(50)
 Counter.lookup("num_errors")().inc
+Histogram.lookup("request_latency")("path").observe("/home")(17)
 implicitly[Registry].collect
 ```

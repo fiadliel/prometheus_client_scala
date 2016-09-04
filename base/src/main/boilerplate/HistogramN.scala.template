@@ -11,8 +11,9 @@ import io.prometheus.client.scala._
 [#  * @tparam L2 The singleton string type for label 2#
 ]
   */
-final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, _buckets: Seq[Double])(val labels: String*) extends Collector[N] {
+final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, _buckets: Seq[Double])(_labels: String*) extends Collector[N] {
   val buckets = Histogram.bucketsWithInf(_buckets).zipWithIndex
+  val labels = _labels.toList
 
   private[scala] val adders = new BucketedAdders[Tuple2[String, [#String#]]](buckets.size + 1, None)
 
@@ -22,10 +23,11 @@ final class Histogram2[N <: String, L##1 <: String, [#L2 <: String#]](val name: 
   override def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({
       case (labelValues, value) =>
-        val labelsAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).toVector
+        val labelsAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
         RegistryMetric(s"${name}_total" , labelsAndValues, value.last) ::
+          RegistryMetric(s"${name}_sum", labelsAndValues, value(value.length - 2)) ::
           buckets.map { case (bucket, idx) =>
-            RegistryMetric(s"${name}_$bucket", labelsAndValues, value(idx))
+            RegistryMetric(s"${name}_bucket", ("le" -> Histogram.prometheusDoubleFormat(bucket)) :: labelsAndValues, value(idx))
           }
     })
 

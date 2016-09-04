@@ -22,7 +22,7 @@ final class Counter0[N <: String](val name: N)() extends Collector[N] {
   def inc(): Unit = adder.add(1d)
 
   override def collect(): List[RegistryMetric] =
-    RegistryMetric(name, Vector.empty, adder.sum()) :: Nil
+    RegistryMetric(name, List.empty, adder.sum()) :: Nil
 
   override def toString(): String =
     s"Counter0($name)()"
@@ -49,7 +49,7 @@ final class Counter1[N <: String, L1 <: String](val name: N)(val label: String) 
 
   def collect(): List[RegistryMetric] =
     adders.getAll.map({
-      case (labelValue, value) => RegistryMetric(name, Vector(label -> labelValue), value)}
+      case (labelValue, value) => RegistryMetric(name, List(label -> labelValue), value)}
     )
 
   override def toString(): String =

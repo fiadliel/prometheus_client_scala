@@ -32,7 +32,7 @@ final class Gauge0[N <: String](val name: N, initialValue: Option[Double] = None
   def setToCurrentTime() = set(System.nanoTime() / 1e9)
 
   override def collect(): List[RegistryMetric] =
-    RegistryMetric(name, Vector.empty, adder.sum()) :: Nil
+    RegistryMetric(name, List.empty, adder.sum()) :: Nil
 
   override def toString(): String =
     s"Gauge0($name)()"
@@ -71,7 +71,7 @@ final class Gauge1[N <: String, L1 <: String](val name: N, initialValue: Option[
 
   override def collect(): List[RegistryMetric] =
     adders.getAll.map({
-      case (labelValue, value) => RegistryMetric(name, Vector(label -> labelValue), value)}
+      case (labelValue, value) => RegistryMetric(name, List(label -> labelValue), value)}
     )
 
   override def toString(): String =

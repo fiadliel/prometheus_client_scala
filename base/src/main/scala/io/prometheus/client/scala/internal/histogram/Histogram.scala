@@ -20,12 +20,23 @@ object Histogram {
     val sortedBuckets = buckets.sorted
 
     val withInf =
-      if (sortedBuckets.last == Double.MaxValue)
+      if (sortedBuckets.last == Double.PositiveInfinity)
         sortedBuckets
       else
-        sortedBuckets :+ Double.MaxValue
+        sortedBuckets :+ Double.PositiveInfinity
 
     withInf.toList
+  }
+
+  def prometheusDoubleFormat(d: Double) = {
+    if (d == Double.PositiveInfinity)
+      "+Inf"
+    else if (d == Double.NegativeInfinity)
+      "-Inf"
+    else if (d.isNaN)
+      "NaN"
+    else
+      d.toString
   }
 }
 
@@ -42,9 +53,10 @@ final class Histogram0[N <: String](val name: N, _buckets: Seq[Double])() extend
   def observe(v: Double): Unit = Histogram.observe(buckets, adder, v)
 
   override def collect(): List[RegistryMetric] = {
-    RegistryMetric(s"${name}_total" , Vector.empty, adder.last.sum()) ::
+    RegistryMetric(s"${name}_total", List.empty, adder.last.sum()) ::
+      RegistryMetric(s"${name}_sum", List.empty, adder(adder.length - 2).sum()) ::
       buckets.map { case (bucket, idx) =>
-        RegistryMetric(s"${name}_$bucket", Vector.empty, adder(idx).sum())
+        RegistryMetric(s"${name}_bucket", List("le" -> Histogram.prometheusDoubleFormat(bucket)), adder(idx).sum())
       }
   }
 
@@ -68,10 +80,11 @@ final class Histogram1[N <: String, L1 <: String](val name: N, _buckets: Seq[Dou
   def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({
       case (labelValue, value) =>
-        RegistryMetric(s"${name}_total" , Vector.empty, value.last) ::
-        buckets.map { case (bucket, idx) =>
-          RegistryMetric(s"${name}_$bucket", Vector.empty, value(idx))
-        }
+        RegistryMetric(s"${name}_total" , List(label -> labelValue), value.last) ::
+          RegistryMetric(s"${name}_sum", List(label -> labelValue), value(value.length - 2)) ::
+          buckets.map { case (bucket, idx) =>
+            RegistryMetric(s"${name}_bucket", List("le" -> Histogram.prometheusDoubleFormat(bucket), label -> labelValue), value(idx))
+          }
     })
 
   override def toString(): String =
