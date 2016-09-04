@@ -40,11 +40,13 @@ final class Gauge2[N <: String, L##1 <: String, [#L2 <: String#]](val name: N, i
   def setToCurrentTime(l##1: String, [#l2: String#]) = set(l##1, [#l2#])(System.nanoTime() / ##1e9)
 
   override def collect(): List[RegistryMetric] =
-    adders.getAll.map({
-      case (labelValues, value) =>
-        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-        RegistryMetric(name, labelAndValue, value)
-    })
+    synchronized {
+      adders.getAll.map({
+        case (labelValues, value) =>
+          val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+          RegistryMetric(name, labelAndValue, value)
+      })
+    }
 
   override def toString(): String =
     s"Gauge1($name)(${labels.mkString(",")})"
