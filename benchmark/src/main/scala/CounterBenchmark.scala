@@ -1,8 +1,10 @@
 package benchmarks
 
 import io.prometheus.client.Counter
-import io.prometheus.client.scala.{ Counter => SCounter }
+import io.prometheus.client.scala.{Counter => SCounter}
 import org.openjdk.jmh.annotations.{Benchmark, Scope, State}
+
+import scala.util.Random
 
 @State(Scope.Benchmark)
 class CounterBenchmark {
@@ -18,4 +20,21 @@ class CounterBenchmark {
   def incScala(): Unit = {
     SCounter.lookup("test")("a", "b", "c").inc("a", "b", "c")
   }
+
+  @Benchmark
+  def incJavaManyLabelValues(): Unit = {
+    val aVal = Random.nextPrintableChar().toString
+    val bVal = Random.nextPrintableChar().toString
+    val cVal = Random.nextPrintableChar().toString
+    javaCounter.labels(aVal, bVal, cVal).inc()
+  }
+
+  @Benchmark
+  def incScalaManyLabelValues(): Unit = {
+    val aVal = Random.nextPrintableChar().toString
+    val bVal = Random.nextPrintableChar().toString
+    val cVal = Random.nextPrintableChar().toString
+    SCounter.lookup("test")("a", "b", "c").inc(aVal, bVal, cVal)
+  }
+
 }
