@@ -3,14 +3,22 @@ val commonSettings = Seq(
   crossScalaVersions := Seq("2.11.8", "2.12.0-M5")
 )
 
-val core =
-  project.in(file("."))
+val base =
+  project.in(file("base"))
     .settings(commonSettings)
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(
-      name := "core",
+      name := "base",
       libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
     )
+
+val core =
+  project.in(file("core"))
+    .settings(commonSettings)
+    .settings(
+      name := "core",
+      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+    ).dependsOn(base)
 
 val benchmark =
   project.in(file("benchmark"))
