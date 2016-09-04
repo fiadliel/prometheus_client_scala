@@ -60,7 +60,7 @@ final class Histogram0[N <: String](val name: N, _buckets: Seq[Double])() extend
       }
   }
 
-  override def toString(): String =
+  override def toString: String =
     s"Histogram0($name, ${buckets.map(_._1)})()"
 }
 
@@ -87,6 +87,6 @@ final class Histogram1[N <: String, L1 <: String](val name: N, _buckets: Seq[Dou
           }
     })
 
-  override def toString(): String =
+  override def toString: String =
     s"Histogram1($name, ${buckets.map(_._1)})($label)"
 }

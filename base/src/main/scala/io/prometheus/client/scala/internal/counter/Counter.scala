@@ -24,7 +24,7 @@ final class Counter0[N <: String](val name: N)() extends Collector[N] {
   override def collect(): List[RegistryMetric] =
     RegistryMetric(name, List.empty, adder.sum()) :: Nil
 
-  override def toString(): String =
+  override def toString: String =
     s"Counter0($name)()"
 }
 
@@ -52,6 +52,6 @@ final class Counter1[N <: String, L1 <: String](val name: N)(val label: String) 
       case (labelValue, value) => RegistryMetric(name, List(label -> labelValue), value)}
     )
 
-  override def toString(): String =
+  override def toString: String =
     s"Counter1($name)($label)"
 }

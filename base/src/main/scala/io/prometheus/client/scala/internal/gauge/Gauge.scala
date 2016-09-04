@@ -36,7 +36,7 @@ final class Gauge0[N <: String](val name: N, initialValue: Option[Double] = None
       RegistryMetric(name, List.empty, adder.sum()) :: Nil
     }
 
-  override def toString(): String =
+  override def toString: String =
     s"Gauge0($name)()"
 }
 
@@ -78,6 +78,6 @@ final class Gauge1[N <: String, L1 <: String](val name: N, initialValue: Option[
       )
     }
 
-  override def toString(): String =
+  override def toString: String =
     s"Gauge1($name)($label)"
 }
