@@ -45,4 +45,4 @@ val doc =
     .settings(
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
-    ).dependsOn(core)
+    ).dependsOn(fs2)

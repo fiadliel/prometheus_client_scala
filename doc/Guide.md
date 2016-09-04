@@ -168,3 +168,35 @@ scala> Histogram.lookup("request_latency")("path").observe("/home")(17)
 scala> implicitly[Registry].collect
 res8: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(active_requests,List(),50.0), RegistryMetric(num_errors,List(),1.0), RegistryMetric(request_latency_total,List((path,/home)),17.0), RegistryMetric(request_latency_sum,List((path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,2.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,5.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,10.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,20.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,50.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,100.0), (path,/home)),1.0), RegistryMetri...
 ```
+
+## Using with FS2 Task
+
+Both gauges and histograms can be used to time FS2 Tasks (or any type which implements `fs2.util.Suspendable`).
+
+Certain imports are needed:
+
+```scala
+scala> import io.prometheus.client.scala.fs2_syntax._
+import io.prometheus.client.scala.fs2_syntax._
+
+scala> import fs2._
+import fs2._
+```
+
+Then the method `timeEffect` can be used to capture the duration of the task (in seconds):
+
+```scala
+scala> implicit val requestLatency = Histogram.create("request_latency", Seq(0.02, 0.05, 0.1, 0.2, 0.5, 1.0))()
+requestLatency: io.prometheus.client.scala.internal.histogram.Histogram0[String("request_latency")] = Histogram0(request_latency, List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))()
+
+scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(1200)))
+mySleepyTask: fs2.Task[Unit] = Task
+
+scala> val myTimedSleepyTask = Histogram.lookup("request_latency")().timeEffect(mySleepyTask)
+myTimedSleepyTask: fs2.Task[Unit] = Task
+
+scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
+
+scala> Histogram.lookup("request_latency")().collect
+res10: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List(),7.857873365), RegistryMetric(request_latency_sum,List(),9.0), RegistryMetric(request_latency_bucket,List((le,0.02)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05)),0.0), RegistryMetric(request_latency_bucket,List((le,0.1)),0.0), RegistryMetric(request_latency_bucket,List((le,0.2)),0.0), RegistryMetric(request_latency_bucket,List((le,0.5)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0)),6.0), RegistryMetric(request_latency_bucket,List((le,+Inf)),9.0))
+```
