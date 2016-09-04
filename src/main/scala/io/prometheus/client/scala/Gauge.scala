@@ -1,8 +1,8 @@
 package io.prometheus.client.scala
 
 object Gauge {
-  import scala.reflect.macros.whitebox
   import scala.language.experimental.macros
+  import scala.reflect.macros.whitebox
 
   def create(name: String, labels: String*): Any = macro createGaugeImpl
 

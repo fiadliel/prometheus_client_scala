@@ -9,9 +9,7 @@ val core =
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(
       name := "core",
-      libraryDependencies ++= Seq(
-        "org.scala-lang" % "scala-reflect" % scalaVersion.value
-      )
+      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
     )
 
 val benchmark =

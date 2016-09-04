@@ -1,9 +1,9 @@
 package io.prometheus.client.scala
 
-object Counter {
-  import scala.reflect.macros.whitebox
-  import scala.language.experimental.macros
+import scala.language.experimental.macros
+import scala.reflect.macros.whitebox
 
+object Counter {
   def create(name: String, labels: String*): Any = macro createCounterImpl
 
   def lookup(name: String, labels: String*): Any = macro lookupCounterImpl
