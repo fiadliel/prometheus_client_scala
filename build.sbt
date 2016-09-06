@@ -20,15 +20,6 @@ val core =
       libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
     ).dependsOn(base)
 
-val benchmark =
-  project.in(file("benchmark"))
-    .settings(commonSettings)
-    .enablePlugins(JmhPlugin)
-    .settings(
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
-    )
-    .dependsOn(core)
-
 val fs2 =
   project.in(file("fs2"))
     .settings(commonSettings)
@@ -46,3 +37,19 @@ val doc =
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
     ).dependsOn(fs2)
+
+val shapeless =
+  project.in(file("shapeless"))
+    .settings(commonSettings)
+    .settings(
+      libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
+    )
+
+val benchmark =
+  project.in(file("benchmark"))
+    .settings(commonSettings)
+    .enablePlugins(JmhPlugin)
+    .settings(
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
+    )
+    .dependsOn(core, shapeless)
