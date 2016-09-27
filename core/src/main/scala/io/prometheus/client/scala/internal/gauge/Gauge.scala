@@ -3,6 +3,7 @@ package io.prometheus.client.scala.internal.gauge
 import java.util.concurrent.atomic.DoubleAdder
 
 import io.prometheus.client.scala._
+import io.prometheus.client.scala.internal.counter.LabelledCounter
 
 /** This represents a Prometheus internal.gauge with no labels.
   *
@@ -10,26 +11,21 @@ import io.prometheus.client.scala._
   *
   * @param name The name of the internal.gauge
   */
-final class Gauge0(val name: String, initialValue: Option[Double] = None)
-    extends Collector {
-  private[scala] val adder = new DoubleAdder
-  initialValue.foreach(adder.add)
+final class Gauge0(val name: String, val help: String, initialValue: Option[Double] = None) extends Collector {
+  private[scala] val adder = new LabelledGauge(name, List.empty, new SynchronizedAdder())
+  initialValue foreach adder.incBy
 
-  def incBy(v: Double): Unit = adder.add(v)
+  def incBy(v: Double): Unit = adder.incBy(v)
 
-  def inc(): Unit = adder.add(1d)
+  def inc(): Unit = adder.inc()
 
-  def decBy(v: Double): Unit = adder.add(-v)
+  def decBy(v: Double): Unit = adder.decBy(v)
 
-  def dec(): Unit = adder.add(-1d)
+  def dec(): Unit = adder.dec()
 
-  def set(v: Double): Unit =
-    synchronized {
-      adder.reset()
-      adder.add(v)
-    }
+  def set(v: Double): Unit = adder.set(v)
 
-  def setToCurrentTime() = set(System.nanoTime() / 1e9)
+  def setToCurrentTime(): Unit = set(System.nanoTime() / 1e9)
 
   override def collect(): List[RegistryMetric] =
     synchronized {

@@ -1,0 +1,10 @@
+package io.prometheus.client.scala.internal.gauge
+
+case class UnlabelledGauge(name: String, help: String) {
+  def labels(): Gauge0 = new Gauge0(name, help)
+
+  [#
+  def labels([#labelName1: String#]): Gauge1 = new Gauge1(name, help)(List([#labelName1#]))
+  #
+  ]
+}

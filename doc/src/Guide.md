@@ -98,7 +98,7 @@ is specified.
 ```tut
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
-val activeRequests = Gauge("active_requests").register
+val activeRequests = Gauge("active_requests", "Active requests").labels().register
 val numErrors = Counter("num_errors", "help").labels().register
 val requestLatency = Histogram("request_latency", "path").register
 

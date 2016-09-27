@@ -18,55 +18,18 @@ case class AddDouble(adder: Adder) {
 [#  * @tparam L2 The singleton string type for label 2#
 ]
   */
-final class Gauge1(val name: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
-  private[scala] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder, initialValue)
+final class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
+  private[scala] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 
-  def incBy([#labelValue1: String#]) = {
-    val adder = adders(Tuple1([#labelValue1#]))
-    AddDouble(adder)
-    new {
-      def apply(v: Double): Unit = adder.add(v)
-    }
-  }
-
-  def inc([#labelValue1: String#]): Unit = {
-    val adder = adders(Tuple1([#labelValue1#]))
-    new {
-      def apply(): Unit = adder.add(##1d)
-    }
-  }
-
-  def decBy([#labelValue1: String#]) = {
-    val adder = adders(Tuple1([#labelValue1#]))
-    new {
-      def apply(v: Double): Unit = adder.add(-v)
-    }
-  }
-
-  def dec([#labelValue1: String#]): Unit = {
-    val adder = adders(Tuple1([#labelValue1#]))
-    new {
-      def apply(): Unit = adder.add(-##1d)
-    }
-  }
-
-  def set([#labelValue1: String#])(v: Double): Unit = {
-    val adder = adders(Tuple1([#labelValue1#]))
-    new {
-      def apply(): Unit =
-        adder.set(v)
-      }
-  }
-
-  def setToCurrentTime([#labelValue1: String#]) = set([#labelValue1#])(System.nanoTime() / ##1e9)
+  def labelValues([#labelValue1: String#]): LabelledGauge =
+    new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])))
 
   override def collect(): List[RegistryMetric] =
-      adders.getAll.map({
-        case (labelValues, value) =>
-          val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-          RegistryMetric(name, labelAndValue, value)
-      })
-
+    adders.getAll.map({
+      case (labelValues, value) =>
+        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        RegistryMetric(name, labelAndValue, value)
+    })
 
   override def toString(): String =
     s"Gauge1($name)(${labels.mkString(",")})"

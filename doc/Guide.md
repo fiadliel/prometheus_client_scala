@@ -105,9 +105,9 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@4c2d12fa
+histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@3cffbcbc
 
-scala> val activeRequests = Gauge("active_requests").register
+scala> val activeRequests = Gauge("active_requests", "Active requests").labels().register
 activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
 
 scala> val numErrors = Counter("num_errors", "help").labels().register

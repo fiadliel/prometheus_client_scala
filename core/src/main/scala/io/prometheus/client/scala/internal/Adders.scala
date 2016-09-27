@@ -11,7 +11,7 @@ trait Adder {
   def sum(): Double
 }
 
-class UnsynchronizedAdder(val underlying: DoubleAdder = new DoubleAdder)
+class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder)
     extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
@@ -21,7 +21,7 @@ class UnsynchronizedAdder(val underlying: DoubleAdder = new DoubleAdder)
   }
 }
 
-class SynchronizedAdder(val underlying: DoubleAdder = new DoubleAdder)
+class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder)
     extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
