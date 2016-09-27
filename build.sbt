@@ -32,14 +32,6 @@ val doc =
     )
     .dependsOn(core)
 
-val shapeless =
-  project
-    .in(file("shapeless"))
-    .settings(commonSettings)
-    .settings(
-      libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
-    )
-
 val benchmark =
   project
     .in(file("benchmark"))
@@ -48,4 +40,4 @@ val benchmark =
     .settings(
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
     )
-    .dependsOn(core, shapeless)
+    .dependsOn(core)
