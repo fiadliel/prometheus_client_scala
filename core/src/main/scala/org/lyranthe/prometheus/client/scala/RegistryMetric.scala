@@ -1,4 +1,4 @@
-package io.prometheus.client.scala
+package org.lyranthe.prometheus.client.scala
 
 case class RegistryMetric(name: String,
                           labels: List[(String, String)],

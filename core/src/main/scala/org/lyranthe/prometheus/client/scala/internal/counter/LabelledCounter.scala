@@ -1,6 +1,6 @@
-package io.prometheus.client.scala.internal.counter
+package org.lyranthe.prometheus.client.scala.internal.counter
 
-import io.prometheus.client.scala.UnsynchronizedAdder
+import org.lyranthe.prometheus.client.scala.UnsynchronizedAdder
 
 class LabelledCounter(name: String, labels: List[String], adder: UnsynchronizedAdder) {
 

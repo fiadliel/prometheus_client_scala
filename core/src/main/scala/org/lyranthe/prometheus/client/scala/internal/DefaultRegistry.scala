@@ -1,8 +1,8 @@
-package io.prometheus.client.scala.internal
+package org.lyranthe.prometheus.client.scala.internal
 
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
-import io.prometheus.client.scala.{Collector, Registry, RegistryMetric}
+import org.lyranthe.prometheus.client.scala.{Collector, Registry, RegistryMetric}
 
 class DefaultRegistry extends Registry {
   val rwLock = new ReentrantReadWriteLock

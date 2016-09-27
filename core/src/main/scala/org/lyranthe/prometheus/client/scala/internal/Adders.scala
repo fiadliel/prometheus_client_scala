@@ -1,4 +1,4 @@
-package io.prometheus.client.scala
+package org.lyranthe.prometheus.client.scala
 
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.DoubleAdder

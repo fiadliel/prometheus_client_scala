@@ -1,6 +1,6 @@
-package io.prometheus.client.scala.internal.histogram
+package org.lyranthe.prometheus.client.scala.internal.histogram
 
-import io.prometheus.client.scala.HistogramBuckets
+import org.lyranthe.prometheus.client.scala.HistogramBuckets
 
 case class UnlabelledHistogram(name: String, help: String)(implicit hb: HistogramBuckets) {
   def labels(): Histogram0 = new Histogram0(name, help)

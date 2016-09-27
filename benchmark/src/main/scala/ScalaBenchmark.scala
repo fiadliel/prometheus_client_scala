@@ -2,7 +2,7 @@ package benchmarks
 
 import org.openjdk.jmh.annotations.{Benchmark, Scope, State}
 
-import io.prometheus.client.scala.Counter
+import org.lyranthe.prometheus.client.scala.Counter
 import scala.util.Random
 
 @State(Scope.Benchmark)

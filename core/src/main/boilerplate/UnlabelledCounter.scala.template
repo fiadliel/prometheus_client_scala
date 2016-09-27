@@ -1,4 +1,4 @@
-package io.prometheus.client.scala.internal.counter
+package org.lyranthe.prometheus.client.scala.internal.counter
 
 case class UnlabelledCounter(name: String, help: String) {
   def labels(): Counter0 = new Counter0(name, help)

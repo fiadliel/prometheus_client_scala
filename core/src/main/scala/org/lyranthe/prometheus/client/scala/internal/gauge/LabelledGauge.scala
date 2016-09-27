@@ -1,6 +1,6 @@
-package io.prometheus.client.scala.internal.gauge
+package org.lyranthe.prometheus.client.scala.internal.gauge
 
-import io.prometheus.client.scala.SynchronizedAdder
+import org.lyranthe.prometheus.client.scala.SynchronizedAdder
 
 class LabelledGauge(name: String, labels: List[String], adder: SynchronizedAdder) {
 

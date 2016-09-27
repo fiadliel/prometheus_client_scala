@@ -1,4 +1,4 @@
-package io.prometheus.client.scala
+package org.lyranthe.prometheus.client.scala
 
 trait HistogramBuckets {
   def buckets: List[Double]

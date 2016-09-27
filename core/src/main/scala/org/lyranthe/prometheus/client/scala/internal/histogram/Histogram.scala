@@ -1,8 +1,6 @@
-package io.prometheus.client.scala.internal.histogram
+package org.lyranthe.prometheus.client.scala.internal.histogram
 
-import java.util.concurrent.atomic.DoubleAdder
-
-import io.prometheus.client.scala._
+import org.lyranthe.prometheus.client.scala._
 
 object Histogram {
   def observe(bucketValues: Seq[(Double, Int)],

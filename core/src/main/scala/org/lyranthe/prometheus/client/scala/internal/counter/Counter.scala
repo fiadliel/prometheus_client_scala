@@ -1,8 +1,6 @@
-package io.prometheus.client.scala.internal.counter
+package org.lyranthe.prometheus.client.scala.internal.counter
 
-import java.util.concurrent.atomic.DoubleAdder
-
-import io.prometheus.client.scala._
+import org.lyranthe.prometheus.client.scala._
 
 /** This represents a Prometheus counter with no labels.
   *

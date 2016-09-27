@@ -1,6 +1,6 @@
-package io.prometheus.client.scala.internal.histogram
+package org.lyranthe.prometheus.client.scala.internal.histogram
 
-import io.prometheus.client.scala.UnsynchronizedAdder
+import org.lyranthe.prometheus.client.scala.UnsynchronizedAdder
 
 class LabelledHistogram(name: String, labels: List[String], buckets: Seq[(Double, Int)], adder: Array[UnsynchronizedAdder]) {
   def observe(v: Double): Unit =

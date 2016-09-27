@@ -1,6 +1,6 @@
-package io.prometheus.client.scala
+package org.lyranthe.prometheus.client.scala
 
-import io.prometheus.client.scala.internal.DefaultRegistry
+import org.lyranthe.prometheus.client.scala.internal.DefaultRegistry
 
 trait Registry {
   def register(c: Collector): Unit

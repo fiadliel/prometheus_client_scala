@@ -5,7 +5,7 @@
 Here is an example where a simple counter is created:
 
 ```tut
-import io.prometheus.client.scala._
+import org.lyranthe.prometheus.client.scala._
 
 val totalRequests = Counter("total_requests", "Total requests").labels()
 ```
