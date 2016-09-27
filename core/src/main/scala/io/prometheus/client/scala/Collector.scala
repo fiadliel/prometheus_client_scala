@@ -1,7 +1,7 @@
 package io.prometheus.client.scala
 
-trait Collector[+N <: String] {
-  def name: N
+trait Collector {
+  def name: String
   def register(implicit registry: Registry): this.type = {
     registry.register(this)
     this

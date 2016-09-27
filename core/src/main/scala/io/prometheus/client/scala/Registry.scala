@@ -3,7 +3,7 @@ package io.prometheus.client.scala
 import io.prometheus.client.scala.internal.DefaultRegistry
 
 trait Registry {
-  def register(c: Collector[String]): Unit
+  def register(c: Collector): Unit
   def collect(): List[RegistryMetric]
 }
 

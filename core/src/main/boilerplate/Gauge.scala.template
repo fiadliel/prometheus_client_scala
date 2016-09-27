@@ -1,0 +1,12 @@
+package io.prometheus.client.scala
+
+import io.prometheus.client.scala.internal.gauge._
+
+object Gauge {
+  def apply(name: String): Gauge0 = new Gauge0(name, None)
+
+  [#
+  def apply(name: String, [#labelName1: String#]): Gauge1 = new Gauge1(name, None)(List([#labelName1#]))
+  #
+  ]
+}

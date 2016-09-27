@@ -7,7 +7,12 @@ import scala.util.Random
 
 @State(Scope.Benchmark)
 class JavaBenchmark {
-  val javaCounter = Counter.build().name("test").help("help").labelNames("a", "b", "c").create()
+  val javaCounter = Counter
+    .build()
+    .name("test")
+    .help("help")
+    .labelNames("a", "b", "c")
+    .create()
 
   @Benchmark
   def inc(): Unit = {

@@ -3,25 +3,18 @@ val commonSettings = Seq(
   crossScalaVersions := Seq("2.11.8", "2.12.0-M5")
 )
 
-val base =
-  project.in(file("base"))
-    .settings(commonSettings)
+val core =
+  project
+    .in(file("core"))
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
+    .settings(commonSettings)
     .settings(
-      name := "base",
-      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+      name := "core"
     )
 
-val core =
-  project.in(file("core"))
-    .settings(commonSettings)
-    .settings(
-      name := "core",
-      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
-    ).dependsOn(base)
-
 val fs2 =
-  project.in(file("fs2"))
+  project
+    .in(file("fs2"))
     .settings(commonSettings)
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(
@@ -30,23 +23,27 @@ val fs2 =
     .dependsOn(core)
 
 val doc =
-  project.in(file("doc"))
+  project
+    .in(file("doc"))
     .settings(commonSettings)
     .settings(tutSettings)
     .settings(
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
-    ).dependsOn(fs2)
+    )
+    .dependsOn(fs2)
 
 val shapeless =
-  project.in(file("shapeless"))
+  project
+    .in(file("shapeless"))
     .settings(commonSettings)
     .settings(
       libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.2"
     )
 
 val benchmark =
-  project.in(file("benchmark"))
+  project
+    .in(file("benchmark"))
     .settings(commonSettings)
     .enablePlugins(JmhPlugin)
     .settings(
