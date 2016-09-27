@@ -28,7 +28,7 @@ object HistogramBuckets {
       d.toString
   }
 
-  def apply(bucketList: List[Double]) = new HistogramBuckets {
+  def apply(bucketList: Double*) = new HistogramBuckets {
     override val buckets = bucketsWithInf(bucketList)
   }
 }
