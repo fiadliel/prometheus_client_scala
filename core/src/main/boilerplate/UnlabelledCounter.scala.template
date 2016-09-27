@@ -1,0 +1,12 @@
+package io.prometheus.client.scala
+
+import io.prometheus.client.scala.internal.counter._
+
+case class UnlabelledCounter(name: String, help: String) {
+  def labels(): Counter0 = new Counter0(name, help)
+
+  [#
+  def labels([#labelName1: String#]): Counter1 = new Counter1(name, help)(List([#labelName1#]))
+  #
+  ]
+}

@@ -16,7 +16,7 @@ Here is an example where a simple counter is created:
 ```tut
 import io.prometheus.client.scala._
 
-val totalRequests = Counter("total_requests")
+val totalRequests = Counter("total_requests", "Total requests").labels()
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -37,7 +37,7 @@ passed to the monitoring system, an appropriate number of label
 values need to be provided; one for each label.
 
 ```tut
-val totalErrors = Counter("total_errors", "code")
+val totalErrors = Counter("total_errors", "Total errors").labels("code")
 ```
 
 ### Using collectors with labels
@@ -53,7 +53,7 @@ This is supported up to 22 labels, for example:
 
 ```tut
 val lotsOfLabels =
-  Counter("lots_of_labels",
+  Counter("lots_of_labels", "Lots of labels").labels(
     "1",
     "2",
     "3",
@@ -99,7 +99,7 @@ is specified.
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
 val activeRequests = Gauge("active_requests").register
-val numErrors = Counter("num_errors").register
+val numErrors = Counter("num_errors", "help").labels().register
 val requestLatency = Histogram("request_latency", "path").register
 
 activeRequests.set(50)

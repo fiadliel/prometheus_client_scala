@@ -9,7 +9,7 @@ import io.prometheus.client.scala._
   *
   * @param name The name of the counter
   */
-final class Counter1(val name: String)(val labels: List[String]) extends Collector {
+final class Counter1(val name: String, val help: String)(val labels: List[String]) extends Collector {
   private[scala] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
   def labelValues([#labelValue1: String#]): LabelledCounter =

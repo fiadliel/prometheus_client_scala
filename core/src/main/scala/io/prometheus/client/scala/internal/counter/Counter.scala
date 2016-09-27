@@ -10,7 +10,7 @@ import io.prometheus.client.scala._
   *
   * @param name The name of the counter
   */
-final class Counter0(val name: String) extends Collector {
+final class Counter0(val name: String, val help: String) extends Collector {
   private[scala] val adder = new LabelledCounter(name, List.empty, new UnsynchronizedAdder)
 
   def incBy(v: Double): Unit =

@@ -17,7 +17,7 @@ Here is an example where a simple counter is created:
 scala> import io.prometheus.client.scala._
 import io.prometheus.client.scala._
 
-scala> val totalRequests = Counter("total_requests")
+scala> val totalRequests = Counter("total_requests", "Total requests").labels()
 totalRequests: io.prometheus.client.scala.internal.counter.Counter0 = Counter0(total_requests)()
 ```
 
@@ -39,7 +39,7 @@ passed to the monitoring system, an appropriate number of label
 values need to be provided; one for each label.
 
 ```scala
-scala> val totalErrors = Counter("total_errors", "code")
+scala> val totalErrors = Counter("total_errors", "Total errors").labels("code")
 totalErrors: io.prometheus.client.scala.internal.counter.Counter1 = Counter1(total_errors)(code)
 ```
 
@@ -56,7 +56,7 @@ This is supported up to 22 labels, for example:
 
 ```scala
 scala> val lotsOfLabels =
-     |   Counter("lots_of_labels",
+     |   Counter("lots_of_labels", "Lots of labels").labels(
      |     "1",
      |     "2",
      |     "3",
@@ -105,12 +105,12 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@416dd17c
+histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@4c2d12fa
 
 scala> val activeRequests = Gauge("active_requests").register
 activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
 
-scala> val numErrors = Counter("num_errors").register
+scala> val numErrors = Counter("num_errors", "help").labels().register
 numErrors: io.prometheus.client.scala.internal.counter.Counter0 = Counter0(num_errors)()
 
 scala> val requestLatency = Histogram("request_latency", "path").register

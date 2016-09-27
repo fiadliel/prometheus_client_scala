@@ -27,4 +27,19 @@ class JavaBenchmark {
     javaCounter.labels(aVal, bVal, cVal).inc()
   }
 
+  @Benchmark
+  def incManyLabelValuesRepeatedly(): Unit = {
+    val aVal = Random.nextPrintableChar().toString
+    val bVal = Random.nextPrintableChar().toString
+    val cVal = Random.nextPrintableChar().toString
+    val child = javaCounter.labels(aVal, bVal, cVal)
+
+    var i = 0
+    while (i < 100) {
+      child.inc()
+      i += 1
+    }
+  }
+
+
 }

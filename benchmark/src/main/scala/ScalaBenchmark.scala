@@ -7,7 +7,7 @@ import scala.util.Random
 
 @State(Scope.Benchmark)
 class ScalaBenchmark {
-  val scalaCounter = Counter("test", "a", "b", "c")
+  val scalaCounter = Counter("test", "help").labels("a", "b", "c")
 
   @Benchmark
   def inc(): Unit = {
@@ -21,5 +21,20 @@ class ScalaBenchmark {
     val cVal = Random.nextPrintableChar().toString
     scalaCounter.labelValues(aVal, bVal, cVal).inc()
   }
+
+  @Benchmark
+  def incManyLabelValuesRepeatedly(): Unit = {
+    val aVal = Random.nextPrintableChar().toString
+    val bVal = Random.nextPrintableChar().toString
+    val cVal = Random.nextPrintableChar().toString
+    val child = scalaCounter.labelValues(aVal, bVal, cVal)
+
+    var i = 0
+    while (i < 100) {
+      child.inc()
+      i += 1
+    }
+  }
+
 
 }
