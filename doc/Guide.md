@@ -1,15 +1,6 @@
 # Introduction to Prometheus Scala client
 
-## Creating and finding monitoring variables
-
-This scala client makes extensive use of the scala type system when
-creating monitoring collectors. Every collector has a distinctive
-type, based on the collector name, and any labels attached.
-
-You can therefore use the implicit scope to store and lookup
-monitoring collectors.
-
-### Creating a collector
+## Creating monitoring variables
 
 Here is an example where a simple counter is created:
 
@@ -31,19 +22,15 @@ You can use this counter:
 scala> totalRequests.inc()
 ```
 
-### Creating collectors with labels
-
-Any extra strings passed when creating a collector, represent
-labels for any monitoring variables. Whenever any information is
-passed to the monitoring system, an appropriate number of label
-values need to be provided; one for each label.
+If you need labels attached to the counter, specify the label names using
+the `.labels` method:
 
 ```scala
 scala> val totalErrors = Counter("total_errors", "Total errors").labels("code")
 totalErrors: io.prometheus.client.scala.internal.counter.Counter1 = Counter1(total_errors)(code)
 ```
 
-### Using collectors with labels
+### Using counters
 
 To increment a counter with an error code of "404", one might
 do the following:
@@ -52,7 +39,7 @@ do the following:
 scala> totalErrors.labelValues("404").inc()
 ```
 
-This is supported up to 22 labels, for example:
+This is supported for up to 22 labels, for example:
 
 ```scala
 scala> val lotsOfLabels =
@@ -84,7 +71,7 @@ lotsOfLabels: io.prometheus.client.scala.internal.counter.Counter22 = Counter22(
 ```
 
 We will obviously get a compilation error if we try to provide an incorrect
-number of values when using this collector:
+number of values when using this counter:
 
 ```scala
 scala> lotsOfLabels.labelValues("1val", "2val").inc()
@@ -105,7 +92,7 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@6a356e8b
+histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@55eedeb2
 
 scala> val activeRequests = Gauge("active_requests", "Active requests").labels().register
 activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
