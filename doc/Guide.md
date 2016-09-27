@@ -28,7 +28,7 @@ when incrementing the counter.
 You can use this counter:
 
 ```scala
-scala> totalRequests.inc
+scala> totalRequests.inc()
 ```
 
 ### Creating collectors with labels
@@ -49,7 +49,7 @@ To increment a counter with an error code of "404", one might
 do the following:
 
 ```scala
-scala> totalErrors.inc("404")
+scala> totalErrors.labelValues("404").inc()
 ```
 
 This is supported up to 22 labels, for example:
@@ -87,11 +87,11 @@ We will obviously get a compilation error if we try to provide an incorrect
 number of values when using this collector:
 
 ```scala
-scala> lotsOfLabels.inc("1val", "2val")
-<console>:17: error: not enough arguments for method inc: (labelValue1: String, labelValue2: String, labelValue3: String, labelValue4: String, labelValue5: String, labelValue6: String, labelValue7: String, labelValue8: String, labelValue9: String, labelValue10: String, labelValue11: String, labelValue12: String, labelValue13: String, labelValue14: String, labelValue15: String, labelValue16: String, labelValue17: String, labelValue18: String, labelValue19: String, labelValue20: String, labelValue21: String, labelValue22: String)Unit.
+scala> lotsOfLabels.labelValues("1val", "2val").inc()
+<console>:17: error: not enough arguments for method labelValues: (labelValue1: String, labelValue2: String, labelValue3: String, labelValue4: String, labelValue5: String, labelValue6: String, labelValue7: String, labelValue8: String, labelValue9: String, labelValue10: String, labelValue11: String, labelValue12: String, labelValue13: String, labelValue14: String, labelValue15: String, labelValue16: String, labelValue17: String, labelValue18: String, labelValue19: String, labelValue20: String, labelValue21: String, labelValue22: String)io.prometheus.client.scala.internal.counter.LabelledCounter.
 Unspecified value parameters labelValue3, labelValue4, labelValue5...
-       lotsOfLabels.inc("1val", "2val")
-                       ^
+       lotsOfLabels.labelValues("1val", "2val").inc()
+                               ^
 ```
 
 ## The Registry
@@ -105,7 +105,7 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@a6cee17
+histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@416dd17c
 
 scala> val activeRequests = Gauge("active_requests").register
 activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
@@ -126,18 +126,14 @@ scala> implicitly[Registry].collect
 res6: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(active_requests,List(),50.0), RegistryMetric(num_errors,List(),1.0), RegistryMetric(request_latency_total,List((path,/home)),17.0), RegistryMetric(request_latency_sum,List((path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,2.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,5.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,10.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,20.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,50.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,100.0), (path,/home)),1.0), RegistryMetri...
 ```
 
-## Using with FS2 Task
+## Using with FS2 Task (WIP)
 
 Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Suspendable` instance).
 
 Certain imports are needed:
 
 ```scala
-scala> import io.prometheus.client.scala.fs2_syntax._
-<console>:16: error: object fs2_syntax is not a member of package io.prometheus.client.scala
-       import io.prometheus.client.scala.fs2_syntax._
-                                         ^
-scala> import fs2._
+import io.prometheus.client.scala.fs2_syntax._
 import fs2._
 ```
 

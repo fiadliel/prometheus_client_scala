@@ -11,17 +11,16 @@ import io.prometheus.client.scala._
   * @param name The name of the counter
   */
 final class Counter0(val name: String) extends Collector {
-  private[scala] val adder = new DoubleAdder
+  private[scala] val adder = new LabelledCounter(name, List.empty, new UnsynchronizedAdder)
 
-  def incBy(v: Double): Unit = {
-    assert(v >= 0)
-    adder.add(v)
-  }
+  def incBy(v: Double): Unit =
+    adder.incBy(v)
 
-  def inc(): Unit = adder.add(1d)
+  def inc(): Unit =
+    adder.inc
 
   override def collect(): List[RegistryMetric] =
-    RegistryMetric(name, List.empty, adder.sum()) :: Nil
+    RegistryMetric(name, List.empty, adder.sum) :: Nil
 
   override def toString: String =
     s"Counter0($name)()"

@@ -26,7 +26,7 @@ when incrementing the counter.
 You can use this counter:
 
 ```tut
-totalRequests.inc
+totalRequests.inc()
 ```
 
 ### Creating collectors with labels
@@ -46,7 +46,7 @@ To increment a counter with an error code of "404", one might
 do the following:
 
 ```tut
-totalErrors.inc("404")
+totalErrors.labelValues("404").inc()
 ```
 
 This is supported up to 22 labels, for example:
@@ -83,7 +83,7 @@ We will obviously get a compilation error if we try to provide an incorrect
 number of values when using this collector:
 
 ```tut:fail
-lotsOfLabels.inc("1val", "2val")
+lotsOfLabels.labelValues("1val", "2val").inc()
 ```
 
 ## The Registry

@@ -12,13 +12,8 @@ import io.prometheus.client.scala._
 final class Counter1(val name: String)(val labels: List[String]) extends Collector {
   private[scala] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
-  def incBy([#labelValue1: String#])(v: Double): Unit = {
-    assert(v >= ##0d)
-    adders(Tuple1([#labelValue1#])).add(v)
-  }
-
-  def inc([#labelValue1: String#]): Unit =
-    adders(Tuple1([#labelValue1#])).add(##1d)
+  def labelValues([#labelValue1: String#]): LabelledCounter =
+    new LabelledCounter(name, labels, adders(Tuple1([#labelValue1#])))
 
   override def collect(): List[RegistryMetric] =
     adders.getAll.map({

@@ -11,7 +11,7 @@ class ScalaBenchmark {
 
   @Benchmark
   def inc(): Unit = {
-    scalaCounter.inc("a", "b", "c")
+    scalaCounter.labelValues("a", "b", "c").inc()
   }
 
   @Benchmark
@@ -19,7 +19,7 @@ class ScalaBenchmark {
     val aVal = Random.nextPrintableChar().toString
     val bVal = Random.nextPrintableChar().toString
     val cVal = Random.nextPrintableChar().toString
-    scalaCounter.inc(aVal, bVal, cVal)
+    scalaCounter.labelValues(aVal, bVal, cVal).inc()
   }
 
 }
