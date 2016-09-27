@@ -1,0 +1,12 @@
+package io.prometheus.client.scala.internal.histogram
+
+import io.prometheus.client.scala.HistogramBuckets
+
+case class UnlabelledHistogram(name: String, help: String)(implicit hb: HistogramBuckets) {
+  def labels(): Histogram0 = new Histogram0(name, help)
+
+  [#
+  def labels([#labelName1: String#]): Histogram1 = new Histogram1(name, help)(List([#labelName1#]))
+  #
+  ]
+}

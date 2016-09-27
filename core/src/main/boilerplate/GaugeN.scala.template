@@ -2,22 +2,7 @@ package io.prometheus.client.scala.internal.gauge
 
 import io.prometheus.client.scala._
 
-case class AddDouble(adder: Adder) {
-  def apply(v: Double): Unit =
-    adder.add(v)
-}
-
 [#
-/** This represents a Prometheus gauge with 2 labels.
-  *
-  * A Prometheus gauge should be used for values which go up and down.
-  *
-  * @param name The name of the gauge
-  * @tparam N The singleton type for the gauge's name
-  * @tparam L##1 The singleton string type for label ##1
-[#  * @tparam L2 The singleton string type for label 2#
-]
-  */
 final class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
   private[scala] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 

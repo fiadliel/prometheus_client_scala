@@ -99,12 +99,12 @@ is specified.
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
 val activeRequests = Gauge("active_requests", "Active requests").labels().register
-val numErrors = Counter("num_errors", "help").labels().register
-val requestLatency = Histogram("request_latency", "path").register
+val numErrors = Counter("num_errors", "Total errors").labels().register
+val requestLatency = Histogram("request_latency", "Request latency").labels("path").register
 
 activeRequests.set(50)
 numErrors.inc
-requestLatency.observe("/home")(17)
+requestLatency.labelValues("/home").observe(17)
 implicitly[Registry].collect
 ```
 

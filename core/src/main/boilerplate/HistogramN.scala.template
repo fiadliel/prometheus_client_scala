@@ -3,17 +3,13 @@ package io.prometheus.client.scala.internal.histogram
 import io.prometheus.client.scala._
 
 [#
-/** This represents a Prometheus histogram with 2 labels.
-  *
-  * @param name The name of the histogram
-  */
-final class Histogram1(val name: String)(val labels: List[String])(implicit hb: HistogramBuckets) extends Collector {
+final class Histogram1(val name: String, val help: String)(val labels: List[String])(implicit hb: HistogramBuckets) extends Collector {
   val buckets = hb.buckets.zipWithIndex
 
   private[scala] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
 
-  def observe([#labelValue1: String#])(v: Double): Unit =
-    Histogram.observe(buckets, adders(Tuple1([#labelValue1#])), v)
+  def labelValues([#labelValue1: String#]): LabelledHistogram =
+    new LabelledHistogram(name, labels, buckets, adders(Tuple1([#labelValue1#])))
 
   override def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({

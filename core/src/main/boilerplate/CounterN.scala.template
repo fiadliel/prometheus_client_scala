@@ -3,12 +3,6 @@ package io.prometheus.client.scala.internal.counter
 import io.prometheus.client.scala._
 
 [#
-/** This represents a Prometheus counter with 2 labels.
-  *
-  * A Prometheus counter should be used for values which only increase in value.
-  *
-  * @param name The name of the counter
-  */
 final class Counter1(val name: String, val help: String)(val labels: List[String]) extends Collector {
   private[scala] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 

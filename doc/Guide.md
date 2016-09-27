@@ -105,22 +105,22 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@3cffbcbc
+histogramBuckets: io.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = io.prometheus.client.scala.HistogramBuckets$$anon$1@6a356e8b
 
 scala> val activeRequests = Gauge("active_requests", "Active requests").labels().register
 activeRequests: io.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
 
-scala> val numErrors = Counter("num_errors", "help").labels().register
+scala> val numErrors = Counter("num_errors", "Total errors").labels().register
 numErrors: io.prometheus.client.scala.internal.counter.Counter0 = Counter0(num_errors)()
 
-scala> val requestLatency = Histogram("request_latency", "path").register
+scala> val requestLatency = Histogram("request_latency", "Request latency").labels("path").register
 requestLatency: io.prometheus.client.scala.internal.histogram.Histogram1 = Histogram1(request_latency, List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))(path)
 
 scala> activeRequests.set(50)
 
 scala> numErrors.inc
 
-scala> requestLatency.observe("/home")(17)
+scala> requestLatency.labelValues("/home").observe(17)
 
 scala> implicitly[Registry].collect
 res6: List[io.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(active_requests,List(),50.0), RegistryMetric(num_errors,List(),1.0), RegistryMetric(request_latency_total,List((path,/home)),17.0), RegistryMetric(request_latency_sum,List((path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,2.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,5.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,10.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,20.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,50.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,100.0), (path,/home)),1.0), RegistryMetri...
