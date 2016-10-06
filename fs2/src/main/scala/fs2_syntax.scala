@@ -8,7 +8,8 @@ import org.lyranthe.prometheus.client.scala.internal.gauge.LabelledGauge
 import org.lyranthe.prometheus.client.scala.internal.histogram.LabelledHistogram
 
 object fs2_syntax {
-  implicit class EffectExtraSyntax[F[_], A](val underlying: F[A]) extends AnyVal {
+  implicit class EffectExtraSyntax[F[_], A](val underlying: F[A])
+      extends AnyVal {
     def count(f: F[A] => LabelledCounter)(implicit F: Effect[F]): F[A] = {
       f(underlying).inc()
       underlying
@@ -24,7 +25,8 @@ object fs2_syntax {
       }
     }
 
-    def countSuccess(f: A => (LabelledCounter, Double))(implicit F: Effect[F]) = {
+    def countSuccess(f: A => (LabelledCounter, Double))(
+        implicit F: Effect[F]) = {
       underlying.map { result =>
         val (counter, incBy) = f(result)
         counter.incBy(incBy)
@@ -65,7 +67,8 @@ object fs2_syntax {
       }
     }
 
-    def timeSuccess(histogram: LabelledHistogram)(implicit F: Effect[F]): F[A] = {
+    def timeSuccess(histogram: LabelledHistogram)(
+        implicit F: Effect[F]): F[A] = {
       F.delay(System.nanoTime).flatMap { start =>
         underlying.map { result =>
           histogram.observe((System.nanoTime - start) / 1e9)
