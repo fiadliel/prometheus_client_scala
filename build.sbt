@@ -1,16 +1,14 @@
 val commonSettings = Seq(
+  organization := "org.lyranthe.prometheus",
   scalaVersion := "2.11.8",
   crossScalaVersions := Seq("2.11.8", "2.12.0-RC1")
 )
 
-val core =
+val client =
   project
-    .in(file("core"))
+    .in(file("client"))
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(commonSettings)
-    .settings(
-      name := "core"
-    )
 
 val fs2 =
   project
@@ -19,7 +17,7 @@ val fs2 =
     .settings(
       libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.1"
     )
-    .dependsOn(core)
+    .dependsOn(client)
 
 val doc =
   project
@@ -30,7 +28,7 @@ val doc =
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
     )
-    .dependsOn(core, fs2)
+    .dependsOn(client, fs2)
 
 val benchmark =
   project
@@ -40,4 +38,4 @@ val benchmark =
     .settings(
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
     )
-    .dependsOn(core)
+    .dependsOn(client)

@@ -1,11 +1,11 @@
-package org.lyranthe.prometheus.client.scala
+package org.lyranthe.prometheus.client
 
 import fs2._
 import fs2.util.Effect
 import fs2.util.syntax._
-import org.lyranthe.prometheus.client.scala.internal.counter.LabelledCounter
-import org.lyranthe.prometheus.client.scala.internal.gauge.LabelledGauge
-import org.lyranthe.prometheus.client.scala.internal.histogram.LabelledHistogram
+import internal.counter.LabelledCounter
+import internal.gauge.LabelledGauge
+import internal.histogram.LabelledHistogram
 
 object fs2_syntax {
   implicit class EffectExtraSyntax[F[_], A](val underlying: F[A])
