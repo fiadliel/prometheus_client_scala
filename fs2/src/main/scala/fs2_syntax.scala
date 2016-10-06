@@ -4,6 +4,7 @@ import fs2._
 import fs2.util.Effect
 import fs2.util.syntax._
 import org.lyranthe.prometheus.client.scala.internal.counter.LabelledCounter
+import org.lyranthe.prometheus.client.scala.internal.gauge.LabelledGauge
 import org.lyranthe.prometheus.client.scala.internal.histogram.LabelledHistogram
 
 object fs2_syntax {
@@ -35,6 +36,15 @@ object fs2_syntax {
       underlying.map { result =>
         counter.inc()
         result
+      }
+    }
+
+    def timeSuccess(gauge: LabelledGauge)(implicit F: Effect[F]): F[A] = {
+      F.delay(System.nanoTime).flatMap { start =>
+        underlying.map { result =>
+          gauge.set((System.nanoTime - start) / 1e9)
+          result
+        }
       }
     }
 
