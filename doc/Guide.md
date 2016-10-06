@@ -132,15 +132,21 @@ Both gauges and histograms can be used to time FS2 Tasks (or any type which has 
 Certain imports are needed:
 
 ```scala
-scala> import org.lyranthe.prometheus.client.scala.fs2_syntax._
-import org.lyranthe.prometheus.client.scala.fs2_syntax._
-
 scala> import fs2._
 import fs2._
+
+scala> import org.lyranthe.prometheus.client.scala._
+import org.lyranthe.prometheus.client.scala._
+
+scala> import org.lyranthe.prometheus.client.scala.fs2_syntax._
+import org.lyranthe.prometheus.client.scala.fs2_syntax._
 ```
 
 Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
+```scala
+implicit val registry = new org.lyranthe.prometheus.client.scala.internal.DefaultRegistry
+```
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
 histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(0.02,0.05,0.1,0.2,0.5,1.0,Infinity)
@@ -151,28 +157,20 @@ requestLatency: org.lyranthe.prometheus.client.scala.internal.histogram.Histogra
 scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(1200)))
 mySleepyTask: fs2.Task[Unit] = Task
 
-scala> val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/a_path"))
+scala> val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))
 myTimedSleepyTask: fs2.Task[Unit] = Task
 
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> implicitly[Registry]
-res8: org.lyranthe.prometheus.client.scala.Registry =
-active_requests 50.0
-num_errors 1.0
-request_latency_total{path="/home"} 17.0
-request_latency_sum{path="/home"} 1.0
-request_latency_bucket{le="1.0",path="/home"} 0.0
-request_latency_bucket{le="2.0",path="/home"} 0.0
-request_latency_bucket{le="5.0",path="/home"} 0.0
-request_latency_bucket{le="10.0",path="/home"} 0.0
-request_latency_bucket{le="20.0",path="/home"} 1.0
-request_latency_bucket{le="50.0",path="/home"} 1.0
-request_latency_bucket{le="100.0",path="/home"} 1.0
-request_latency_bucket{le="+Inf",path="/home"} 1.0
-request_latency_total{path="/a_path"} 4.643585007
-request_latency_sum{path="/a_path"} 9.0
-request_latency_bucket{le="0.02",path="/a_path"} 0.0
-request_latency_bucket{le="0.05",path="/a_path"} 0.0
-request_latency_bucket{le=...
+res1: org.lyranthe.prometheus.client.scala.Registry =
+request_latency_total{path="/home"} 6.847135942
+request_latency_sum{path="/home"} 9.0
+request_latency_bucket{le="0.02",path="/home"} 0.0
+request_latency_bucket{le="0.05",path="/home"} 0.0
+request_latency_bucket{le="0.1",path="/home"} 0.0
+request_latency_bucket{le="0.2",path="/home"} 0.0
+request_latency_bucket{le="0.5",path="/home"} 1.0
+request_latency_bucket{le="1.0",path="/home"} 9.0
+request_latency_bucket{le="+Inf",path="/home"} 9.0
 ```
