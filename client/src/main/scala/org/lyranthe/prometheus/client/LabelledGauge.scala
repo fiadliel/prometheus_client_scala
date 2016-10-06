@@ -2,9 +2,8 @@ package org.lyranthe.prometheus.client.internal.gauge
 
 import org.lyranthe.prometheus.client.SynchronizedAdder
 
-class LabelledGauge(name: String,
-                    labels: List[String],
-                    adder: SynchronizedAdder) {
+class LabelledGauge(name: String, labels: List[String], val adder: SynchronizedAdder, initialValue: Option[Double] = None) {
+  initialValue foreach adder.add
 
   def incBy(v: Double): Unit = adder.add(v)
 

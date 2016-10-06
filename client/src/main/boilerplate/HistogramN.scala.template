@@ -9,7 +9,7 @@ final class Histogram1(val name: String, val help: String)(val labels: List[Stri
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
 
   def labelValues([#labelValue1: String#]): LabelledHistogram =
-    new LabelledHistogram(name, labels, buckets, adders(Tuple1([#labelValue1#])))
+    new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])))
 
   def remove([#labelValue1: String#]): Unit =
     adders.remove(Tuple1([#labelValue1: String#]))

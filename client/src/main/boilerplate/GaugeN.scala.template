@@ -7,7 +7,7 @@ final class Gauge1(val name: String, val help: String, initialValue: Option[Doub
   private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 
   def labelValues([#labelValue1: String#]): LabelledGauge =
-    new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])))
+    new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])), initialValue)
 
   def remove([#labelValue1: String#]): Unit =
     adders.remove(Tuple1([#labelValue1: String#]))

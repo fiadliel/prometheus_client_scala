@@ -8,16 +8,7 @@ import org.lyranthe.prometheus.client._
   *
   * @param name The name of the counter
   */
-final class Counter0(val name: String, val help: String) extends Collector {
-  private[client] val adder =
-    new LabelledCounter(name, List.empty, new UnsynchronizedAdder)
-
-  def incBy(v: Double): Unit =
-    adder.incBy(v)
-
-  def inc(): Unit =
-    adder.inc
-
+final class Counter0(val name: String, val help: String) extends LabelledCounter(name, List.empty, new UnsynchronizedAdder()) with Collector {
   override def collect(): List[RegistryMetric] =
     RegistryMetric(name, List.empty, adder.sum) :: Nil
 
