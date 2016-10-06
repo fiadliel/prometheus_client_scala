@@ -5,7 +5,7 @@
 Here is an example where a simple counter is created:
 
 ```tut
-import org.lyranthe.prometheus.client.scala._
+import org.lyranthe.prometheus.client._
 
 val totalRequests = Counter("total_requests", "Total requests").labels()
 ```
@@ -103,14 +103,14 @@ Certain imports are needed:
 
 ```tut:reset
 import fs2._
-import org.lyranthe.prometheus.client.scala._
-import org.lyranthe.prometheus.client.scala.fs2_syntax._
+import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client.fs2_syntax._
 ```
 
 Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
 ```tut:silent
-implicit val registry = new org.lyranthe.prometheus.client.scala.internal.DefaultRegistry
+implicit val registry = new org.lyranthe.prometheus.client.internal.DefaultRegistry
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
