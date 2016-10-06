@@ -11,6 +11,12 @@ final class Histogram1(val name: String, val help: String)(val labels: List[Stri
   def labelValues([#labelValue1: String#]): LabelledHistogram =
     new LabelledHistogram(name, labels, buckets, adders(Tuple1([#labelValue1#])))
 
+  def remove([#labelValue1: String#]): Unit =
+    adders.remove(Tuple1([#labelValue1: String#]))
+
+  def clear(): Unit =
+    adders.clear()
+
   override def collect(): List[RegistryMetric] =
     adders.getAll.flatMap({
       case (labelValues, value) =>

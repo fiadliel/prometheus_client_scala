@@ -48,6 +48,13 @@ class Adders[A, B <: Adder](init: => B, initialValue: Option[Double] = None) {
     }
   }
 
+  def remove(key: A): Unit = {
+    adders.remove(key)
+  }
+
+  def clear(): Unit =
+    adders.clear()
+
   def getAll: List[(A, Double)] =
     adders.keys.asScala map { key =>
       key -> adders.get(key).sum()
@@ -69,6 +76,13 @@ class BucketedAdders[A, B <: Adder: ClassTag](init: => B,
       adders.get(key)
     }
   }
+
+  def remove(key: A): Unit = {
+    adders.remove(key)
+  }
+
+  def clear(): Unit =
+    adders.clear()
 
   def getAll: List[(A, Array[Double])] =
     adders.keys.asScala map { key =>

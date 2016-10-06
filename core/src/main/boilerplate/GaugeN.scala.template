@@ -9,6 +9,12 @@ final class Gauge1(val name: String, val help: String, initialValue: Option[Doub
   def labelValues([#labelValue1: String#]): LabelledGauge =
     new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])))
 
+  def remove([#labelValue1: String#]): Unit =
+    adders.remove(Tuple1([#labelValue1: String#]))
+
+  def clear(): Unit =
+    adders.clear()
+
   override def collect(): List[RegistryMetric] =
     adders.getAll.map({
       case (labelValues, value) =>
