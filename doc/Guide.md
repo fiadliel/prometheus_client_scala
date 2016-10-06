@@ -154,7 +154,7 @@ histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buck
 scala> val requestLatency = Histogram("request_latency", "Request latency").labels("path").register
 requestLatency: org.lyranthe.prometheus.client.scala.internal.histogram.Histogram1 = Histogram1(request_latency, List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))(path)
 
-scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(1200)))
+scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 mySleepyTask: fs2.Task[Unit] = Task
 
 scala> val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))
@@ -164,13 +164,13 @@ scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.scala.Registry =
-request_latency_total{path="/home"} 6.847135942
+request_latency_total{path="/home"} 3.3619944540000004
 request_latency_sum{path="/home"} 9.0
-request_latency_bucket{le="0.02",path="/home"} 0.0
-request_latency_bucket{le="0.05",path="/home"} 0.0
-request_latency_bucket{le="0.1",path="/home"} 0.0
-request_latency_bucket{le="0.2",path="/home"} 0.0
-request_latency_bucket{le="0.5",path="/home"} 1.0
+request_latency_bucket{le="0.02",path="/home"} 1.0
+request_latency_bucket{le="0.05",path="/home"} 2.0
+request_latency_bucket{le="0.1",path="/home"} 3.0
+request_latency_bucket{le="0.2",path="/home"} 3.0
+request_latency_bucket{le="0.5",path="/home"} 6.0
 request_latency_bucket{le="1.0",path="/home"} 9.0
 request_latency_bucket{le="+Inf",path="/home"} 9.0
 ```
