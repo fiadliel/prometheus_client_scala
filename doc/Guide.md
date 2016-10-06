@@ -115,7 +115,7 @@ res6: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryM
 
 ## Using with FS2 Task (WIP)
 
-Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Suspendable` instance).
+Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Effect` instance).
 
 Certain imports are needed:
 
@@ -127,7 +127,7 @@ scala> import fs2._
 import fs2._
 ```
 
-Then the method `timeEffect` can be used to capture the duration of the task (in seconds):
+Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
@@ -145,5 +145,5 @@ myTimedSleepyTask: fs2.Task[Unit] = Task
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> requestLatency.collect
-res8: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List((path,/a_path)),4.260747797), RegistryMetric(request_latency_sum,List((path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,0.02), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.1), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.2), (path,/a_path)),3.0), RegistryMetric(request_latency_bucket,List((le,0.5), (path,/a_path)),5.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,+Inf), (path,/a_path)),9.0))
+res8: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List((path,/a_path)),4.334831846), RegistryMetric(request_latency_sum,List((path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,0.02), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05), (path,/a_path)),1.0), RegistryMetric(request_latency_bucket,List((le,0.1), (path,/a_path)),2.0), RegistryMetric(request_latency_bucket,List((le,0.2), (path,/a_path)),4.0), RegistryMetric(request_latency_bucket,List((le,0.5), (path,/a_path)),5.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/a_path)),8.0), RegistryMetric(request_latency_bucket,List((le,+Inf), (path,/a_path)),9.0))
 ```

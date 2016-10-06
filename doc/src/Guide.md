@@ -97,7 +97,7 @@ implicitly[Registry].collect
 
 ## Using with FS2 Task (WIP)
 
-Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Suspendable` instance).
+Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Effect` instance).
 
 Certain imports are needed:
 
@@ -106,7 +106,7 @@ import org.lyranthe.prometheus.client.scala.fs2_syntax._
 import fs2._
 ```
 
-Then the method `timeEffect` can be used to capture the duration of the task (in seconds):
+Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
