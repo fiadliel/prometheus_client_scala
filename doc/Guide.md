@@ -92,7 +92,7 @@ is specified.
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
-histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = org.lyranthe.prometheus.client.scala.HistogramBuckets$$anon$1@7309cfe3
+histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(1.0,2.0,5.0,10.0,20.0,50.0,100.0,Infinity)
 
 scala> val activeRequests = Gauge("active_requests", "Active requests").labels().register
 activeRequests: org.lyranthe.prometheus.client.scala.internal.gauge.Gauge0 = Gauge0(active_requests)()
@@ -131,7 +131,7 @@ Then the method `timeEffect` can be used to capture the duration of the task (in
 
 ```scala
 scala> implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
-histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = org.lyranthe.prometheus.client.scala.HistogramBuckets$$anon$1@7f20184b
+histogramBuckets: org.lyranthe.prometheus.client.scala.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(0.02,0.05,0.1,0.2,0.5,1.0,Infinity)
 
 scala> val requestLatency = Histogram("request_latency", "Request latency").labels("path").register
 requestLatency: org.lyranthe.prometheus.client.scala.internal.histogram.Histogram1 = Histogram1(request_latency, List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))(path)
@@ -145,5 +145,5 @@ myTimedSleepyTask: fs2.Task[Unit] = Task
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> requestLatency.collect
-res8: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List((path,/a_path)),6.116263814), RegistryMetric(request_latency_sum,List((path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,0.02), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05), (path,/a_path)),1.0), RegistryMetric(request_latency_bucket,List((le,0.1), (path,/a_path)),1.0), RegistryMetric(request_latency_bucket,List((le,0.2), (path,/a_path)),1.0), RegistryMetric(request_latency_bucket,List((le,0.5), (path,/a_path)),3.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/a_path)),7.0), RegistryMetric(request_latency_bucket,List((le,+Inf), (path,/a_path)),9.0))
+res8: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List((path,/a_path)),4.260747797), RegistryMetric(request_latency_sum,List((path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,0.02), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.1), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.2), (path,/a_path)),3.0), RegistryMetric(request_latency_bucket,List((le,0.5), (path,/a_path)),5.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,+Inf), (path,/a_path)),9.0))
 ```

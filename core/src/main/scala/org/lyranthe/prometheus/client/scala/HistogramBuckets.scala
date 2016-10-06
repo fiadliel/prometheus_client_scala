@@ -30,5 +30,6 @@ object HistogramBuckets {
 
   def apply(bucketList: Double*) = new HistogramBuckets {
     override val buckets = bucketsWithInf(bucketList)
+    override def toString = buckets.mkString("HistogramBuckets(", ",", ")")
   }
 }
