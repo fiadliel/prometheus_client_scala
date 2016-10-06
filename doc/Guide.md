@@ -109,8 +109,20 @@ scala> numErrors.inc
 
 scala> requestLatency.labelValues("/home").observe(17)
 
-scala> implicitly[Registry].collect
-res6: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(active_requests,List(),50.0), RegistryMetric(num_errors,List(),1.0), RegistryMetric(request_latency_total,List((path,/home)),17.0), RegistryMetric(request_latency_sum,List((path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,2.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,5.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,10.0), (path,/home)),0.0), RegistryMetric(request_latency_bucket,List((le,20.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,50.0), (path,/home)),1.0), RegistryMetric(request_latency_bucket,List((le,100.0), (path,/home)),1.0), Reg...
+scala> implicitly[Registry]
+res6: org.lyranthe.prometheus.client.scala.Registry =
+active_requests 50.0
+num_errors 1.0
+request_latency_total{path="/home"} 17.0
+request_latency_sum{path="/home"} 1.0
+request_latency_bucket{le="1.0",path="/home"} 0.0
+request_latency_bucket{le="2.0",path="/home"} 0.0
+request_latency_bucket{le="5.0",path="/home"} 0.0
+request_latency_bucket{le="10.0",path="/home"} 0.0
+request_latency_bucket{le="20.0",path="/home"} 1.0
+request_latency_bucket{le="50.0",path="/home"} 1.0
+request_latency_bucket{le="100.0",path="/home"} 1.0
+request_latency_bucket{le="+Inf",path="/home"} 1.0
 ```
 
 ## Using with FS2 Task (WIP)
@@ -144,6 +156,23 @@ myTimedSleepyTask: fs2.Task[Unit] = Task
 
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
-scala> requestLatency.collect
-res8: List[org.lyranthe.prometheus.client.scala.RegistryMetric] = List(RegistryMetric(request_latency_total,List((path,/a_path)),4.334831846), RegistryMetric(request_latency_sum,List((path,/a_path)),9.0), RegistryMetric(request_latency_bucket,List((le,0.02), (path,/a_path)),0.0), RegistryMetric(request_latency_bucket,List((le,0.05), (path,/a_path)),1.0), RegistryMetric(request_latency_bucket,List((le,0.1), (path,/a_path)),2.0), RegistryMetric(request_latency_bucket,List((le,0.2), (path,/a_path)),4.0), RegistryMetric(request_latency_bucket,List((le,0.5), (path,/a_path)),5.0), RegistryMetric(request_latency_bucket,List((le,1.0), (path,/a_path)),8.0), RegistryMetric(request_latency_bucket,List((le,+Inf), (path,/a_path)),9.0))
+scala> implicitly[Registry]
+res8: org.lyranthe.prometheus.client.scala.Registry =
+active_requests 50.0
+num_errors 1.0
+request_latency_total{path="/home"} 17.0
+request_latency_sum{path="/home"} 1.0
+request_latency_bucket{le="1.0",path="/home"} 0.0
+request_latency_bucket{le="2.0",path="/home"} 0.0
+request_latency_bucket{le="5.0",path="/home"} 0.0
+request_latency_bucket{le="10.0",path="/home"} 0.0
+request_latency_bucket{le="20.0",path="/home"} 1.0
+request_latency_bucket{le="50.0",path="/home"} 1.0
+request_latency_bucket{le="100.0",path="/home"} 1.0
+request_latency_bucket{le="+Inf",path="/home"} 1.0
+request_latency_total{path="/a_path"} 4.643585007
+request_latency_sum{path="/a_path"} 9.0
+request_latency_bucket{le="0.02",path="/a_path"} 0.0
+request_latency_bucket{le="0.05",path="/a_path"} 0.0
+request_latency_bucket{le=...
 ```

@@ -92,7 +92,7 @@ val requestLatency = Histogram("request_latency", "Request latency").labels("pat
 activeRequests.set(50)
 numErrors.inc
 requestLatency.labelValues("/home").observe(17)
-implicitly[Registry].collect
+implicitly[Registry]
 ```
 
 ## Using with FS2 Task (WIP)
@@ -117,5 +117,5 @@ val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/a_
 
 for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
-requestLatency.collect
+implicitly[Registry]
 ```
