@@ -21,7 +21,8 @@ object Histogram {
   *
   * @param name The name of the internal.histogram
   */
-final class Histogram0(val name: String, val help: String)(implicit hb: HistogramBuckets)
+final class Histogram0(val name: String, val help: String)(
+    implicit hb: HistogramBuckets)
     extends Collector {
   val buckets = hb.buckets.zipWithIndex
 

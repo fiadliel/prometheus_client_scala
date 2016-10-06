@@ -6,12 +6,11 @@ import fs2.util.syntax._
 import org.lyranthe.prometheus.client.scala.internal.counter.LabelledCounter
 import org.lyranthe.prometheus.client.scala.internal.histogram.LabelledHistogram
 
-
 object fs2_syntax {
   implicit class SuspendableExtraSyntax[F[_], A](val underlying: F[A])
       extends AnyVal {
     def countSuccess(counter: LabelledCounter)(
-      implicit F: Suspendable[F]): F[A] = {
+        implicit F: Suspendable[F]): F[A] = {
       F.delay(System.nanoTime).flatMap { start =>
         underlying.map { result =>
           counter.inc()

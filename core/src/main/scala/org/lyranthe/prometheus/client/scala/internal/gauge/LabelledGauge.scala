@@ -2,7 +2,9 @@ package org.lyranthe.prometheus.client.scala.internal.gauge
 
 import org.lyranthe.prometheus.client.scala.SynchronizedAdder
 
-class LabelledGauge(name: String, labels: List[String], adder: SynchronizedAdder) {
+class LabelledGauge(name: String,
+                    labels: List[String],
+                    adder: SynchronizedAdder) {
 
   def incBy(v: Double): Unit = adder.add(v)
 

@@ -8,8 +8,12 @@ import org.lyranthe.prometheus.client.scala._
   *
   * @param name The name of the internal.gauge
   */
-final class Gauge0(val name: String, val help: String, initialValue: Option[Double] = None) extends Collector {
-  private[scala] val adder = new LabelledGauge(name, List.empty, new SynchronizedAdder())
+final class Gauge0(val name: String,
+                   val help: String,
+                   initialValue: Option[Double] = None)
+    extends Collector {
+  private[scala] val adder =
+    new LabelledGauge(name, List.empty, new SynchronizedAdder())
   initialValue foreach adder.incBy
 
   def incBy(v: Double): Unit = adder.incBy(v)

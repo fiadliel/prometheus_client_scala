@@ -1,4 +1,0 @@
-# Example .scalafmt, comments are supported.
---style defaultWithAlign
---maxColumn 120
-

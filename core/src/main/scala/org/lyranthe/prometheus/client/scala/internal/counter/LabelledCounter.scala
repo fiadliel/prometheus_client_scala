@@ -2,7 +2,9 @@ package org.lyranthe.prometheus.client.scala.internal.counter
 
 import org.lyranthe.prometheus.client.scala.UnsynchronizedAdder
 
-class LabelledCounter(name: String, labels: List[String], adder: UnsynchronizedAdder) {
+class LabelledCounter(name: String,
+                      labels: List[String],
+                      adder: UnsynchronizedAdder) {
 
   def incBy(v: Double): Unit = {
     assert(v >= 0d)

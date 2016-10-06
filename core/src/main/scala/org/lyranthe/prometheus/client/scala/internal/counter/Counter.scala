@@ -9,7 +9,8 @@ import org.lyranthe.prometheus.client.scala._
   * @param name The name of the counter
   */
 final class Counter0(val name: String, val help: String) extends Collector {
-  private[scala] val adder = new LabelledCounter(name, List.empty, new UnsynchronizedAdder)
+  private[scala] val adder =
+    new LabelledCounter(name, List.empty, new UnsynchronizedAdder)
 
   def incBy(v: Double): Unit =
     adder.incBy(v)
