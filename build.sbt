@@ -1,6 +1,6 @@
 val commonSettings = Seq(
   scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.11.8", "2.12.0-M5")
+  crossScalaVersions := Seq("2.11.8", "2.12.0-RC1")
 )
 
 val core =
@@ -30,7 +30,7 @@ val doc =
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
     )
-    .dependsOn(core)
+    .dependsOn(core, fs2)
 
 val benchmark =
   project

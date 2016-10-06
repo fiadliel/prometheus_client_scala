@@ -1,11 +1,36 @@
-//package io.prometheus.client.scala
-//
-//import fs2.util.{Catchable, Suspendable}
-//import fs2.util.syntax._
-//import io.prometheus.client.scala.internal.counter.{Counter, Counter0}
-//import io.prometheus.client.scala.internal.gauge.Gauge
-//import io.prometheus.client.scala.internal.histogram.Histogram
-//
+package org.lyranthe.prometheus.client.scala
+
+import fs2._
+import fs2.util.Suspendable
+import fs2.util.syntax._
+import org.lyranthe.prometheus.client.scala.internal.counter.LabelledCounter
+import org.lyranthe.prometheus.client.scala.internal.histogram.LabelledHistogram
+
+
+object fs2_syntax {
+  implicit class SuspendableExtraSyntax[F[_], A](val underlying: F[A])
+      extends AnyVal {
+    def countSuccess(counter: LabelledCounter)(
+      implicit F: Suspendable[F]): F[A] = {
+      F.delay(System.nanoTime).flatMap { start =>
+        underlying.map { result =>
+          counter.inc()
+          result
+        }
+      }
+    }
+    def timeSuccess(histogram: LabelledHistogram)(
+        implicit F: Suspendable[F]): F[A] = {
+      F.delay(System.nanoTime).flatMap { start =>
+        underlying.map { result =>
+          histogram.observe((System.nanoTime - start) / 1e9)
+          result
+        }
+      }
+    }
+  }
+}
+
 //object fs2_syntax {
 //
 //  implicit class SuspendableExtraSyntax[F[_], A](val underlying: F[A])

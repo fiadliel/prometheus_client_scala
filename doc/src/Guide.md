@@ -101,19 +101,21 @@ Both gauges and histograms can be used to time FS2 Tasks (or any type which has 
 
 Certain imports are needed:
 
-```scala
-import io.prometheus.client.scala.fs2_syntax._
+```tut
+import org.lyranthe.prometheus.client.scala.fs2_syntax._
 import fs2._
 ```
 
 Then the method `timeEffect` can be used to capture the duration of the task (in seconds):
 
-```scala
-implicit val requestLatency = Histogram.create("request_latency", Seq(0.02, 0.05, 0.1, 0.2, 0.5, 1.0))()
+```tut
+implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
+val requestLatency = Histogram("request_latency", "Request latency").labels("path").register
+
 val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(1200)))
-val myTimedSleepyTask = Histogram.lookup("request_latency")().timeEffect(mySleepyTask)
+val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/a_path"))
 
 for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
-Histogram.lookup("request_latency")().collect
+requestLatency.collect
 ```
