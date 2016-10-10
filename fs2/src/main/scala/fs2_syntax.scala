@@ -1,5 +1,7 @@
 package org.lyranthe.prometheus.client
 
+import java.time.Clock
+
 import fs2._
 import fs2.util.{Attempt, Effect}
 import fs2.util.syntax._
@@ -8,8 +10,7 @@ import internal.gauge.LabelledGauge
 import internal.histogram.LabelledHistogram
 
 object fs2_syntax {
-  implicit class EffectExtraSyntax[F[_], A](val underlying: F[A])
-      extends AnyVal {
+  implicit class EffectExtraSyntax[F[_], A](val underlying: F[A]) extends AnyVal {
     def count(f: Attempt[A] => LabelledCounter)(implicit F: Effect[F]): F[A] = {
       underlying.attempt.flatMap {
         case attempt =>
@@ -31,8 +32,7 @@ object fs2_syntax {
       }
     }
 
-    def countSuccess(f: A => (LabelledCounter, Double))(
-        implicit F: Effect[F]) = {
+    def countSuccess(f: A => (LabelledCounter, Double))(implicit F: Effect[F]) = {
       underlying.map { result =>
         val (counter, incBy) = f(result)
         counter.incBy(incBy)
@@ -47,7 +47,7 @@ object fs2_syntax {
       }
     }
 
-    def markSuccess(gauge: LabelledGauge)(implicit F: Effect[F]): F[A] = {
+    def markSuccess(gauge: LabelledGauge)(implicit F: Effect[F], clock: Clock): F[A] = {
       underlying.map { result =>
         gauge.setToCurrentTime()
         result
@@ -82,8 +82,7 @@ object fs2_syntax {
       }
     }
 
-    def timeSuccess(histogram: LabelledHistogram)(
-        implicit F: Effect[F]): F[A] = {
+    def timeSuccess(histogram: LabelledHistogram)(implicit F: Effect[F]): F[A] = {
       F.delay(System.nanoTime).flatMap { start =>
         underlying.map { result =>
           histogram.observe((System.nanoTime - start) / 1e9)

@@ -4,11 +4,10 @@ val commonSettings = Seq(
   crossScalaVersions := Seq("2.11.8", "2.12.0-RC1")
 )
 
+scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
+
 val client =
-  project
-    .in(file("client"))
-    .enablePlugins(spray.boilerplate.BoilerplatePlugin)
-    .settings(commonSettings)
+  project.in(file("client")).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(commonSettings)
 
 val fs2 =
   project
