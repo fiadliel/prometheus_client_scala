@@ -39,7 +39,7 @@ object future_syntax {
     }
 
     def markSuccess(gauge: LabelledGauge)(implicit ec: ExecutionContext, clock: Clock): Future[A] = {
-      underlying.onSuccess { case _ => gauge.setToCurrentTime() }
+      underlying.onSuccess { case _ => gauge.setToCurrentTime()(clock) }
       underlying
     }
 

@@ -49,7 +49,7 @@ object fs2_syntax {
 
     def markSuccess(gauge: LabelledGauge)(implicit F: Effect[F], clock: Clock): F[A] = {
       underlying.map { result =>
-        gauge.setToCurrentTime()
+        gauge.setToCurrentTime()(clock)
         result
       }
     }
