@@ -111,8 +111,8 @@ scala> requestLatency.labelValues("/home").observe(17)
 
 scala> implicitly[Registry]
 res6: org.lyranthe.prometheus.client.Registry =
-active_requests 50.0
-num_errors 1.0
+# HELP request_latency Request latency
+# TYPE request_latency histogram
 request_latency_total{path="/home"} 17.0
 request_latency_sum{path="/home"} 1.0
 request_latency_bucket{le="1.0",path="/home"} 0.0
@@ -123,6 +123,12 @@ request_latency_bucket{le="20.0",path="/home"} 1.0
 request_latency_bucket{le="50.0",path="/home"} 1.0
 request_latency_bucket{le="100.0",path="/home"} 1.0
 request_latency_bucket{le="+Inf",path="/home"} 1.0
+# HELP num_errors Total errors
+# TYPE num_errors counter
+num_errors 1.0
+# HELP active_requests Active requests
+# TYPE active_requests gauge
+active_requests 50.0
 ```
 
 ## Using with FS2 Task (WIP)
@@ -164,13 +170,15 @@ scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.Registry =
-request_latency_total{path="/home"} 2.9568532229999995
+# HELP request_latency Request latency
+# TYPE request_latency histogram
+request_latency_total{path="/home"} 3.012901204
 request_latency_sum{path="/home"} 9.0
 request_latency_bucket{le="0.02",path="/home"} 0.0
-request_latency_bucket{le="0.05",path="/home"} 1.0
+request_latency_bucket{le="0.05",path="/home"} 0.0
 request_latency_bucket{le="0.1",path="/home"} 3.0
-request_latency_bucket{le="0.2",path="/home"} 5.0
-request_latency_bucket{le="0.5",path="/home"} 5.0
+request_latency_bucket{le="0.2",path="/home"} 3.0
+request_latency_bucket{le="0.5",path="/home"} 6.0
 request_latency_bucket{le="1.0",path="/home"} 9.0
 request_latency_bucket{le="+Inf",path="/home"} 9.0
 ```
