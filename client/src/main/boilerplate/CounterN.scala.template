@@ -6,6 +6,8 @@ import org.lyranthe.prometheus.client._
 final class Counter1(val name: String, val help: String)(val labels: List[String]) extends Collector {
   private[client] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
+  def collectorType: String = "counter"
+
   def labelValues([#labelValue1: String#]): LabelledCounter =
     new LabelledCounter(name, labels, adders(Tuple1([#labelValue1#])))
 

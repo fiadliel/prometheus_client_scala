@@ -11,7 +11,10 @@ import org.lyranthe.prometheus.client._
 final class Gauge0(val name: String,
                    val help: String,
                    initialValue: Option[Double] = None)
-    extends LabelledGauge(name, List.empty, new SynchronizedAdder) with Collector {
+    extends LabelledGauge(name, List.empty, new SynchronizedAdder)
+    with Collector {
+  def collectorType: String = "gauge"
+
   override def collect(): List[RegistryMetric] =
     synchronized {
       RegistryMetric(name, List.empty, adder.sum()) :: Nil

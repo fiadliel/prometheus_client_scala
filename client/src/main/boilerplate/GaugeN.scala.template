@@ -6,6 +6,8 @@ import org.lyranthe.prometheus.client._
 final class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
   private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 
+  def collectorType: String = "gauge"
+
   def labelValues([#labelValue1: String#]): LabelledGauge =
     new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])), initialValue)
 

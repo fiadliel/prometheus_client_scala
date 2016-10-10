@@ -2,6 +2,9 @@ package org.lyranthe.prometheus.client
 
 trait Collector {
   def name: String
+  def help: String
+  def collectorType: String
+
   def register(implicit registry: Registry): this.type = {
     registry.register(this)
     this
