@@ -9,6 +9,9 @@ scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
 val client =
   project.in(file("client")).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(commonSettings)
 
+val jmx =
+  project.in(file("jmx")).settings(commonSettings).dependsOn(client)
+
 val fs2 =
   project
     .in(file("fs2"))
@@ -27,7 +30,7 @@ val doc =
       tutSourceDirectory := baseDirectory.value / "src",
       tutTargetDirectory := baseDirectory.value
     )
-    .dependsOn(client, fs2)
+    .dependsOn(client, fs2, jmx)
 
 val benchmark =
   project

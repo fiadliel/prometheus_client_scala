@@ -123,3 +123,19 @@ for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
 implicitly[Registry]
 ```
+
+## Exposing JMX Statistics
+
+Some JVM statistics can be exposed with:
+
+```tut:silent
+implicit val registry = new org.lyranthe.prometheus.client.internal.DefaultRegistry
+```
+```tut
+import fs2._
+import org.lyranthe.prometheus.client._
+
+jmx.register
+
+implicitly[Registry]
+```

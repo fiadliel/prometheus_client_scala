@@ -172,13 +172,50 @@ scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.Registry =
 # HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_total{path="/home"} 3.012901204
+request_latency_total{path="/home"} 3.6685742489999997
 request_latency_sum{path="/home"} 9.0
 request_latency_bucket{le="0.02",path="/home"} 0.0
 request_latency_bucket{le="0.05",path="/home"} 0.0
-request_latency_bucket{le="0.1",path="/home"} 3.0
+request_latency_bucket{le="0.1",path="/home"} 1.0
 request_latency_bucket{le="0.2",path="/home"} 3.0
-request_latency_bucket{le="0.5",path="/home"} 6.0
+request_latency_bucket{le="0.5",path="/home"} 5.0
 request_latency_bucket{le="1.0",path="/home"} 9.0
 request_latency_bucket{le="+Inf",path="/home"} 9.0
+```
+
+## Exposing JMX Statistics
+
+Some JVM statistics can be exposed with:
+
+```scala
+implicit val registry = new org.lyranthe.prometheus.client.internal.DefaultRegistry
+```
+```scala
+scala> import fs2._
+import fs2._
+
+scala> import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client._
+
+scala> jmx.register
+
+scala> implicitly[Registry]
+res3: org.lyranthe.prometheus.client.Registry =
+# HELP jvm_threads JVM Thread Information
+# TYPE jvm_threads gauge
+jvm_threads{type="non-daemon"} 16.0
+jvm_threads{type="daemon"} 4.0
+# HELP jvm_start_time JVM Start Time
+# TYPE jvm_start_time gauge
+jvm_start_time 1476226.512929
+# HELP jvm_memory_usage JVM Memory Usage
+# TYPE jvm_memory_usage gauge
+jvm_memory_usage{region="heap",type="committed"} 9.568256E8
+jvm_memory_usage{region="heap",type="init"} 5.36870912E8
+jvm_memory_usage{region="heap",type="max"} 1.908932608E9
+jvm_memory_usage{region="heap",type="used"} 2.6702396E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.39747328E8
+jvm_memory_usage{region="non-heap",type="init"} 2555904.0
+jvm_memory_usage{region="non-heap",type="max"} -1.0
+jvm_memory_usage{region="non-heap",type="us...
 ```

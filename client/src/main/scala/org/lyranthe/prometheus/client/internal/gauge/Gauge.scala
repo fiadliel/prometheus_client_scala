@@ -13,7 +13,7 @@ final class Gauge0(val name: String,
                    initialValue: Option[Double] = None)
     extends LabelledGauge(name, List.empty, new SynchronizedAdder)
     with Collector {
-  def collectorType: String = "gauge"
+  override final val collectorType = CollectorType.Gauge
 
   override def collect(): List[RegistryMetric] =
     synchronized {

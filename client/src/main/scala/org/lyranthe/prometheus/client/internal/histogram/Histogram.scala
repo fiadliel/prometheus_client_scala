@@ -28,7 +28,7 @@ final class Histogram0(val name: String, val help: String)(
       List.empty,
       Array.fill(hb.buckets.size + 1)(new UnsynchronizedAdder))
     with Collector {
-  def collectorType: String = "histogram"
+  override final val collectorType = CollectorType.Histogram
 
   override def collect(): List[RegistryMetric] = {
     RegistryMetric(s"${name}_total", List.empty, adder.last.sum()) ::

@@ -8,7 +8,7 @@ final class Histogram1(val name: String, val help: String)(val labels: List[Stri
 
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
 
-  def collectorType: String = "histogram"
+  override final val collectorType = CollectorType.Histogram
 
   def labelValues([#labelValue1: String#]): LabelledHistogram =
     new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])))
