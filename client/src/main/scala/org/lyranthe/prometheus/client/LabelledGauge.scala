@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.gauge
 
-import java.time.{Clock, Instant}
+import java.time.{Clock, Duration, Instant}
 
 import org.lyranthe.prometheus.client.SynchronizedAdder
 
@@ -22,6 +22,12 @@ class LabelledGauge(name: String,
 
   def setToCurrentTime()(implicit clock: Clock) =
     set(Instant.now(clock).getEpochSecond)
+
+  def setToDuration(duration: Duration) =
+    set((duration.getSeconds * 1e9 + duration.getNano) / 1e9)
+
+  def setToInstant(instant: Instant) =
+    set(instant.getEpochSecond)
 
   def sum(): Double =
     adder.sum()
