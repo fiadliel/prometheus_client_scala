@@ -61,7 +61,7 @@ object jmx {
     override def collectorType = CollectorType.Gauge
 
     override def collect(): List[RegistryMetric] = {
-      List(RegistryMetric(name, List.empty, runtimeBean.getStartTime.toDouble / 1e6))
+      List(RegistryMetric(name, List.empty, runtimeBean.getStartTime.toDouble / 1e3))
     }
   }
 
