@@ -21,7 +21,7 @@ class LabelledGauge(name: String,
   def set(v: Double): Unit = adder.set(v)
 
   def setToCurrentTime()(implicit clock: Clock) =
-    set(Instant.now(clock).getEpochSecond / 1e3)
+    set(Instant.now(clock).getEpochSecond)
 
   def sum(): Double =
     adder.sum()
