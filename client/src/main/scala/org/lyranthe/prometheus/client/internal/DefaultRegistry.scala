@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 import org.lyranthe.prometheus.client.{Collector, Registry, RegistryMetrics}
 
 class DefaultRegistry extends Registry {
-  val rwLock = new ReentrantReadWriteLock
+  val rwLock                        = new ReentrantReadWriteLock
   var collectors: Vector[Collector] = Vector.empty
 
   override def register(c: Collector): Unit = {

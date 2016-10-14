@@ -3,9 +3,7 @@ package org.lyranthe.prometheus.client.internal.histogram
 import org.lyranthe.prometheus.client._
 
 object Histogram {
-  def observe(bucketValues: Seq[(Double, Int)],
-              buckets: Array[UnsynchronizedAdder],
-              v: Double): Unit = {
+  def observe(bucketValues: Seq[(Double, Int)], buckets: Array[UnsynchronizedAdder], v: Double): Unit = {
     bucketValues.foreach {
       case (upperBound, idx) =>
         if (v <= upperBound)
@@ -21,12 +19,8 @@ object Histogram {
   *
   * @param name The name of the internal.histogram
   */
-final class Histogram0(val name: String, val help: String)(
-    implicit hb: HistogramBuckets)
-    extends LabelledHistogram(
-      name,
-      List.empty,
-      Array.fill(hb.buckets.size + 1)(new UnsynchronizedAdder))
+final class Histogram0(val name: String, val help: String)(implicit hb: HistogramBuckets)
+    extends LabelledHistogram(name, List.empty, Array.fill(hb.buckets.size + 1)(new UnsynchronizedAdder))
     with Collector {
   override final val collectorType = CollectorType.Histogram
 
@@ -35,10 +29,9 @@ final class Histogram0(val name: String, val help: String)(
       RegistryMetric(s"${name}_sum", List.empty, adder(adder.length - 2).sum()) ::
         buckets.map {
           case (bucket, idx) =>
-            RegistryMetric(
-              s"${name}_bucket",
-              List("le" -> HistogramBuckets.prometheusDoubleFormat(bucket)),
-              adder(idx).sum())
+            RegistryMetric(s"${name}_bucket",
+                           List("le" -> HistogramBuckets.prometheusDoubleFormat(bucket)),
+                           adder(idx).sum())
         }
   }
 

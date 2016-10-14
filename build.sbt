@@ -33,7 +33,11 @@ val publishSettings = Seq(
 scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
 
 val client =
-  project.in(file("client")).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(commonSettings).settings(publishSettings)
+  project
+    .in(file("client"))
+    .enablePlugins(spray.boilerplate.BoilerplatePlugin)
+    .settings(commonSettings)
+    .settings(publishSettings)
 
 val fs2 =
   project
