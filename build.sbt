@@ -33,12 +33,13 @@ val publishSettings = Seq(
 scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
 
 val client =
-  project.in(file("client")).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(commonSettings)
+  project.in(file("client")).enablePlugins(spray.boilerplate.BoilerplatePlugin).settings(commonSettings).settings(publishSettings)
 
 val fs2 =
   project
     .in(file("fs2"))
     .settings(commonSettings)
+    .settings(publishSettings)
     .settings(
       libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.1"
     )
