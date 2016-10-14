@@ -39,6 +39,10 @@ val client =
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(commonSettings)
     .settings(publishSettings)
+    .settings(
+      apiURL := Some(url(
+        raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/client_${scalaBinaryVersion.value}/${version.value}/client_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
+    )
 
 val fs2 =
   project
@@ -46,7 +50,9 @@ val fs2 =
     .settings(commonSettings)
     .settings(publishSettings)
     .settings(
-      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.1"
+      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.1",
+      apiURL := Some(url(
+        raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/fs2_${scalaBinaryVersion.value}/${version.value}/fs2_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
     .dependsOn(client)
 
