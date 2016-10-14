@@ -8,10 +8,8 @@ Work in progress for a Scala client.
 libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.0.1"
 ```
 
-## Still to do
+## Documentation
 
- - export of collector data over HTTP
- - still experimenting with FS2 wrappers (e.g. how to represent one counter for successes, another for failure)
- - sanity checking names against allowed regular expressions
+See the [guide](doc/Guide.md) for examples of usage.
 
-See the [guide](doc/Guide.md) for examples of the current state of the library.
+[API](https://oss.sonatype.org/service/local/repositories/releases/archive/org/lyranthe/prometheus/client_2.11/0.0.1/client_2.11-0.0.1-javadoc.jar/!/index.html#org.lyranthe.prometheus.client.package)
