@@ -12,4 +12,5 @@ libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.0.1"
 
 See the [guide](doc/Guide.md) for examples of usage.
 
-[API](https://oss.sonatype.org/service/local/repositories/releases/archive/org/lyranthe/prometheus/client_2.11/0.0.1/client_2.11-0.0.1-javadoc.jar/!/index.html#org.lyranthe.prometheus.client.package)
+ - [Client API](https://oss.sonatype.org/service/local/repositories/releases/archive/org/lyranthe/prometheus/client_2.11/0.0.1/client_2.11-0.0.1-javadoc.jar/!/index.html#org.lyranthe.prometheus.client.package)
+ - [FS2 Syntax Extension API](https://oss.sonatype.org/service/local/repositories/releases/archive/org/lyranthe/prometheus/fs2_2.11/0.0.1/fs2_2.11-0.0.1-javadoc.jar/!/index.html#org.lyranthe.prometheus.client.fs2_syntax)
