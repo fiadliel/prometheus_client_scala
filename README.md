@@ -2,7 +2,13 @@
 
 Work in progress for a Scala client.
 
-Still to do:
+## Adding the library to your build
+
+```scala
+libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.0.1"
+```
+
+## Still to do
 
  - export of collector data over HTTP
  - still experimenting with FS2 wrappers (e.g. how to represent one counter for successes, another for failure)
