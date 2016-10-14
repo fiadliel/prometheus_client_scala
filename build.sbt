@@ -2,7 +2,8 @@ val commonSettings = Seq(
   organization := "org.lyranthe.prometheus",
   scalaVersion := "2.11.8",
   version := "git describe --tags --dirty --always".!!.stripPrefix("v").trim,
-  crossScalaVersions := Seq("2.11.8", "2.12.0-RC1")
+  crossScalaVersions := Seq("2.11.8", "2.12.0-RC1"),
+  scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits", "-implicits-show-all", "-diagrams")
 )
 
 val publishSettings = Seq(
@@ -49,7 +50,7 @@ val fs2 =
     )
     .dependsOn(client)
 
-val doc =
+val prom_doc =
   project
     .in(file("doc"))
     .settings(commonSettings)
