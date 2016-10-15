@@ -5,13 +5,9 @@ import java.lang.management._
 import scala.collection.JavaConverters._
 
 object jmx {
-  private val clBean = ManagementFactory.getClassLoadingMXBean
-  //val cBean          = ManagementFactory.getCompilationMXBean
-  val gcBeans = ManagementFactory.getGarbageCollectorMXBeans.asScala.toList
-  //val memManagerBean = ManagementFactory.getMemoryManagerMXBeans
-  private val memBean = ManagementFactory.getMemoryMXBean
-  //val memPoolBean    = ManagementFactory.getMemoryPoolMXBeans
-  //val osBean         = ManagementFactory.getOperatingSystemMXBean
+  private val clBean      = ManagementFactory.getClassLoadingMXBean
+  private val gcBeans     = ManagementFactory.getGarbageCollectorMXBeans.asScala.toList
+  private val memBean     = ManagementFactory.getMemoryMXBean
   private val runtimeBean = ManagementFactory.getRuntimeMXBean
   private val threadBean  = ManagementFactory.getThreadMXBean
 
@@ -27,7 +23,7 @@ object jmx {
         val nameTuple = "name" -> bean.getName
         List(
           RegistryMetric(name, List(nameTuple, "type" -> "count"), bean.getCollectionCount),
-          RegistryMetric(name, List(nameTuple, "type" -> "time"), bean.getCollectionTime)
+          RegistryMetric(name, List(nameTuple, "type" -> "time"), bean.getCollectionTime / 1e3)
         )
       }
     }
