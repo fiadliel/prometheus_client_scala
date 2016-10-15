@@ -140,5 +140,5 @@ import org.lyranthe.prometheus.client._
 
 jmx.register
 
-implicitly[Registry]
+println(implicitly[Registry])
 ```

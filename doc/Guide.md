@@ -176,13 +176,13 @@ scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.Registry =
 # HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_total{path="/home"} 2.487082508
+request_latency_total{path="/home"} 4.044188012
 request_latency_sum{path="/home"} 9.0
 request_latency_bucket{le="0.02",path="/home"} 0.0
-request_latency_bucket{le="0.05",path="/home"} 3.0
-request_latency_bucket{le="0.1",path="/home"} 3.0
-request_latency_bucket{le="0.2",path="/home"} 3.0
-request_latency_bucket{le="0.5",path="/home"} 8.0
+request_latency_bucket{le="0.05",path="/home"} 0.0
+request_latency_bucket{le="0.1",path="/home"} 0.0
+request_latency_bucket{le="0.2",path="/home"} 2.0
+request_latency_bucket{le="0.5",path="/home"} 6.0
 request_latency_bucket{le="1.0",path="/home"} 9.0
 request_latency_bucket{le="+Inf",path="/home"} 9.0
 ```
@@ -203,23 +203,34 @@ import org.lyranthe.prometheus.client._
 
 scala> jmx.register
 
-scala> implicitly[Registry]
-res3: org.lyranthe.prometheus.client.Registry =
+scala> println(implicitly[Registry])
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type="non-daemon"} 14.0
-jvm_threads{type="daemon"} 5.0
+jvm_threads{type="non-daemon"} 11.0
+jvm_threads{type="daemon"} 4.0
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.476566341866E9
+jvm_start_time 1.476572028628E9
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 1.044381696E9
+jvm_memory_usage{region="heap",type="committed"} 1.05906176E9
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
 jvm_memory_usage{region="heap",type="max"} 1.908932608E9
-jvm_memory_usage{region="heap",type="used"} 4.68604704E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.50093824E8
+jvm_memory_usage{region="heap",type="used"} 4.68756448E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.45440768E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",ty...
+jvm_memory_usage{region="non-heap",type="used"} 1.439922E8
+# HELP jvm_gc_stats JVM Garbage Collector Statistics
+# TYPE jvm_gc_stats gauge
+jvm_gc_stats{name="PS Scavenge",type="count"} 8.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.137
+jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.383
+# HELP jvm_classloader JVM Classloader statistics
+# TYPE jvm_classloader gauge
+jvm_classloader{classloader="loaded"} 14499.0
+jvm_classloader{classloader="total-loaded"} 14573.0
+jvm_classloader{classloader="unloaded"} 74.0
+
 ```
