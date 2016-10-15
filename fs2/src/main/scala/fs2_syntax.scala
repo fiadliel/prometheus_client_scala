@@ -19,7 +19,7 @@ object fs2_syntax {
       }
     }
 
-    def countFailure(counter: LabelledCounter)(implicit F: Effect[F]) = {
+    def countFailure(counter: LabelledCounter)(implicit F: Effect[F]): F[A] = {
       underlying.attempt.flatMap {
         _.fold({ t =>
           {
@@ -32,7 +32,7 @@ object fs2_syntax {
       }
     }
 
-    def countSuccess(f: A => (LabelledCounter, Double))(implicit F: Effect[F]) = {
+    def countSuccess(f: A => (LabelledCounter, Double))(implicit F: Effect[F]): F[A] = {
       underlying.map { result =>
         val (counter, incBy) = f(result)
         counter.incBy(incBy)

@@ -20,13 +20,13 @@ class LabelledGauge(name: String,
 
   def set(v: Double): Unit = adder.set(v)
 
-  def setToCurrentTime()(implicit clock: Clock) =
+  def setToCurrentTime()(implicit clock: Clock): Unit =
     set(Instant.now(clock).getEpochSecond)
 
-  def setToDuration(duration: Duration) =
+  def setToDuration(duration: Duration): Unit =
     set((duration.getSeconds * 1e9 + duration.getNano) / 1e9)
 
-  def setToInstant(instant: Instant) =
+  def setToInstant(instant: Instant): Unit =
     set(instant.getEpochSecond)
 
   def sum(): Double =

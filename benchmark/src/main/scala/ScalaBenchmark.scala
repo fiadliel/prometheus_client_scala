@@ -1,8 +1,8 @@
 package benchmarks
 
 import org.openjdk.jmh.annotations.{Benchmark, Scope, State}
-
 import org.lyranthe.prometheus.client.Counter
+
 import scala.util.Random
 
 @State(Scope.Benchmark)
@@ -24,9 +24,9 @@ class ScalaBenchmark {
 
   @Benchmark
   def incManyLabelValuesRepeatedly(): Unit = {
-    val aVal = Random.nextPrintableChar().toString
-    val bVal = Random.nextPrintableChar().toString
-    val cVal = Random.nextPrintableChar().toString
+    val aVal  = Random.nextPrintableChar().toString
+    val bVal  = Random.nextPrintableChar().toString
+    val cVal  = Random.nextPrintableChar().toString
     val child = scalaCounter.labelValues(aVal, bVal, cVal)
 
     var i = 0

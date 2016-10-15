@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.internal.gauge
 import org.lyranthe.prometheus.client._
 
 [#
-final case class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
+final case class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(labels: List[String]) extends Collector {
   private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 
   override final val collectorType = CollectorType.Gauge
