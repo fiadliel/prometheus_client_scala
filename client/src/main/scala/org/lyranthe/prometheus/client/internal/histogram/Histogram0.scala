@@ -6,8 +6,8 @@ import org.lyranthe.prometheus.client._
   *
   * @param name The name of the internal.histogram
   */
-final case class Histogram0(name: String, help: String)(implicit hb: HistogramBuckets)
-    extends LabelledHistogram(name, List.empty, Array.fill(hb.buckets.size + 1)(new UnsynchronizedAdder))
+final case class Histogram0(name: String, help: String, buckets: List[(Double, Int)])
+    extends LabelledHistogram(name, List.empty, Array.fill(buckets.size + 1)(new UnsynchronizedAdder), buckets)
     with Collector {
   override final val collectorType = CollectorType.Histogram
 

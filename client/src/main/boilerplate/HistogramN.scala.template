@@ -3,15 +3,13 @@ package org.lyranthe.prometheus.client.internal.histogram
 import org.lyranthe.prometheus.client._
 
 [#
-final case class Histogram1(name: String, help: String)(labels: List[String])(implicit hb: HistogramBuckets) extends Collector {
-  private[client] val buckets = hb.buckets.zipWithIndex
-
+final case class Histogram1(name: String, help: String, labels: List[String], buckets: List[(Double, Int)]) extends Collector {
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
 
   override final val collectorType = CollectorType.Histogram
 
   def labelValues([#labelValue1: String#]): LabelledHistogram =
-    new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])))
+    new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])), buckets)
 
   def remove([#labelValue1: String#]): Unit =
     adders.remove(Tuple1([#labelValue1: String#]))

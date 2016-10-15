@@ -8,6 +8,7 @@ val commonSettings = Seq(
 
 val publishSettings = Seq(
   sonatypeProfileName := "org.lyranthe",
+  mimaPreviousArtifacts := Set(organization.value %% name.value % "0.0.1"),
   pomExtra in Global := {
     <url>https://github.com/fiadliel/prometheus_client_scala</url>
     <licenses>
