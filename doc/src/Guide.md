@@ -79,8 +79,11 @@ The `Registry` is a service to which collectors are registered. You can
 then call `collect` to obtain current monitoring values for all the
 registered collectors.
 
-There is a default registry available, which is used if no other registry
-is specified.
+You can create a registry with a default implementation with:
+
+```tut
+implicit val defaultRegistry = DefaultRegistry()
+```
 
 ```tut
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
@@ -110,7 +113,7 @@ import org.lyranthe.prometheus.client.fs2_syntax._
 Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
 ```tut:silent
-implicit val registry = new org.lyranthe.prometheus.client.internal.DefaultRegistry
+implicit val registry = DefaultRegistry()
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
@@ -129,7 +132,7 @@ implicitly[Registry]
 Some JVM statistics can be exposed with:
 
 ```tut:silent
-implicit val registry = new org.lyranthe.prometheus.client.internal.DefaultRegistry
+implicit val registry = DefaultRegistry()
 ```
 ```tut
 import fs2._
