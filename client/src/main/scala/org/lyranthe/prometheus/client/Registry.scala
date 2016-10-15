@@ -1,11 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.DefaultRegistry
-
-case class RegistryMetrics(name: String,
-                           help: String,
-                           collectorType: String,
-                           metrics: List[RegistryMetric])
+case class RegistryMetrics(name: String, help: String, collectorType: String, metrics: List[RegistryMetric])
 
 trait Registry {
   def register(c: Collector): Unit
@@ -15,8 +10,7 @@ trait Registry {
       if (labels.isEmpty)
         ""
       else
-        labels.map { case (label, metric) => s"""$label="$metric"""" }
-          .mkString("{", ",", "}")
+        labels.map { case (label, metric) => s"""$label="$metric"""" }.mkString("{", ",", "}")
     }
 
     val sb = new StringBuilder
