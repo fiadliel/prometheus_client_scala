@@ -1,7 +1,5 @@
 package org.lyranthe.prometheus.client
 
-case class RegistryMetrics(name: String, help: String, collectorType: String, metrics: List[RegistryMetric])
-
 trait Registry {
   def register(c: Collector): Unit
   def collect(): List[RegistryMetrics]

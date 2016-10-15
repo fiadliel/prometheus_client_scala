@@ -2,7 +2,7 @@ package org.lyranthe.prometheus.client.internal.gauge
 
 import java.time.{Clock, Duration, Instant}
 
-import org.lyranthe.prometheus.client.SynchronizedAdder
+import org.lyranthe.prometheus.client.internal.SynchronizedAdder
 
 class LabelledGauge(name: String,
                     labels: List[String],

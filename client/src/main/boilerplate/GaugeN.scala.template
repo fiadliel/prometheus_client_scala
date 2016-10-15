@@ -1,6 +1,7 @@
 package org.lyranthe.prometheus.client.internal.gauge
 
 import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client.internal._
 
 [#
 final case class Gauge1(name: String, help: String, labels: List[String], initialValue: Option[Double] = None) extends Collector {

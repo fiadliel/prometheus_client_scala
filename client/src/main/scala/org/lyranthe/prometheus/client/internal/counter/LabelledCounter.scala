@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.counter
 
-import org.lyranthe.prometheus.client.UnsynchronizedAdder
+import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
 
 class LabelledCounter(name: String,
                       labels: List[String],

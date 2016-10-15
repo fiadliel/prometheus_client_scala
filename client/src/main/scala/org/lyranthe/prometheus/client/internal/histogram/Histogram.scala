@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.histogram
 
-import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
 
 object Histogram {
   def observe(bucketValues: Seq[(Double, Int)], buckets: Array[UnsynchronizedAdder], v: Double): Unit = {

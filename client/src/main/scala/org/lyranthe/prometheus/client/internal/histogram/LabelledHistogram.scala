@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.histogram
 
-import org.lyranthe.prometheus.client.UnsynchronizedAdder
+import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
 
 class LabelledHistogram(name: String,
                         labels: List[String],

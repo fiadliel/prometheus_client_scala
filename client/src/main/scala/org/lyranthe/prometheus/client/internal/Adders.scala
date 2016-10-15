@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client
+package org.lyranthe.prometheus.client.internal
 
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.DoubleAdder
@@ -11,8 +11,7 @@ trait Adder {
   def sum(): Double
 }
 
-class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder)
-    extends Adder {
+class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -21,8 +20,7 @@ class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder)
   }
 }
 
-class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder)
-    extends Adder {
+class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -61,10 +59,7 @@ class Adders[A, B <: Adder](init: => B, initialValue: Option[Double] = None) {
     } toList
 }
 
-class BucketedAdders[A, B <: Adder: ClassTag](init: => B,
-                                              numBuckets: Int,
-                                              initialValue: Option[Double] =
-                                                None) {
+class BucketedAdders[A, B <: Adder: ClassTag](init: => B, numBuckets: Int, initialValue: Option[Double] = None) {
   val adders = new ConcurrentHashMap[A, Array[B]]
   def apply(key: A): Array[B] = {
     Option(adders.get(key)) getOrElse {

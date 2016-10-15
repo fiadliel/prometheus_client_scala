@@ -1,6 +1,7 @@
 package org.lyranthe.prometheus.client.internal.counter
 
 import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client.internal._
 
 /** This represents a Prometheus counter with no labels.
   *
