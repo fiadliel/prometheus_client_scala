@@ -1,8 +1,6 @@
-package org.lyranthe.prometheus.client.internal
+package org.lyranthe.prometheus.client
 
 import java.util.concurrent.locks.ReentrantReadWriteLock
-
-import org.lyranthe.prometheus.client.{Collector, Registry, RegistryMetrics}
 
 class DefaultRegistry extends Registry {
   val rwLock                        = new ReentrantReadWriteLock
@@ -11,7 +9,9 @@ class DefaultRegistry extends Registry {
   override def register(c: Collector): Unit = {
     rwLock.writeLock().lock()
     try {
-      collectors = (collectors :+ c).distinct.sortBy(_.name)
+      // If collector with same identity is already registered, replace it
+      // This is a situation that may happen with Guice/etc. (bleh)
+      collectors = (collectors.filterNot(_ == c) :+ c).sortBy(_.name)
     } finally {
       rwLock.writeLock().unlock()
     }
@@ -22,10 +22,14 @@ class DefaultRegistry extends Registry {
     try {
       collectors.foldLeft(List.empty[RegistryMetrics])({
         case (metrics, c) =>
-          RegistryMetrics(c.name, c.help, c.collectorType.toString.toLowerCase, c.collect()) :: metrics
+          RegistryMetrics(c.name, c.help, c.collectorType.toString, c.collect()) :: metrics
       })
     } finally {
       rwLock.readLock().unlock()
     }
   }
+}
+
+object DefaultRegistry {
+  def apply(): DefaultRegistry = new DefaultRegistry
 }

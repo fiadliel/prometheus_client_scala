@@ -30,7 +30,3 @@ trait Registry {
     sb.toString()
   }
 }
-
-object Registry {
-  implicit val defaultRegistry: Registry = new DefaultRegistry
-}
