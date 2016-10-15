@@ -2,16 +2,36 @@ package org.lyranthe.prometheus.client
 
 import java.lang.management._
 
+import scala.collection.JavaConverters._
+
 object jmx {
   private val clBean = ManagementFactory.getClassLoadingMXBean
   //val cBean          = ManagementFactory.getCompilationMXBean
-  //val gcBean         = ManagementFactory.getGarbageCollectorMXBeans
+  val gcBeans = ManagementFactory.getGarbageCollectorMXBeans.asScala.toList
   //val memManagerBean = ManagementFactory.getMemoryManagerMXBeans
   private val memBean = ManagementFactory.getMemoryMXBean
   //val memPoolBean    = ManagementFactory.getMemoryPoolMXBeans
   //val osBean         = ManagementFactory.getOperatingSystemMXBean
   private val runtimeBean = ManagementFactory.getRuntimeMXBean
   private val threadBean  = ManagementFactory.getThreadMXBean
+
+  val gcUsage = new Collector {
+    override def name: String = "jvm_gc_stats"
+
+    override def help: String = "JVM Garbage Collector Statistics"
+
+    override def collectorType = CollectorType.Gauge
+
+    override def collect(): List[RegistryMetric] = {
+      gcBeans flatMap { bean =>
+        val nameTuple = "name" -> bean.getName
+        List(
+          RegistryMetric(name, List(nameTuple, "type" -> "count"), bean.getCollectionCount),
+          RegistryMetric(name, List(nameTuple, "type" -> "time"), bean.getCollectionTime)
+        )
+      }
+    }
+  }
 
   val memUsage = new Collector {
     override def name: String = "jvm_memory_usage"
@@ -47,7 +67,7 @@ object jmx {
     override def collect(): List[RegistryMetric] = {
       List(
         RegistryMetric(name, List("classloader" -> "loaded"), clBean.getLoadedClassCount),
-        RegistryMetric(name, List("classloader" -> "total_loaded"), clBean.getTotalLoadedClassCount),
+        RegistryMetric(name, List("classloader" -> "total-loaded"), clBean.getTotalLoadedClassCount),
         RegistryMetric(name, List("classloader" -> "unloaded"), clBean.getUnloadedClassCount)
       )
     }
@@ -73,14 +93,17 @@ object jmx {
     override def collectorType: CollectorType = CollectorType.Gauge
 
     override def collect(): List[RegistryMetric] = {
+      val daemon = threadBean.getDaemonThreadCount
+      val all    = threadBean.getThreadCount
       List(
-        RegistryMetric(name, List("type" -> "non-daemon"), threadBean.getThreadCount),
-        RegistryMetric(name, List("type" -> "daemon"), threadBean.getDaemonThreadCount)
+        RegistryMetric(name, List("type" -> "non-daemon"), all - daemon),
+        RegistryMetric(name, List("type" -> "daemon"), daemon)
       )
     }
   }
 
   def register()(implicit registry: Registry): Unit = {
+    gcUsage.register
     memUsage.register
     classLoader.register
     startTime.register
