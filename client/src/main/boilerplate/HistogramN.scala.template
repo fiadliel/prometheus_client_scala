@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.internal.histogram
 import org.lyranthe.prometheus.client._
 
 [#
-final class Histogram1(val name: String, val help: String)(val labels: List[String])(implicit hb: HistogramBuckets) extends Collector {
+final case class Histogram1(val name: String, val help: String)(val labels: List[String])(implicit hb: HistogramBuckets) extends Collector {
   val buckets = hb.buckets.zipWithIndex
 
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
@@ -29,8 +29,5 @@ final class Histogram1(val name: String, val help: String)(val labels: List[Stri
             RegistryMetric(s"${name}_bucket", ("le" -> HistogramBuckets.prometheusDoubleFormat(bucket)) :: labelsAndValues, value(idx))
           }
     })
-
-  override def toString(): String =
-    s"Histogram1($name, ${buckets.map(_._##1)})(${labels.mkString(",")})"
 }#
 ]

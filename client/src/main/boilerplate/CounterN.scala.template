@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.internal.counter
 import org.lyranthe.prometheus.client._
 
 [#
-final class Counter1(val name: String, val help: String)(val labels: List[String]) extends Collector {
+final case class Counter1(val name: String, val help: String)(val labels: List[String]) extends Collector {
   private[client] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
   override final val collectorType = CollectorType.Counter
@@ -23,8 +23,5 @@ final class Counter1(val name: String, val help: String)(val labels: List[String
         val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
         RegistryMetric(name, labelAndValue, value)
     })
-
-  override def toString(): String =
-    s"Counter1($name)(${labels.mkString(",")})"
 }#
 ]

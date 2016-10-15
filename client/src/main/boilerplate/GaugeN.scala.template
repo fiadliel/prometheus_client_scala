@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.internal.gauge
 import org.lyranthe.prometheus.client._
 
 [#
-final class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
+final case class Gauge1(val name: String, val help: String, initialValue: Option[Double] = None)(val labels: List[String]) extends Collector {
   private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
 
   override final val collectorType = CollectorType.Gauge
@@ -23,8 +23,5 @@ final class Gauge1(val name: String, val help: String, initialValue: Option[Doub
         val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
         RegistryMetric(name, labelAndValue, value)
     })
-
-  override def toString(): String =
-    s"Gauge1($name)(${labels.mkString(",")})"
 }#
 ]

@@ -8,7 +8,7 @@ import org.lyranthe.prometheus.client._
   *
   * @param name The name of the internal.gauge
   */
-final class Gauge0(val name: String, val help: String, initialValue: Option[Double] = None)
+final case class Gauge0(name: String, help: String, initialValue: Option[Double] = None)
     extends LabelledGauge(name, List.empty, new SynchronizedAdder)
     with Collector {
   override final val collectorType = CollectorType.Gauge
@@ -17,7 +17,4 @@ final class Gauge0(val name: String, val help: String, initialValue: Option[Doub
     synchronized {
       RegistryMetric(name, List.empty, adder.sum()) :: Nil
     }
-
-  override def toString: String =
-    s"Gauge0($name)()"
 }

@@ -19,7 +19,7 @@ object Histogram {
   *
   * @param name The name of the internal.histogram
   */
-final class Histogram0(val name: String, val help: String)(implicit hb: HistogramBuckets)
+final case class Histogram0(name: String, help: String)(implicit hb: HistogramBuckets)
     extends LabelledHistogram(name, List.empty, Array.fill(hb.buckets.size + 1)(new UnsynchronizedAdder))
     with Collector {
   override final val collectorType = CollectorType.Histogram
@@ -34,7 +34,4 @@ final class Histogram0(val name: String, val help: String)(implicit hb: Histogra
                            adder(idx).sum())
         }
   }
-
-  override def toString: String =
-    s"Histogram0($name, ${buckets.map(_._1)})()"
 }
