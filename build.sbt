@@ -5,12 +5,11 @@ crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0-RC1")
 
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix("v").trim
 scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups", "-implicits", "-implicits-show-all", "-diagrams")
-
+sonatypeProfileName := "org.lyranthe"
 publishArtifact in ThisBuild := false
 
 val publishSettings = Seq(
-  sonatypeProfileName := "org.lyranthe",
-  mimaPreviousArtifacts := Set(organization.value %% name.value % "0.0.1"),
+  mimaPreviousArtifacts := Set(organization.value %% name.value % "0.2.0"),
   publishArtifact := true,
   pomExtra in Global := {
     <url>https://github.com/fiadliel/prometheus_client_scala</url>
