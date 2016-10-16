@@ -67,9 +67,6 @@ scala> metric"1"
 ```
 
 ```scala
-scala> val system = "http"
-system: String = http
-
 scala> val subsystem = "requests"
 subsystem: String = requests
 ```
@@ -77,7 +74,7 @@ subsystem: String = requests
 scala> metric"${system}_${subsystem}_total"
 <console>:18: error: Non-literal value supplied
        metric"${system}_${subsystem}_total"
-                ^
+                          ^
 ```
 
 ### Creating a monitoring variable

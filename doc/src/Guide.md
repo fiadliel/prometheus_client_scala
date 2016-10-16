@@ -57,7 +57,6 @@ metric"1"
 ```
 
 ```tut
-val system = "http"
 val subsystem = "requests"
 ```
 ```tut:fail
