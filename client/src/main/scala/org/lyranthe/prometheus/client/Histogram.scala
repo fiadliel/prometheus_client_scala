@@ -7,6 +7,6 @@ import scala.language.experimental.macros
 
 object Histogram {
   def apply(metric: MetricName, help: String)(implicit hb: HistogramBuckets): UnlabelledHistogram = {
-    UnlabelledHistogram(metric.name, help, hb)
+    UnlabelledHistogram(metric, help, hb)
   }
 }

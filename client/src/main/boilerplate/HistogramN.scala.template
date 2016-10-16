@@ -4,7 +4,7 @@ import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 
 [#
-private[client] final case class Histogram1(name: String, help: String, labels: List[String], buckets: List[(Double, Int)]) extends PrefixedCollector {
+private[client] final case class Histogram1(name: MetricName, help: String, labels: List[LabelName], buckets: List[(Double, Int)]) extends PrefixedCollector {
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
 
   override final val collectorType = CollectorType.Histogram
@@ -25,7 +25,7 @@ private[client] final case class Histogram1(name: String, help: String, labels: 
         RegistryMetric(Some("total"), labelsAndValues, value.last) ::
           RegistryMetric(Some("sum"), labelsAndValues, value(value.length - 2)) ::
           buckets.map { case (bucket, idx) =>
-            RegistryMetric(Some("bucket"), ("le" -> HistogramBuckets.prometheusDoubleFormat(bucket)) :: labelsAndValues, value(idx))
+            RegistryMetric(Some("bucket"), (label"le" -> HistogramBuckets.prometheusDoubleFormat(bucket)) :: labelsAndValues, value(idx))
           }
     })
 }#

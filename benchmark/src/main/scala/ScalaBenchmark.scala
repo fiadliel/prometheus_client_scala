@@ -7,7 +7,7 @@ import scala.util.Random
 
 @State(Scope.Benchmark)
 class ScalaBenchmark {
-  val scalaCounter = Counter(metric"test", "help").labels("a", "b", "c")
+  val scalaCounter = Counter(metric"test", "help").labels(label"a", label"b", label"c")
 
   @Benchmark
   def inc(): Unit = {

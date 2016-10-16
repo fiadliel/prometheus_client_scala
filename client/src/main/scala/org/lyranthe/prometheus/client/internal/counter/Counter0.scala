@@ -9,7 +9,7 @@ import org.lyranthe.prometheus.client.internal._
   *
   * @param name The name of the counter
   */
-private[client] final case class Counter0(name: String, help: String)
+private[client] final case class Counter0(name: MetricName, help: String)
     extends LabelledCounter(name, List.empty, new UnsynchronizedAdder())
     with PrefixedCollector {
   override final val collectorType = CollectorType.Counter

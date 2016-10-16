@@ -1,18 +1,18 @@
 package org.lyranthe.prometheus.client.internal.histogram
 
 import org.lyranthe.prometheus.client.HistogramBuckets
-import org.lyranthe.prometheus.client.internal.Macros
+import org.lyranthe.prometheus.client.internal.{LabelName, MetricName}
 
-private[client] case class UnlabelledHistogram(name: String, help: String, buckets: List[(Double, Int)]) {
+private[client] case class UnlabelledHistogram(name: MetricName, help: String, buckets: List[(Double, Int)]) {
   def labels(): Histogram0 = Histogram0(name, help, buckets)
 
   [#
-  def labels([#labelName1: String#]): Histogram1 = Histogram1(name, help, List([#labelName1#]), buckets)
+  def labels([#labelName1: LabelName#]): Histogram1 = Histogram1(name, help, List([#labelName1#]), buckets)
   #
   ]
 }
 
 private[client] object UnlabelledHistogram {
-  def apply(name: String, help: String, hb: HistogramBuckets): UnlabelledHistogram =
+  def apply(name: MetricName, help: String, hb: HistogramBuckets): UnlabelledHistogram =
     UnlabelledHistogram(name, help, hb.buckets.zipWithIndex)
 }

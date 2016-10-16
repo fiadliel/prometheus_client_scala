@@ -1,9 +1,9 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.Collector
+import org.lyranthe.prometheus.client.internal.{Collector, MetricName}
 
 trait PrefixedCollector extends Collector {
-  def name: String
+  def name: MetricName
 
-  final def underlyingName: Option[String] = Some(name)
+  final def underlyingName: Option[MetricName] = Some(name)
 }

@@ -1,3 +1,5 @@
 package org.lyranthe.prometheus.client
 
-case class RegistryMetric(suffix: Option[String], labels: List[(String, String)], value: Double)
+import org.lyranthe.prometheus.client.internal.LabelName
+
+case class RegistryMetric(suffix: Option[String], labels: List[(LabelName, String)], value: Double)

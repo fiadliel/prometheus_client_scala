@@ -24,7 +24,7 @@ If you need labels attached to the counter, specify the label names using
 the `.labels` method:
 
 ```tut
-val totalErrors = Counter(metric"total_errors", "Total errors").labels("code")
+val totalErrors = Counter(metric"total_errors", "Total errors").labels(label"code")
 ```
 
 ### Using counters
@@ -41,28 +41,28 @@ This is supported for up to 22 labels, for example:
 ```tut
 val lotsOfLabels =
   Counter(metric"lots_of_labels", "Lots of labels").labels(
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22"
+    label"l1",
+    label"l2",
+    label"l3",
+    label"l4",
+    label"l5",
+    label"l6",
+    label"l7",
+    label"l8",
+    label"l9",
+    label"l10",
+    label"l11",
+    label"l12",
+    label"l13",
+    label"l14",
+    label"l15",
+    label"l16",
+    label"l17",
+    label"l18",
+    label"l19",
+    label"l20",
+    label"l21",
+    label"l22"
   )
 ```
 
@@ -90,7 +90,7 @@ implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
 val activeRequests = Gauge(metric"active_requests", "Active requests").labels().unsafeRegister
 val numErrors = Counter(metric"num_errors", "Total errors").labels().unsafeRegister
-val requestLatency = Histogram(metric"request_latency", "Request latency").labels("path").unsafeRegister
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
 
 activeRequests.set(50)
 numErrors.inc
@@ -117,7 +117,7 @@ implicit val registry = DefaultRegistry()
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
-val requestLatency = Histogram(metric"request_latency", "Request latency").labels("path").unsafeRegister
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
 
 val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))

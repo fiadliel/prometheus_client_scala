@@ -14,7 +14,7 @@ class DefaultRegistry extends Registry {
       require(collectors.forall(_.underlyingName != c.underlyingName || c.underlyingName.isEmpty),
               s"Duplicate collector with prefix ${c.underlyingName.get}")
 
-      collectors = (collectors :+ c).sortBy(_.underlyingName)
+      collectors = (collectors :+ c).sortBy(_.underlyingName.map(_.name))
     } finally {
       rwLock.writeLock().unlock()
     }

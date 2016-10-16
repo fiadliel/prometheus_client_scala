@@ -4,7 +4,7 @@ import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 
 [#
-private[client] final case class Counter1(name: String, help: String, labels: List[String]) extends PrefixedCollector {
+private[client] final case class Counter1(name: MetricName, help: String, labels: List[LabelName]) extends PrefixedCollector {
   private[client] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
   override final val collectorType = CollectorType.Counter

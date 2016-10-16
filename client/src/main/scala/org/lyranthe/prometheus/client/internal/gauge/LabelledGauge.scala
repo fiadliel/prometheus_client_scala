@@ -2,10 +2,10 @@ package org.lyranthe.prometheus.client.internal.gauge
 
 import java.time.{Clock, Duration, Instant}
 
-import org.lyranthe.prometheus.client.internal.SynchronizedAdder
+import org.lyranthe.prometheus.client.internal.{LabelName, MetricName, SynchronizedAdder}
 
-private[client] class LabelledGauge(name: String,
-                                    labels: List[String],
+private[client] class LabelledGauge(name: MetricName,
+                                    labels: List[LabelName],
                                     val adder: SynchronizedAdder,
                                     initialValue: Option[Double] = None) {
   initialValue foreach adder.add

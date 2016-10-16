@@ -5,5 +5,5 @@ import org.lyranthe.prometheus.client.internal.gauge._
 
 object Gauge {
   def apply(name: MetricName, help: String): UnlabelledGauge =
-    UnlabelledGauge(name.name, help)
+    UnlabelledGauge(name, help)
 }

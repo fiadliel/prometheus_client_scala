@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.internal
 import org.lyranthe.prometheus.client.{CollectorType, Registry, RegistryMetric}
 
 private[client] trait Collector {
-  def underlyingName: Option[String]
+  def underlyingName: Option[MetricName]
   def help: String
   def collectorType: CollectorType
 

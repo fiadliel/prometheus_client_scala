@@ -5,5 +5,5 @@ import org.lyranthe.prometheus.client.internal.counter._
 
 object Counter {
   def apply(name: MetricName, help: String): UnlabelledCounter =
-    UnlabelledCounter(name.name, help)
+    UnlabelledCounter(name, help)
 }
