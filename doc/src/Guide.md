@@ -7,7 +7,7 @@ Here is an example where a simple counter is created:
 ```tut
 import org.lyranthe.prometheus.client._
 
-val totalRequests = Counter("total_requests", "Total requests").labels()
+val totalRequests = Counter(metric"total_requests", "Total requests").labels()
 ```
 
 Note that the counter is a `Counter0`, which means that it
@@ -24,7 +24,7 @@ If you need labels attached to the counter, specify the label names using
 the `.labels` method:
 
 ```tut
-val totalErrors = Counter("total_errors", "Total errors").labels("code")
+val totalErrors = Counter(metric"total_errors", "Total errors").labels("code")
 ```
 
 ### Using counters
@@ -40,7 +40,7 @@ This is supported for up to 22 labels, for example:
 
 ```tut
 val lotsOfLabels =
-  Counter("lots_of_labels", "Lots of labels").labels(
+  Counter(metric"lots_of_labels", "Lots of labels").labels(
     "1",
     "2",
     "3",
@@ -88,9 +88,9 @@ implicit val defaultRegistry = DefaultRegistry()
 ```tut
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
-val activeRequests = Gauge("active_requests", "Active requests").labels().unsafeRegister
-val numErrors = Counter("num_errors", "Total errors").labels().unsafeRegister
-val requestLatency = Histogram("request_latency", "Request latency").labels("path").unsafeRegister
+val activeRequests = Gauge(metric"active_requests", "Active requests").labels().unsafeRegister
+val numErrors = Counter(metric"num_errors", "Total errors").labels().unsafeRegister
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels("path").unsafeRegister
 
 activeRequests.set(50)
 numErrors.inc
@@ -117,7 +117,7 @@ implicit val registry = DefaultRegistry()
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
-val requestLatency = Histogram("request_latency", "Request latency").labels("path").unsafeRegister
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels("path").unsafeRegister
 
 val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))

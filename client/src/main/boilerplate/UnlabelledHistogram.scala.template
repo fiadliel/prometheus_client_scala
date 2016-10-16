@@ -1,6 +1,7 @@
 package org.lyranthe.prometheus.client.internal.histogram
 
 import org.lyranthe.prometheus.client.HistogramBuckets
+import org.lyranthe.prometheus.client.internal.Macros
 
 private[client] case class UnlabelledHistogram(name: String, help: String, buckets: List[(Double, Int)]) {
   def labels(): Histogram0 = Histogram0(name, help, buckets)
@@ -11,7 +12,7 @@ private[client] case class UnlabelledHistogram(name: String, help: String, bucke
   ]
 }
 
-object UnlabelledHistogram {
-  def apply(name: String, help: String)(implicit hb: HistogramBuckets): UnlabelledHistogram =
+private[client] object UnlabelledHistogram {
+  def apply(name: String, help: String, hb: HistogramBuckets): UnlabelledHistogram =
     UnlabelledHistogram(name, help, hb.buckets.zipWithIndex)
 }
