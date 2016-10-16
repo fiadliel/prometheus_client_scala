@@ -56,7 +56,7 @@ object Macros {
         PrometheusLabelFormat.findFirstIn(result) match {
           case None =>
             c.abort(c.enclosingPosition,
-              s"Metric format incorrect: $result, should follow format ${PrometheusLabelFormat.regex}")
+              s"Label format incorrect: $result, should follow format ${PrometheusLabelFormat.regex}")
           case Some(_) =>
             c.Expr(q"""_root_.org.lyranthe.prometheus.client.internal.LabelName(${result})""")
         }
