@@ -5,7 +5,7 @@ import scala.reflect.macros.blackbox.Context
 
 object Macros {
   private val PrometheusMetricFormat = """^[a-zA-Z_:][a-zA-Z0-9_:]*$""".r
-  private val PrometheusLabelFormat = """^[a-zA-Z_][a-zA-Z0-9_]*$""".r
+  private val PrometheusLabelFormat  = """^[a-zA-Z_][a-zA-Z0-9_]*$""".r
 
   def verifyPrometheusMetricImpl(c: Context)(pieces: c.Expr[Any]*): c.Expr[MetricName] = {
     import c.universe._
@@ -56,7 +56,7 @@ object Macros {
         PrometheusLabelFormat.findFirstIn(result) match {
           case None =>
             c.abort(c.enclosingPosition,
-              s"Label format incorrect: $result, should follow format ${PrometheusLabelFormat.regex}")
+                    s"Label format incorrect: $result, should follow format ${PrometheusLabelFormat.regex}")
           case Some(_) =>
             c.Expr(q"""_root_.org.lyranthe.prometheus.client.internal.LabelName(${result})""")
         }
