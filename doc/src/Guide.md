@@ -36,7 +36,33 @@ Metric names and labels have certain requirements for what characters are allowe
 allow this to be correctly checked at compile time, two string interpolators are provided:
 
  - `metric""` creates metric names
- - `label""` creates label names 
+ - `label""` creates label names
+
+These interpolators require constant values; how to do this may not always be obvious.
+
+Some valid metric names:
+
+```tut
+metric"http_requests_total"
+
+final val system = "http"
+final val subsystem = "requests"
+metric"${system}_${subsystem}_total"
+```
+
+Some invalid metric names:
+
+```tut:fail
+metric"1"
+```
+
+```tut
+val system = "http"
+val subsystem = "requests"
+```
+```tut:fail
+metric"${system}_${subsystem}_total"
+```
 
 ### Creating a monitoring variable
 
