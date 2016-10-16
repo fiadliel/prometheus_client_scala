@@ -1,13 +1,13 @@
 package benchmarks
 
 import org.openjdk.jmh.annotations.{Benchmark, Scope, State}
-import org.lyranthe.prometheus.client.Counter
+import org.lyranthe.prometheus.client._
 
 import scala.util.Random
 
 @State(Scope.Benchmark)
 class ScalaBenchmark {
-  val scalaCounter = Counter("test", "help").labels("a", "b", "c")
+  val scalaCounter = Counter(metric"test", "help").labels("a", "b", "c")
 
   @Benchmark
   def inc(): Unit = {

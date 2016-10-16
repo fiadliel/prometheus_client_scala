@@ -40,6 +40,7 @@ scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
 val macros =
   project
     .in(file("macros"))
+    .settings(publishSettings)
     .settings(
       libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
     )
