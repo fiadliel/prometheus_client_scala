@@ -4,7 +4,7 @@ import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 
 [#
-final case class Counter1(name: String, help: String, labels: List[String]) extends Collector {
+private[client] final case class Counter1(name: String, help: String, labels: List[String]) extends NamedCollector {
   private[client] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder)
 
   override final val collectorType = CollectorType.Counter
@@ -22,7 +22,7 @@ final case class Counter1(name: String, help: String, labels: List[String]) exte
     adders.getAll.map({
       case (labelValues, value) =>
         val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-        RegistryMetric(name, labelAndValue, value)
+        RegistryMetric(None, labelAndValue, value)
     })
 }#
 ]

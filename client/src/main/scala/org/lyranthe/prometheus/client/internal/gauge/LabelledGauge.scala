@@ -4,10 +4,10 @@ import java.time.{Clock, Duration, Instant}
 
 import org.lyranthe.prometheus.client.internal.SynchronizedAdder
 
-class LabelledGauge(name: String,
-                    labels: List[String],
-                    val adder: SynchronizedAdder,
-                    initialValue: Option[Double] = None) {
+private[client] class LabelledGauge(name: String,
+                                    labels: List[String],
+                                    val adder: SynchronizedAdder,
+                                    initialValue: Option[Double] = None) {
   initialValue foreach adder.add
 
   def incBy(v: Double): Unit = adder.add(v)

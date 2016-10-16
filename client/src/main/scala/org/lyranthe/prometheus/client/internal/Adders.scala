@@ -6,12 +6,12 @@ import java.util.concurrent.atomic.DoubleAdder
 import scala.collection.JavaConverters._
 import scala.reflect.ClassTag
 
-trait Adder {
+private[client] trait Adder {
   def add(value: Double): Unit
   def sum(): Double
 }
 
-class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
+private[client] class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -20,7 +20,7 @@ class UnsynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Add
   }
 }
 
-class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
+private[client] class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -35,7 +35,7 @@ class SynchronizedAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder
   }
 }
 
-class Adders[A, B <: Adder](init: => B, initialValue: Option[Double] = None) {
+private[client] class Adders[A, B <: Adder](init: => B, initialValue: Option[Double] = None) {
   val adders = new ConcurrentHashMap[A, B]()
   def apply(key: A): B = {
     Option(adders.get(key)) getOrElse {
@@ -59,7 +59,9 @@ class Adders[A, B <: Adder](init: => B, initialValue: Option[Double] = None) {
     } toList
 }
 
-class BucketedAdders[A, B <: Adder: ClassTag](init: => B, numBuckets: Int, initialValue: Option[Double] = None) {
+private[client] class BucketedAdders[A, B <: Adder: ClassTag](init: => B,
+                                                              numBuckets: Int,
+                                                              initialValue: Option[Double] = None) {
   val adders = new ConcurrentHashMap[A, Array[B]]
   def apply(key: A): Array[B] = {
     Option(adders.get(key)) getOrElse {

@@ -2,7 +2,7 @@ package org.lyranthe.prometheus.client.internal.histogram
 
 import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
 
-object Histogram {
+private[client] object Histogram {
   def observe(bucketValues: Seq[(Double, Int)], buckets: Array[UnsynchronizedAdder], v: Double): Unit = {
     bucketValues.foreach {
       case (upperBound, idx) =>

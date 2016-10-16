@@ -11,7 +11,7 @@ object jmx {
   private val runtimeBean = ManagementFactory.getRuntimeMXBean
   private val threadBean  = ManagementFactory.getThreadMXBean
 
-  val gcUsage = new Collector {
+  val gcUsage = new PrefixedCollector {
     override def name: String = "jvm_gc_stats"
 
     override def help: String = "JVM Garbage Collector Statistics"
@@ -22,14 +22,14 @@ object jmx {
       gcBeans flatMap { bean =>
         val nameTuple = "name" -> bean.getName
         List(
-          RegistryMetric(name, List(nameTuple, "type" -> "count"), bean.getCollectionCount),
-          RegistryMetric(name, List(nameTuple, "type" -> "time"), bean.getCollectionTime / 1e3)
+          RegistryMetric(None, List(nameTuple, "type" -> "count"), bean.getCollectionCount),
+          RegistryMetric(None, List(nameTuple, "type" -> "time"), bean.getCollectionTime / 1e3)
         )
       }
     }
   }
 
-  val memUsage = new Collector {
+  val memUsage = new PrefixedCollector {
     override def name: String = "jvm_memory_usage"
 
     override def help: String = "JVM Memory Usage"
@@ -39,7 +39,7 @@ object jmx {
     override def collect(): List[RegistryMetric] = {
       def metrics(region: String, memUsage: MemoryUsage): List[RegistryMetric] = {
         def metric(memType: String, memStatistic: Long): RegistryMetric =
-          RegistryMetric(name, List("region" -> region, "type" -> memType), memStatistic)
+          RegistryMetric(None, List("region" -> region, "type" -> memType), memStatistic)
 
         List(
           metric("committed", memUsage.getCommitted),
@@ -53,7 +53,7 @@ object jmx {
     }
   }
 
-  val classLoader = new Collector {
+  val classLoader = new PrefixedCollector {
     override def name: String = "jvm_classloader"
 
     override def help: String = "JVM Classloader statistics"
@@ -62,14 +62,14 @@ object jmx {
 
     override def collect(): List[RegistryMetric] = {
       List(
-        RegistryMetric(name, List("classloader" -> "loaded"), clBean.getLoadedClassCount),
-        RegistryMetric(name, List("classloader" -> "total-loaded"), clBean.getTotalLoadedClassCount),
-        RegistryMetric(name, List("classloader" -> "unloaded"), clBean.getUnloadedClassCount)
+        RegistryMetric(None, List("classloader" -> "loaded"), clBean.getLoadedClassCount),
+        RegistryMetric(None, List("classloader" -> "total-loaded"), clBean.getTotalLoadedClassCount),
+        RegistryMetric(None, List("classloader" -> "unloaded"), clBean.getUnloadedClassCount)
       )
     }
   }
 
-  val startTime = new Collector {
+  val startTime = new PrefixedCollector {
     override def name: String = "jvm_start_time"
 
     override def help: String = "JVM Start Time"
@@ -77,11 +77,11 @@ object jmx {
     override def collectorType = CollectorType.Gauge
 
     override def collect(): List[RegistryMetric] = {
-      List(RegistryMetric(name, List.empty, runtimeBean.getStartTime.toDouble / 1e3))
+      List(RegistryMetric(None, List.empty, runtimeBean.getStartTime.toDouble / 1e3))
     }
   }
 
-  val threadData = new Collector {
+  val threadData = new PrefixedCollector {
     override def name: String = "jvm_threads"
 
     override def help: String = "JVM Thread Information"
@@ -92,8 +92,8 @@ object jmx {
       val daemon = threadBean.getDaemonThreadCount
       val all    = threadBean.getThreadCount
       List(
-        RegistryMetric(name, List("type" -> "non-daemon"), all - daemon),
-        RegistryMetric(name, List("type" -> "daemon"), daemon)
+        RegistryMetric(None, List("type" -> "non-daemon"), all - daemon),
+        RegistryMetric(None, List("type" -> "daemon"), daemon)
       )
     }
   }

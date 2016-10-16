@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.counter
 
-case class UnlabelledCounter(name: String, help: String) {
+private[client] case class UnlabelledCounter(name: String, help: String) {
   def labels(): Counter0 = Counter0(name, help)
 
   [#
