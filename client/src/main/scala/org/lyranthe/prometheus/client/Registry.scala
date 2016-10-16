@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.{Collector, LabelName}
+import org.lyranthe.prometheus.client.internal.Collector
 
 trait Registry {
   def unsafeRegister(c: Collector): Unit

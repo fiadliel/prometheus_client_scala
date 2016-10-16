@@ -2,8 +2,6 @@ package org.lyranthe.prometheus.client
 
 import java.lang.management._
 
-import org.lyranthe.prometheus.client.internal.MetricName
-
 import scala.collection.JavaConverters._
 
 object jmx {

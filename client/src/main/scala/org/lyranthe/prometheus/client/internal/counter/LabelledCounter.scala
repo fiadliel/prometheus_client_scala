@@ -1,6 +1,7 @@
 package org.lyranthe.prometheus.client.internal.counter
 
-import org.lyranthe.prometheus.client.internal.{LabelName, MetricName, UnsynchronizedAdder}
+import org.lyranthe.prometheus.client.{LabelName, MetricName}
+import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
 
 private[client] class LabelledCounter(name: MetricName, labels: List[LabelName], val adder: UnsynchronizedAdder) {
   def incBy(v: Double): Unit = {

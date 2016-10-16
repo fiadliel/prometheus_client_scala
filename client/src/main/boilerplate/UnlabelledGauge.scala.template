@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal.gauge
 
-import org.lyranthe.prometheus.client.internal.{LabelName, MetricName}
+import org.lyranthe.prometheus.client._
 
 private[client] case class UnlabelledGauge(name: MetricName, help: String) {
   def labels(): Gauge0 = Gauge0(name, help)

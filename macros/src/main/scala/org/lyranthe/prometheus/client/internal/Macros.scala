@@ -1,12 +1,11 @@
 package org.lyranthe.prometheus.client.internal
 
+import org.lyranthe.prometheus.client.{LabelName, MetricName}
+
 import scala.language.experimental.macros
 import scala.reflect.macros.blackbox.Context
 
 object Macros {
-  private val PrometheusMetricFormat = """^[a-zA-Z_:][a-zA-Z0-9_:]*$""".r
-  private val PrometheusLabelFormat  = """^[a-zA-Z_][a-zA-Z0-9_]*$""".r
-
   def verifyPrometheusMetricImpl(c: Context)(pieces: c.Expr[Any]*): c.Expr[MetricName] = {
     import c.universe._
 
@@ -25,12 +24,13 @@ object Macros {
 
         val result = fullMetric.toString
 
-        PrometheusMetricFormat.findFirstIn(result) match {
+        MetricName.PrometheusMetricFormat.findFirstIn(result) match {
           case None =>
-            c.abort(c.enclosingPosition,
-                    s"Metric format incorrect: $result, should follow format ${PrometheusMetricFormat.regex}")
+            c.abort(
+              c.enclosingPosition,
+              s"Metric format incorrect: $result, should follow format ${MetricName.PrometheusMetricFormat.regex}")
           case Some(_) =>
-            c.Expr(q"""_root_.org.lyranthe.prometheus.client.internal.MetricName(${result})""")
+            c.Expr(q"""_root_.org.lyranthe.prometheus.client.MetricName(${result})""")
         }
     }
   }
@@ -53,12 +53,12 @@ object Macros {
 
         val result = fullMetric.toString
 
-        PrometheusLabelFormat.findFirstIn(result) match {
+        LabelName.PrometheusLabelFormat.findFirstIn(result) match {
           case None =>
             c.abort(c.enclosingPosition,
-                    s"Label format incorrect: $result, should follow format ${PrometheusLabelFormat.regex}")
+                    s"Label format incorrect: $result, should follow format ${LabelName.PrometheusLabelFormat.regex}")
           case Some(_) =>
-            c.Expr(q"""_root_.org.lyranthe.prometheus.client.internal.LabelName(${result})""")
+            c.Expr(q"""_root_.org.lyranthe.prometheus.client.LabelName(${result})""")
         }
     }
   }

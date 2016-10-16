@@ -1,7 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.MetricName
-import org.lyranthe.prometheus.client.internal.counter._
+import org.lyranthe.prometheus.client.internal.counter.UnlabelledCounter
 
 object Counter {
   def apply(name: MetricName, help: String): UnlabelledCounter =

@@ -2,7 +2,7 @@ package org.lyranthe.prometheus
 
 import java.time.Clock
 
-import org.lyranthe.prometheus.client.internal.{LabelName, Macros, MetricName}
+import org.lyranthe.prometheus.client.internal.Macros
 
 import scala.language.experimental.macros
 

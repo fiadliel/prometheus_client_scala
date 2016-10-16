@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.{Collector, MetricName}
+import org.lyranthe.prometheus.client.internal.Collector
 
 trait PrefixedCollector extends Collector {
   def name: MetricName

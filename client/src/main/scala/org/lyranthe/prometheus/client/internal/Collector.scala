@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client.internal
 
-import org.lyranthe.prometheus.client.{CollectorType, Registry, RegistryMetric}
+import org.lyranthe.prometheus.client.{CollectorType, MetricName, Registry, RegistryMetric}
 
 private[client] trait Collector {
   def underlyingName: Option[MetricName]
