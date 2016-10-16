@@ -98,11 +98,11 @@ object jmx {
     }
   }
 
-  def register()(implicit registry: Registry): Unit = {
-    gcUsage.register
-    memUsage.register
-    classLoader.register
-    startTime.register
-    threadData.register
+  def unsafeRegister()(implicit registry: Registry): Unit = {
+    gcUsage.unsafeRegister
+    memUsage.unsafeRegister
+    classLoader.unsafeRegister
+    startTime.unsafeRegister
+    threadData.unsafeRegister
   }
 }

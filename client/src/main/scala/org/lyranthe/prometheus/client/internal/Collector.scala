@@ -7,8 +7,8 @@ private[client] trait Collector {
   def help: String
   def collectorType: CollectorType
 
-  def register(implicit registry: Registry): this.type = {
-    registry.register(this)
+  def unsafeRegister(implicit registry: Registry): this.type = {
+    registry.unsafeRegister(this)
     this
   }
 

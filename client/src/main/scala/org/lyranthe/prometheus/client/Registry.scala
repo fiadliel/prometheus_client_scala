@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client
 import org.lyranthe.prometheus.client.internal.Collector
 
 trait Registry {
-  def register(c: Collector): Unit
+  def unsafeRegister(c: Collector): Unit
   def collect(): List[RegistryMetrics]
   override def toString: String = {
     def labelsToString(labels: List[(String, String)]) = {

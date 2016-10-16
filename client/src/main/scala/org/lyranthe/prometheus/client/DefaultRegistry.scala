@@ -8,12 +8,13 @@ class DefaultRegistry extends Registry {
   private[this] val rwLock                          = new ReentrantReadWriteLock
   private[client] var collectors: Vector[Collector] = Vector.empty
 
-  override def register(c: Collector): Unit = {
+  override def unsafeRegister(c: Collector): Unit = {
     rwLock.writeLock().lock()
     try {
-      // If collector with same identity is already registered, replace it
-      // This is a situation that may happen with Guice/etc. (bleh)
-      collectors = (collectors.filterNot(_ == c) :+ c).sortBy(_.underlyingName)
+      require(collectors.forall(_.underlyingName != c.underlyingName || c.underlyingName.isEmpty),
+              s"Duplicate collector with prefix ${c.underlyingName.get}")
+
+      collectors = (collectors :+ c).sortBy(_.underlyingName)
     } finally {
       rwLock.writeLock().unlock()
     }
