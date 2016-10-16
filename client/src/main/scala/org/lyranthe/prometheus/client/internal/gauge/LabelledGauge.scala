@@ -5,10 +5,10 @@ import java.time.{Clock, Duration, Instant}
 import org.lyranthe.prometheus.client.{LabelName, MetricName}
 import org.lyranthe.prometheus.client.internal.SynchronizedAdder
 
-private[client] class LabelledGauge(name: MetricName,
-                                    labels: List[LabelName],
-                                    val adder: SynchronizedAdder,
-                                    initialValue: Option[Double] = None) {
+class LabelledGauge private[client] (name: MetricName,
+                                     labels: List[LabelName],
+                                     val adder: SynchronizedAdder,
+                                     initialValue: Option[Double] = None) {
   initialValue foreach adder.add
 
   def incBy(v: Double): Unit = adder.add(v)
