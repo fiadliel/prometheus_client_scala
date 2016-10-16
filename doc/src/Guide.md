@@ -1,24 +1,61 @@
 # Introduction to Prometheus Scala client
 
-## Creating monitoring variables
+## Synopsis
 
-Here is an example where a simple counter is created:
+Prometheus offers an idiomatic API for instrumenting applications written in Scala. It tries to provide an API which is efficient, easy to use. 
+Also, as far as possible, it tries to report API usage errors at compile time instead of runtime.
+ 
+In addition, it offers some extra insight into your program by exposing some useful VM statistics.
+
+## Important definitions
+
+#### Metric
+
+A metric is a particular "thing" you wish to monitor over time. It is represented in one of three ways:
+ - gauges, which provide a single value which may go up or down
+ - counters, which increase monotonically
+ - histograms, which provide values aggregated into configured buckets.
+
+#### Label
+
+Metrics may have associated labels. For each supplied label, a corresponding label value
+is provided when noting an event. These labels are useful for grouping your timeseries
+in various ways.
+
+## Getting started
+
+To start using the API, import the main package:
 
 ```tut
 import org.lyranthe.prometheus.client._
+```
 
+## String interpolators
+
+Metric names and labels have certain requirements for what characters are allowed. To
+allow this to be correctly checked at compile time, two string interpolators are provided:
+
+ - `metric""` creates metric names
+ - `label""` creates label names 
+
+### Creating a monitoring variable
+
+To create a simple counter:
+
+```tut
 val totalRequests = Counter(metric"total_requests", "Total requests").labels()
 ```
 
-Note that the counter is a `Counter0`, which means that it
-has no labels. Therefore, it needs no corresponding label values
-when incrementing the counter.
+The resulting counter has a metric name `total_requests`, a help message with the contents,
+"Total requests", and has no labels.
 
-You can use this counter:
+You can use this in this way:
 
 ```tut
 totalRequests.inc()
 ```
+
+### Creating a monitoring variable with labels
 
 If you need labels attached to the counter, specify the label names using
 the `.labels` method:
@@ -27,8 +64,6 @@ the `.labels` method:
 val totalErrors = Counter(metric"total_errors", "Total errors").labels(label"code")
 ```
 
-### Using counters
-
 To increment a counter with an error code of "404", one might
 do the following:
 
@@ -36,41 +71,13 @@ do the following:
 totalErrors.labelValues("404").inc()
 ```
 
-This is supported for up to 22 labels, for example:
-
-```tut
-val lotsOfLabels =
-  Counter(metric"lots_of_labels", "Lots of labels").labels(
-    label"l1",
-    label"l2",
-    label"l3",
-    label"l4",
-    label"l5",
-    label"l6",
-    label"l7",
-    label"l8",
-    label"l9",
-    label"l10",
-    label"l11",
-    label"l12",
-    label"l13",
-    label"l14",
-    label"l15",
-    label"l16",
-    label"l17",
-    label"l18",
-    label"l19",
-    label"l20",
-    label"l21",
-    label"l22"
-  )
-```
+### Behavior with incorrect input
 
 We will obviously get a compilation error if we try to provide an incorrect
 number of values when using this counter:
 
 ```tut:fail
-lotsOfLabels.labelValues("1val", "2val").inc()
+totalErrors.labelValues("404", "/path").inc()
 ```
 
 ## The Registry

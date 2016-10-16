@@ -1,26 +1,63 @@
 # Introduction to Prometheus Scala client
 
-## Creating monitoring variables
+## Synopsis
 
-Here is an example where a simple counter is created:
+Prometheus offers an idiomatic API for instrumenting applications written in Scala. It tries to provide an API which is efficient, easy to use. 
+Also, as far as possible, it tries to report API usage errors at compile time instead of runtime.
+ 
+In addition, it offers some extra insight into your program by exposing some useful VM statistics.
+
+## Important definitions
+
+#### Metric
+
+A metric is a particular "thing" you wish to monitor over time. It is represented in one of three ways:
+ - gauges, which provide a single value which may go up or down
+ - counters, which increase monotonically
+ - histograms, which provide values aggregated into configured buckets.
+
+#### Label
+
+Metrics may have associated labels. For each supplied label, a corresponding label value
+is provided when noting an event. These labels are useful for grouping your timeseries
+in various ways.
+
+## Getting started
+
+To start using the API, import the main package:
 
 ```scala
 scala> import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client._
+```
 
+## String interpolators
+
+Metric names and labels have certain requirements for what characters are allowed. To
+allow this to be correctly checked at compile time, two string interpolators are provided:
+
+ - `metric""` creates metric names
+ - `label""` creates label names 
+
+### Creating a monitoring variable
+
+To create a simple counter:
+
+```scala
 scala> val totalRequests = Counter(metric"total_requests", "Total requests").labels()
 totalRequests: org.lyranthe.prometheus.client.internal.counter.Counter0 = Counter(MetricName(total_requests))()
 ```
 
-Note that the counter is a `Counter0`, which means that it
-has no labels. Therefore, it needs no corresponding label values
-when incrementing the counter.
+The resulting counter has a metric name `total_requests`, a help message with the contents,
+"Total requests", and has no labels.
 
-You can use this counter:
+You can use this in this way:
 
 ```scala
 scala> totalRequests.inc()
 ```
+
+### Creating a monitoring variable with labels
 
 If you need labels attached to the counter, specify the label names using
 the `.labels` method:
@@ -30,8 +67,6 @@ scala> val totalErrors = Counter(metric"total_errors", "Total errors").labels(la
 totalErrors: org.lyranthe.prometheus.client.internal.counter.Counter1 = Counter1(MetricName(total_errors),Total errors,List(LabelName(code)))
 ```
 
-### Using counters
-
 To increment a counter with an error code of "404", one might
 do the following:
 
@@ -39,46 +74,16 @@ do the following:
 scala> totalErrors.labelValues("404").inc()
 ```
 
-This is supported for up to 22 labels, for example:
-
-```scala
-scala> val lotsOfLabels =
-     |   Counter(metric"lots_of_labels", "Lots of labels").labels(
-     |     label"l1",
-     |     label"l2",
-     |     label"l3",
-     |     label"l4",
-     |     label"l5",
-     |     label"l6",
-     |     label"l7",
-     |     label"l8",
-     |     label"l9",
-     |     label"l10",
-     |     label"l11",
-     |     label"l12",
-     |     label"l13",
-     |     label"l14",
-     |     label"l15",
-     |     label"l16",
-     |     label"l17",
-     |     label"l18",
-     |     label"l19",
-     |     label"l20",
-     |     label"l21",
-     |     label"l22"
-     |   )
-lotsOfLabels: org.lyranthe.prometheus.client.internal.counter.Counter22 = Counter22(MetricName(lots_of_labels),Lots of labels,List(LabelName(l1), LabelName(l2), LabelName(l3), LabelName(l4), LabelName(l5), LabelName(l6), LabelName(l7), LabelName(l8), LabelName(l9), LabelName(l10), LabelName(l11), LabelName(l12), LabelName(l13), LabelName(l14), LabelName(l15), LabelName(l16), LabelName(l17), LabelName(l18), LabelName(l19), LabelName(l20), LabelName(l21), LabelName(l22)))
-```
+### Behavior with incorrect input
 
 We will obviously get a compilation error if we try to provide an incorrect
 number of values when using this counter:
 
 ```scala
-scala> lotsOfLabels.labelValues("1val", "2val").inc()
-<console>:17: error: not enough arguments for method labelValues: (labelValue1: String, labelValue2: String, labelValue3: String, labelValue4: String, labelValue5: String, labelValue6: String, labelValue7: String, labelValue8: String, labelValue9: String, labelValue10: String, labelValue11: String, labelValue12: String, labelValue13: String, labelValue14: String, labelValue15: String, labelValue16: String, labelValue17: String, labelValue18: String, labelValue19: String, labelValue20: String, labelValue21: String, labelValue22: String)org.lyranthe.prometheus.client.internal.counter.LabelledCounter.
-Unspecified value parameters labelValue3, labelValue4, labelValue5...
-       lotsOfLabels.labelValues("1val", "2val").inc()
-                               ^
+scala> totalErrors.labelValues("404", "/path").inc()
+<console>:17: error: too many arguments for method labelValues: (labelValue1: String)org.lyranthe.prometheus.client.internal.counter.LabelledCounter
+       totalErrors.labelValues("404", "/path").inc()
+                              ^
 ```
 
 ## The Registry
@@ -176,13 +181,13 @@ scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.Registry =
 # HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_total{path="/home"} 4.439022873000001
+request_latency_total{path="/home"} 5.044634393
 request_latency_sum{path="/home"} 9.0
-request_latency_bucket{le="0.02",path="/home"} 1.0
-request_latency_bucket{le="0.05",path="/home"} 1.0
-request_latency_bucket{le="0.1",path="/home"} 1.0
+request_latency_bucket{le="0.02",path="/home"} 0.0
+request_latency_bucket{le="0.05",path="/home"} 0.0
+request_latency_bucket{le="0.1",path="/home"} 0.0
 request_latency_bucket{le="0.2",path="/home"} 1.0
-request_latency_bucket{le="0.5",path="/home"} 3.0
+request_latency_bucket{le="0.5",path="/home"} 2.0
 request_latency_bucket{le="1.0",path="/home"} 9.0
 request_latency_bucket{le="+Inf",path="/home"} 9.0
 ```
@@ -206,31 +211,31 @@ scala> jmx.unsafeRegister
 scala> println(implicitly[Registry])
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type="non-daemon"} 11.0
+jvm_threads{type="non-daemon"} 12.0
 jvm_threads{type="daemon"} 4.0
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.476639807551E9
+jvm_start_time 1.476640980864E9
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 1.11673344E9
+jvm_memory_usage{region="heap",type="committed"} 1.024458752E9
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
 jvm_memory_usage{region="heap",type="max"} 1.908932608E9
-jvm_memory_usage{region="heap",type="used"} 3.5407168E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.48062208E8
+jvm_memory_usage{region="heap",type="used"} 4.7112952E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.46358272E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",type="used"} 1.46109448E8
+jvm_memory_usage{region="non-heap",type="used"} 1.44601992E8
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name="PS Scavenge",type="count"} 8.0
-jvm_gc_stats{name="PS Scavenge",type="time"} 0.15
+jvm_gc_stats{name="PS Scavenge",type="count"} 9.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.163
 jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
-jvm_gc_stats{name="PS MarkSweep",type="time"} 0.354
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.372
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader="loaded"} 15199.0
-jvm_classloader{classloader="total-loaded"} 15273.0
+jvm_classloader{classloader="loaded"} 14642.0
+jvm_classloader{classloader="total-loaded"} 14716.0
 jvm_classloader{classloader="unloaded"} 74.0
 
 ```
