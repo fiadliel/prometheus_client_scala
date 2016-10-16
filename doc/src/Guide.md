@@ -38,7 +38,7 @@ allow this to be correctly checked at compile time, two string interpolators are
  - `metric""` creates metric names
  - `label""` creates label names
 
-These interpolators require constant values; how to do this may not always be obvious.
+These interpolators require constant values, some examples are shown below.
 
 Some valid metric names:
 
