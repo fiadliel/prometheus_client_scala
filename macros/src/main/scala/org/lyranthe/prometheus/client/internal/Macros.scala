@@ -53,6 +53,9 @@ object Macros {
 
         val result = fullMetric.toString
 
+        if (result.startsWith("__"))
+          c.abort(c.enclosingPosition, s"""Label format incorrect: $result, labels beginning with "__" are reserved""")
+
         LabelName.PrometheusLabelFormat.findFirstIn(result) match {
           case None =>
             c.abort(c.enclosingPosition,
