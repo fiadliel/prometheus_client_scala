@@ -127,7 +127,7 @@ val requestLatency = Histogram(metric"request_latency", "Request latency").label
 activeRequests.set(50)
 numErrors.inc
 requestLatency.labelValues("/home").observe(17)
-defaultRegistry
+implicitly[Registry].outputText
 ```
 
 ## Using with FS2 Task (WIP)
@@ -145,7 +145,7 @@ import org.lyranthe.prometheus.client.fs2_syntax._
 Then the method `timeSuccess` can be used to capture the duration of the task (in seconds):
 
 ```tut:silent
-implicit val registry = DefaultRegistry()
+implicit val defaultRegistry = DefaultRegistry()
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
@@ -156,7 +156,7 @@ val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/ho
 
 for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
-registry
+implicitly[Registry].outputText
 ```
 
 ## Exposing JMX Statistics
@@ -172,5 +172,5 @@ import org.lyranthe.prometheus.client._
 
 jmx.unsafeRegister
 
-println(defaultRegistry)
+println(implicitly[Registry].outputText)
 ```

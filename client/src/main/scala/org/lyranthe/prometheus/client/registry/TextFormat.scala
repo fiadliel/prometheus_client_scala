@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client.registry
 import org.lyranthe.prometheus.client._
 
 object TextFormat extends RegistryFormat {
-  type Out = String
+  override val contentType = "text/plain; version=0.0.4"
 
   def prometheusDoubleFormat(d: Double): String = {
     if (d == Double.PositiveInfinity)
@@ -16,7 +16,7 @@ object TextFormat extends RegistryFormat {
       d.toString
   }
 
-  def output(values: => Iterator[RegistryMetrics]): Iterator[String] = {
+  def output(values: => Iterator[RegistryMetrics]): Iterator[Array[Byte]] = {
     def labelsToString(labels: List[(LabelName, String)]) = {
       if (labels.isEmpty)
         ""
@@ -48,7 +48,7 @@ object TextFormat extends RegistryFormat {
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")
         }
       }
-      sb.toString
+      sb.toString.getBytes
     }
   }
 }

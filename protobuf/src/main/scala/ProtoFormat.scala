@@ -1,10 +1,12 @@
-package org.lyranthe.prometheus.client
+package org.lyranthe.prometheus.client.registry
 
 import com.google.protobuf.CodedOutputStream
 import io.prometheus.client.{Metrics => PB}
-import org.lyranthe.prometheus.client.registry._
+import org.lyranthe.prometheus.client._
 
-object Protobuf {
+object ProtoFormat extends RegistryFormat {
+  override val contentType =
+    "application/vnd.google.protobuf; proto=io.prometheus.client.MetricFamily; encoding=delimited"
 
   def labelPairs(labels: List[(LabelName, String)]): List[PB.LabelPair] = {
     labels.map(lp =>
@@ -48,10 +50,11 @@ object Protobuf {
     }
   }
 
-  def collectProtobuf(implicit registry: Registry): Iterator[Array[Byte]] = {
+  override def output(
+      values: => Iterator[RegistryMetrics]): Iterator[Array[Byte]] = {
     import scala.collection.JavaConverters._
 
-    registry.collect() map { metric =>
+    values map { metric =>
       val proto = PB.MetricFamily.newBuilder
         .setName(metric.name.name)
         .setHelp(metric.help)
