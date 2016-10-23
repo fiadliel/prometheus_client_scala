@@ -7,12 +7,29 @@ import scala.util.Random
 
 @State(Scope.Benchmark)
 class JavaBenchmark {
-  val javaCounter = Counter.build().name("test").help("help").labelNames("a", "b", "c").create()
+  val javaCounter = Counter
+    .build()
+    .name("test")
+    .help("help")
+    .labelNames("a", "b", "c")
+    .create()
   val javaHistogram = Histogram
     .build()
     .name("testhist")
     .help("help")
-    .buckets(0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10)
+    .buckets(0.001,
+             0.002,
+             0.005,
+             0.01,
+             0.02,
+             0.05,
+             0.1,
+             0.2,
+             0.5,
+             1.0,
+             2.0,
+             5.0,
+             10)
     .labelNames("a", "b", "c")
     .create()
 

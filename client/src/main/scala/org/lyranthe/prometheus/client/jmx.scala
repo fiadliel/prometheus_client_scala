@@ -7,8 +7,9 @@ import org.lyranthe.prometheus.client.registry._
 import scala.collection.JavaConverters._
 
 object jmx {
-  private val clBean      = ManagementFactory.getClassLoadingMXBean
-  private val gcBeans     = ManagementFactory.getGarbageCollectorMXBeans.asScala.toList
+  private val clBean = ManagementFactory.getClassLoadingMXBean
+  private val gcBeans =
+    ManagementFactory.getGarbageCollectorMXBeans.asScala.toList
   private val memBean     = ManagementFactory.getMemoryMXBean
   private val runtimeBean = ManagementFactory.getRuntimeMXBean
   private val threadBean  = ManagementFactory.getThreadMXBean
@@ -24,8 +25,10 @@ object jmx {
       gcBeans flatMap { bean =>
         val nameTuple = label"name" -> bean.getName
         List(
-          GaugeMetric(List(nameTuple, label"type" -> "count"), bean.getCollectionCount),
-          GaugeMetric(List(nameTuple, label"type" -> "time"), bean.getCollectionTime / 1e3)
+          GaugeMetric(List(nameTuple, label"type" -> "count"),
+                      bean.getCollectionCount),
+          GaugeMetric(List(nameTuple, label"type" -> "time"),
+                      bean.getCollectionTime / 1e3)
         )
       }
     }
@@ -41,7 +44,8 @@ object jmx {
     override def collect(): List[Metric] = {
       def metrics(region: String, memUsage: MemoryUsage): List[GaugeMetric] = {
         def metric(memType: String, memStatistic: Long): GaugeMetric =
-          GaugeMetric(List(label"region" -> region, label"type" -> memType), memStatistic)
+          GaugeMetric(List(label"region" -> region, label"type" -> memType),
+                      memStatistic)
 
         List(
           metric("committed", memUsage.getCommitted),
@@ -51,7 +55,9 @@ object jmx {
         )
       }
 
-      metrics("heap", memBean.getHeapMemoryUsage) ::: metrics("non-heap", memBean.getNonHeapMemoryUsage)
+      metrics("heap", memBean.getHeapMemoryUsage) ::: metrics(
+        "non-heap",
+        memBean.getNonHeapMemoryUsage)
     }
   }
 
@@ -64,9 +70,12 @@ object jmx {
 
     override def collect(): List[Metric] = {
       List(
-        GaugeMetric(List(label"classloader" -> "loaded"), clBean.getLoadedClassCount),
-        GaugeMetric(List(label"classloader" -> "total-loaded"), clBean.getTotalLoadedClassCount),
-        GaugeMetric(List(label"classloader" -> "unloaded"), clBean.getUnloadedClassCount)
+        GaugeMetric(List(label"classloader" -> "loaded"),
+                    clBean.getLoadedClassCount),
+        GaugeMetric(List(label"classloader" -> "total-loaded"),
+                    clBean.getTotalLoadedClassCount),
+        GaugeMetric(List(label"classloader" -> "unloaded"),
+                    clBean.getUnloadedClassCount)
       )
     }
   }

@@ -10,7 +10,8 @@ object MetricName {
   def unsafeFromString(s: String): MetricName = {
     PrometheusMetricFormat.findFirstIn(s) match {
       case None =>
-        throw new IllegalArgumentException(s"$s does not match required metric format ${PrometheusMetricFormat.regex}")
+        throw new IllegalArgumentException(
+          s"$s does not match required metric format ${PrometheusMetricFormat.regex}")
       case Some(formatted) =>
         MetricName(formatted)
     }

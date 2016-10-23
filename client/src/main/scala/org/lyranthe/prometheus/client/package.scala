@@ -11,7 +11,8 @@ package object client {
 
   implicit class MetricSyntax(sc: StringContext) {
     def label(pieces: Any*): LabelName = macro Macros.verifyPrometheusLabelImpl
-    def metric(pieces: Any*): MetricName = macro Macros.verifyPrometheusMetricImpl
+    def metric(pieces: Any*): MetricName =
+      macro Macros.verifyPrometheusMetricImpl
   }
 
 }

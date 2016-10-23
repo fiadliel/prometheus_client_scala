@@ -9,7 +9,9 @@ import org.lyranthe.prometheus.client.internal.UnsynchronizedDoubleAdder
   * @param labels The labels attached to this counter.
   * @param adder The adder responsible for storing the underlying value.
   */
-class LabelledCounter private[client] (name: MetricName, labels: List[LabelName], val adder: UnsynchronizedDoubleAdder) {
+class LabelledCounter private[client] (name: MetricName,
+                                       labels: List[LabelName],
+                                       val adder: UnsynchronizedDoubleAdder) {
   def incBy(v: Double): Unit = {
     assert(v >= 0d)
     adder.add(v)

@@ -10,7 +10,8 @@ object LabelName {
   def unsafeFromString(s: String): LabelName = {
     PrometheusLabelFormat.findFirstIn(s) match {
       case None =>
-        throw new IllegalArgumentException(s"$s does not match required label format ${PrometheusLabelFormat.regex}")
+        throw new IllegalArgumentException(
+          s"$s does not match required label format ${PrometheusLabelFormat.regex}")
       case Some(formatted) =>
         LabelName(formatted)
     }

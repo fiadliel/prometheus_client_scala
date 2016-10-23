@@ -17,9 +17,9 @@ object HistogramBuckets {
     withInf.toList
   }
 
-
   def apply(bucketList: Double*) = new HistogramBuckets {
     override val buckets: List[Double] = bucketsWithInf(bucketList)
-    override def toString: String      = buckets.mkString("HistogramBuckets(", ",", ")")
+    override def toString: String =
+      buckets.mkString("HistogramBuckets(", ",", ")")
   }
 }

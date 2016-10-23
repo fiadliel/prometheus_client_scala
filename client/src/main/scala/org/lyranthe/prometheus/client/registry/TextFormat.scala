@@ -21,7 +21,8 @@ object TextFormat extends RegistryFormat {
       if (labels.isEmpty)
         ""
       else
-        labels.map { case (label, metric) => s"""${label.name}="$metric"""" }.mkString("{", ",", "}")
+        labels.map { case (label, metric) => s"""${label.name}="$metric"""" }
+          .mkString("{", ",", "}")
     }
 
     values.map { metric =>
@@ -31,14 +32,17 @@ object TextFormat extends RegistryFormat {
       metric.metrics foreach { rm =>
         rm match {
           case GaugeMetric(labels, value) =>
-            sb.append(s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+            sb.append(
+              s"${metric.name.name}${labelsToString(labels)} ${value}\n")
           case CounterMetric(labels, value) =>
-            sb.append(s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+            sb.append(
+              s"${metric.name.name}${labelsToString(labels)} ${value}\n")
           case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
             val labelStr = labelsToString(labels)
             buckets foreach { bucket =>
-              sb.append(s"${metric.name.name}_bucket${labelsToString(
-                label"le" -> prometheusDoubleFormat(bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
+              sb.append(
+                s"${metric.name.name}_bucket${labelsToString(label"le" -> prometheusDoubleFormat(
+                  bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
             }
             sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")

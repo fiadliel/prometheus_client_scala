@@ -6,7 +6,8 @@ class DefaultRegistry extends Registry {
   @volatile private[client] var collectors: Vector[MetricFamily] = Vector.empty
 
   override def unsafeRegister(c: MetricFamily): Unit = {
-    require(collectors.forall(_.name.name != c.name.name), s"Duplicate collector with prefix ${c.name.name}")
+    require(collectors.forall(_.name.name != c.name.name),
+            s"Duplicate collector with prefix ${c.name.name}")
     collectors = (collectors :+ c).sortBy(_.name.name)
   }
 

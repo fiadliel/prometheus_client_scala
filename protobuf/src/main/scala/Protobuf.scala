@@ -7,11 +7,15 @@ import org.lyranthe.prometheus.client.registry._
 object Protobuf {
 
   def labelPairs(labels: List[(LabelName, String)]): List[PB.LabelPair] = {
-    labels.map(lp => PB.LabelPair.newBuilder.setName(lp._1.name).setValue(lp._2).build)
+    labels.map(lp =>
+      PB.LabelPair.newBuilder.setName(lp._1.name).setValue(lp._2).build)
   }
 
   def convertBucket(bucket: Bucket): PB.Bucket = {
-    PB.Bucket.newBuilder.setCumulativeCount(bucket.cumulativeCount).setUpperBound(bucket.upperBound).build
+    PB.Bucket.newBuilder
+      .setCumulativeCount(bucket.cumulativeCount)
+      .setUpperBound(bucket.upperBound)
+      .build
   }
 
   def convertMetric(metric: Metric): PB.Metric = {
@@ -56,9 +60,10 @@ object Protobuf {
         .build
 
       val serializedSize = proto.getSerializedSize
-      val sizeTagSize    = CodedOutputStream.computeUInt32SizeNoTag(serializedSize)
-      val arr            = new Array[Byte](sizeTagSize + serializedSize)
-      val outputStream   = CodedOutputStream.newInstance(arr)
+      val sizeTagSize =
+        CodedOutputStream.computeUInt32SizeNoTag(serializedSize)
+      val arr          = new Array[Byte](sizeTagSize + serializedSize)
+      val outputStream = CodedOutputStream.newInstance(arr)
 
       outputStream.writeRawVarint32(serializedSize)
       proto.writeTo(outputStream)

@@ -10,7 +10,9 @@ import org.lyranthe.prometheus.client.registry._
   *
   * @param name The name of the internal.gauge
   */
-final case class Gauge0 private[client] (name: MetricName, help: String, initialValue: Option[Double] = None)
+final case class Gauge0 private[client] (name: MetricName,
+                                         help: String,
+                                         initialValue: Option[Double] = None)
     extends LabelledGauge(name, List.empty, new SynchronizedDoubleAdder)
     with MetricFamily {
   override val metricType = MetricType.Gauge

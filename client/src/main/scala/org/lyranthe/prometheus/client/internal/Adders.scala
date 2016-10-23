@@ -10,7 +10,9 @@ private[client] trait Adder[AdderType <: AnyVal] {
   def sum(): AdderType
 }
 
-private[client] class UnsynchronizedDoubleAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder[Double] {
+private[client] class UnsynchronizedDoubleAdder(
+    underlying: DoubleAdder = new DoubleAdder)
+    extends Adder[Double] {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -19,7 +21,9 @@ private[client] class UnsynchronizedDoubleAdder(underlying: DoubleAdder = new Do
   }
 }
 
-private[client] class UnsynchronizedLongAdder(underlying: LongAdder = new LongAdder) extends Adder[Long] {
+private[client] class UnsynchronizedLongAdder(
+    underlying: LongAdder = new LongAdder)
+    extends Adder[Long] {
   def add(value: Long): Unit =
     underlying.add(value)
 
@@ -28,7 +32,9 @@ private[client] class UnsynchronizedLongAdder(underlying: LongAdder = new LongAd
   }
 }
 
-private[client] class SynchronizedDoubleAdder(underlying: DoubleAdder = new DoubleAdder) extends Adder[Double] {
+private[client] class SynchronizedDoubleAdder(
+    underlying: DoubleAdder = new DoubleAdder)
+    extends Adder[Double] {
   def add(value: Double): Unit =
     underlying.add(value)
 
@@ -43,7 +49,9 @@ private[client] class SynchronizedDoubleAdder(underlying: DoubleAdder = new Doub
   }
 }
 
-private[client] class Adders[A, B <: Adder[Double]](init: => B, initialValue: Option[Double] = None) {
+private[client] class Adders[A, B <: Adder[Double]](
+    init: => B,
+    initialValue: Option[Double] = None) {
   val adders = new ConcurrentHashMap[A, B]()
   def apply(key: A): B = {
     Option(adders.get(key)) getOrElse {
@@ -68,14 +76,20 @@ private[client] class Adders[A, B <: Adder[Double]](init: => B, initialValue: Op
 }
 
 private[client] class BucketedAdders[A](bucketValues: Array[Double]) {
-  val adders = new ConcurrentHashMap[A, (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)])]
+  val adders =
+    new ConcurrentHashMap[A,
+                          (UnsynchronizedDoubleAdder,
+                           Array[(Double, UnsynchronizedLongAdder)])]
 
-  def apply(key: A): (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)]) = {
+  def apply(key: A)
+    : (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)]) = {
     val value = adders.get(key)
     if (value != null)
       value
     else {
-      adders.putIfAbsent(key, (new UnsynchronizedDoubleAdder, bucketValues.map(_ -> new UnsynchronizedLongAdder)))
+      adders.putIfAbsent(key,
+                         (new UnsynchronizedDoubleAdder,
+                          bucketValues.map(_ -> new UnsynchronizedLongAdder)))
       adders.get(key)
     }
   }
