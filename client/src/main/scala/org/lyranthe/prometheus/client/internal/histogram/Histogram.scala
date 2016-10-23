@@ -4,10 +4,12 @@ import org.lyranthe.prometheus.client.internal.{UnsynchronizedDoubleAdder, Unsyn
 
 private[client] object Histogram {
   def observe(adders: (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)]), v: Double): Unit = {
-    adders._2.foreach {
-      case (upperBound, adder) =>
-        if (v <= upperBound)
-          adder.add(1)
+    var i: Int = 0
+    while (i < adders._2.length) {
+      val indexed = adders._2(i)
+      if (v <= indexed._1)
+        indexed._2.add(1)
+      i = i + 1
     }
 
     adders._1.add(v)

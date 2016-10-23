@@ -67,15 +67,15 @@ private[client] class Adders[A, B <: Adder[Double]](init: => B, initialValue: Op
     } toList
 }
 
-private[client] class BucketedAdders[A](bucketValues: List[Double]) {
+private[client] class BucketedAdders[A](bucketValues: Array[Double]) {
   val adders = new ConcurrentHashMap[A, (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)])]
+
   def apply(key: A): (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)]) = {
-    Option(adders.get(key)) getOrElse {
-      adders.putIfAbsent(
-        key,
-        (new UnsynchronizedDoubleAdder,
-         bucketValues.map { _ -> new UnsynchronizedLongAdder }(collection.breakOut): Array[(Double,
-                                                                                            UnsynchronizedLongAdder)]))
+    val value = adders.get(key)
+    if (value != null)
+      value
+    else {
+      adders.putIfAbsent(key, (new UnsynchronizedDoubleAdder, bucketValues.map(_ -> new UnsynchronizedLongAdder)))
       adders.get(key)
     }
   }

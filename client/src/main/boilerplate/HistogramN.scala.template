@@ -5,7 +5,7 @@ import org.lyranthe.prometheus.client.internal._
 
 [#
 private[client] final case class Histogram1(name: MetricName, help: String, labels: List[LabelName], bucketValues: List[Double]) extends MetricFamily {
-  private[client] val adders = new BucketedAdders[Tuple1[[#String#]]](bucketValues)
+  private[client] val adders = new BucketedAdders[Tuple1[[#String#]]](bucketValues.toArray)
 
   override final val metricType = MetricType.Histogram
 

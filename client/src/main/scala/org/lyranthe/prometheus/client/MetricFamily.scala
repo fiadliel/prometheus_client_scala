@@ -2,6 +2,10 @@ package org.lyranthe.prometheus.client
 
 import org.lyranthe.prometheus.client.internal.Metric
 
+/** A metric family represents a counter, gauge or histogram metric.
+  *
+  * These
+  */
 trait MetricFamily {
   def name: MetricName
   def help: String
