@@ -1,0 +1,12 @@
+package org.lyranthe.prometheus.client
+
+import counter._
+
+case class Counter(name: MetricName, help: String) {
+  def labels(): Counter0 = Counter0(name, help)
+
+  [#
+  def labels([#labelName1: LabelName#]): Counter1 = Counter1(name, help, List([#labelName1#]))
+  #
+  ]
+}

@@ -1,0 +1,12 @@
+package org.lyranthe.prometheus.client
+
+import histogram._
+
+case class Histogram(name: MetricName, help: String)(implicit hb: HistogramBuckets) {
+  def labels(): Histogram0 = Histogram0(name, help, hb.buckets)
+
+  [#
+  def labels([#labelName1: LabelName#]): Histogram1 = Histogram1(name, help, List([#labelName1#]), hb.buckets)
+  #
+  ]
+}
