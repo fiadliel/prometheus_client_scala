@@ -1,11 +1,11 @@
-package org.lyranthe.prometheus.client.internal.histogram
+package org.lyranthe.prometheus.client.histogram
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 import org.lyranthe.prometheus.client.registry._
 
 [#
-private[client] final case class Histogram1(name: MetricName, help: String, labels: List[LabelName], bucketValues: List[Double]) extends MetricFamily {
+final case class Histogram1 private[client] (name: MetricName, help: String, labels: List[LabelName], bucketValues: List[Double]) extends MetricFamily {
   private[client] val adders = new BucketedAdders[Tuple1[[#String#]]](bucketValues.toArray)
 
   override final val metricType = MetricType.Histogram

@@ -5,9 +5,9 @@ import java.time.Clock
 import fs2._
 import fs2.util.{Attempt, Effect}
 import fs2.util.syntax._
-import org.lyranthe.prometheus.client.internal.counter.LabelledCounter
-import org.lyranthe.prometheus.client.internal.gauge.LabelledGauge
-import org.lyranthe.prometheus.client.internal.histogram.LabelledHistogram
+import org.lyranthe.prometheus.client.counter.LabelledCounter
+import org.lyranthe.prometheus.client.gauge.LabelledGauge
+import org.lyranthe.prometheus.client.histogram.LabelledHistogram
 
 object fs2_syntax {
   implicit class EffectExtraSyntax[F[_], A](val underlying: F[A]) extends AnyVal {

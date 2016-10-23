@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal.histogram
+package org.lyranthe.prometheus.client.histogram
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
@@ -8,7 +8,7 @@ import org.lyranthe.prometheus.client.registry._
   *
   * @param name The name of the internal.histogram
   */
-private[client] final case class Histogram0(name: MetricName, help: String, bucketValues: List[Double])
+final case class Histogram0 private[client] (name: MetricName, help: String, bucketValues: List[Double])
     extends LabelledHistogram(name, List.empty, (new UnsynchronizedDoubleAdder, bucketValues.sorted.map {
       _ -> new UnsynchronizedLongAdder
     }(collection.breakOut)))

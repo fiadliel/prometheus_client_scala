@@ -1,8 +1,8 @@
-package org.lyranthe.prometheus.client.internal.histogram
+package org.lyranthe.prometheus.client.histogram
 
 import org.lyranthe.prometheus.client._
 
-private[client] case class UnlabelledHistogram(name: MetricName, help: String, bucketValues: List[Double]) {
+case class UnlabelledHistogram private[client] (name: MetricName, help: String, bucketValues: List[Double]) {
   def labels(): Histogram0 = Histogram0(name, help, bucketValues)
 
   [#

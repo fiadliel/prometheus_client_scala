@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal.histogram
+package org.lyranthe.prometheus.client.histogram
 
 import org.lyranthe.prometheus.client.internal.{UnsynchronizedDoubleAdder, UnsynchronizedLongAdder}
 

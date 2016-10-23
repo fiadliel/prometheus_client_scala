@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal.counter
+package org.lyranthe.prometheus.client.counter
 
 import org.lyranthe.prometheus.client.{LabelName, MetricName}
 import org.lyranthe.prometheus.client.internal.UnsynchronizedDoubleAdder

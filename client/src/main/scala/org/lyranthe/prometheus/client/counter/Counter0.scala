@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal.counter
+package org.lyranthe.prometheus.client.counter
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
@@ -11,7 +11,7 @@ import org.lyranthe.prometheus.client.registry._
   * @param name The name of the counter.
   * @param help The help text for the counter.
   */
-private[client] final case class Counter0(name: MetricName, help: String)
+final case class Counter0 private[client] (name: MetricName, help: String)
     extends LabelledCounter(name, List.empty, new UnsynchronizedDoubleAdder)
     with MetricFamily {
   override val metricType = MetricType.Counter

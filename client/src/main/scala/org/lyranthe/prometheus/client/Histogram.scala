@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.histogram.UnlabelledHistogram
+import org.lyranthe.prometheus.client.histogram.UnlabelledHistogram
 
 import scala.language.experimental.macros
 

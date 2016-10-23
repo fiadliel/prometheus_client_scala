@@ -1,6 +1,6 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.gauge.UnlabelledGauge
+import org.lyranthe.prometheus.client.gauge.UnlabelledGauge
 
 object Gauge {
   def apply(name: MetricName, help: String): UnlabelledGauge =

@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal.gauge
+package org.lyranthe.prometheus.client.gauge
 
 import java.time.{Clock, Duration, Instant}
 

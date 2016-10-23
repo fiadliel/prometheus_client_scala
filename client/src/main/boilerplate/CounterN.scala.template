@@ -1,11 +1,11 @@
-package org.lyranthe.prometheus.client.internal.counter
+package org.lyranthe.prometheus.client.counter
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 import org.lyranthe.prometheus.client.registry._
 
 [#
-private[client] final case class Counter1(name: MetricName, help: String, labels: List[LabelName]) extends MetricFamily {
+final case class Counter1 private[client] (name: MetricName, help: String, labels: List[LabelName]) extends MetricFamily {
   private[client] val adders = new Adders[Tuple1[[#String#]], UnsynchronizedDoubleAdder](new UnsynchronizedDoubleAdder)
 
   override final val metricType = MetricType.Counter
