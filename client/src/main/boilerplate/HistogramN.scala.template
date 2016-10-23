@@ -4,29 +4,27 @@ import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 
 [#
-private[client] final case class Histogram1(name: MetricName, help: String, labels: List[LabelName], buckets: List[(Double, Int)]) extends PrefixedCollector {
-  private[client] val adders = new BucketedAdders[Tuple1[[#String#]], UnsynchronizedAdder](new UnsynchronizedAdder, buckets.size + 1, None)
+private[client] final case class Histogram1(name: MetricName, help: String, labels: List[LabelName], bucketValues: List[Double]) extends MetricFamily {
+  private[client] val adders = new BucketedAdders[Tuple1[[#String#]]](bucketValues)
 
-  override final val collectorType = CollectorType.Histogram
+  override final val metricType = MetricType.Histogram
 
   def labelValues([#labelValue1: String#]): LabelledHistogram =
-    new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])), buckets)
+    new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])))
 
   def remove([#labelValue1: String#]): Unit =
-    adders.remove(Tuple1([#labelValue1: String#]))
+    adders.remove(Tuple1([#labelValue1#]))
 
   def clear(): Unit =
     adders.clear()
 
-  override def collect(): List[RegistryMetric] =
-    adders.getAll.flatMap({
+  override def collect(): List[HistogramMetric] =
+    adders.getAll.map({
       case (labelValues, value) =>
-        val labelsAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-        RegistryMetric(Some("total"), labelsAndValues, value.last) ::
-          RegistryMetric(Some("sum"), labelsAndValues, value(value.length - 2)) ::
-          buckets.map { case (bucket, idx) =>
-            RegistryMetric(Some("bucket"), (label"le" -> HistogramBuckets.prometheusDoubleFormat(bucket)) :: labelsAndValues, value(idx))
-          }
+        val labelAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        HistogramMetric(labelAndValues, value._##2.last._##2, value._##1, value._##2.map {
+          case (bucket, adder) => Bucket(adder, bucket)
+        })
     })
 }#
 ]

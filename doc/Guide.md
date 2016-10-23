@@ -148,7 +148,7 @@ scala> val numErrors = Counter(metric"num_errors", "Total errors").labels().unsa
 numErrors: org.lyranthe.prometheus.client.internal.counter.Counter0 = Counter(MetricName(num_errors))()
 
 scala> val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
-requestLatency: org.lyranthe.prometheus.client.internal.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List((1.0,0), (2.0,1), (5.0,2), (10.0,3), (20.0,4), (50.0,5), (100.0,6), (Infinity,7)))
+requestLatency: org.lyranthe.prometheus.client.internal.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))
 
 scala> activeRequests.set(50)
 
@@ -160,16 +160,16 @@ scala> implicitly[Registry]
 res10: org.lyranthe.prometheus.client.Registry =
 # HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_total{path="/home"} 17.0
-request_latency_sum{path="/home"} 1.0
-request_latency_bucket{le="1.0",path="/home"} 0.0
-request_latency_bucket{le="2.0",path="/home"} 0.0
-request_latency_bucket{le="5.0",path="/home"} 0.0
-request_latency_bucket{le="10.0",path="/home"} 0.0
-request_latency_bucket{le="20.0",path="/home"} 1.0
-request_latency_bucket{le="50.0",path="/home"} 1.0
-request_latency_bucket{le="100.0",path="/home"} 1.0
-request_latency_bucket{le="+Inf",path="/home"} 1.0
+request_latency_bucket{le="1.0",path="/home"} 0
+request_latency_bucket{le="2.0",path="/home"} 0
+request_latency_bucket{le="5.0",path="/home"} 0
+request_latency_bucket{le="10.0",path="/home"} 0
+request_latency_bucket{le="20.0",path="/home"} 1
+request_latency_bucket{le="50.0",path="/home"} 1
+request_latency_bucket{le="100.0",path="/home"} 1
+request_latency_bucket{le="+Inf",path="/home"} 1
+request_latency_count{path="/home"} 1
+request_latency_sum{path="/home"} 17.0
 # HELP num_errors Total errors
 # TYPE num_errors counter
 num_errors 1.0
@@ -205,7 +205,7 @@ scala> implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.
 histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(0.02,0.05,0.1,0.2,0.5,1.0,Infinity)
 
 scala> val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
-requestLatency: org.lyranthe.prometheus.client.internal.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List((0.02,0), (0.05,1), (0.1,2), (0.2,3), (0.5,4), (1.0,5), (Infinity,6)))
+requestLatency: org.lyranthe.prometheus.client.internal.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))
 
 scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 mySleepyTask: fs2.Task[Unit] = Task
@@ -219,15 +219,15 @@ scala> implicitly[Registry]
 res1: org.lyranthe.prometheus.client.Registry =
 # HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_total{path="/home"} 4.333473068
-request_latency_sum{path="/home"} 9.0
-request_latency_bucket{le="0.02",path="/home"} 0.0
-request_latency_bucket{le="0.05",path="/home"} 0.0
-request_latency_bucket{le="0.1",path="/home"} 1.0
-request_latency_bucket{le="0.2",path="/home"} 1.0
-request_latency_bucket{le="0.5",path="/home"} 5.0
-request_latency_bucket{le="1.0",path="/home"} 9.0
-request_latency_bucket{le="+Inf",path="/home"} 9.0
+request_latency_bucket{le="0.02",path="/home"} 0
+request_latency_bucket{le="0.05",path="/home"} 0
+request_latency_bucket{le="0.1",path="/home"} 0
+request_latency_bucket{le="0.2",path="/home"} 4
+request_latency_bucket{le="0.5",path="/home"} 6
+request_latency_bucket{le="1.0",path="/home"} 9
+request_latency_bucket{le="+Inf",path="/home"} 9
+request_latency_count{path="/home"} 9
+request_latency_sum{path="/home"} 3.398811496
 ```
 
 ## Exposing JMX Statistics
@@ -253,27 +253,27 @@ jvm_threads{type="non-daemon"} 11.0
 jvm_threads{type="daemon"} 4.0
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.47665917669E9
+jvm_start_time 1.477244444947E9
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 1.086324736E9
+jvm_memory_usage{region="heap",type="committed"} 1.038614528E9
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
-jvm_memory_usage{region="heap",type="max"} 1.908932608E9
-jvm_memory_usage{region="heap",type="used"} 5.00324592E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.39476992E8
+jvm_memory_usage{region="heap",type="max"} 1.431830528E9
+jvm_memory_usage{region="heap",type="used"} 2.84849344E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.48914176E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",type="used"} 1.367876E8
+jvm_memory_usage{region="non-heap",type="used"} 1.47149728E8
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name="PS Scavenge",type="count"} 8.0
-jvm_gc_stats{name="PS Scavenge",type="time"} 0.134
+jvm_gc_stats{name="PS Scavenge",type="count"} 9.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.176
 jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
-jvm_gc_stats{name="PS MarkSweep",type="time"} 0.357
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.325
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader="loaded"} 14271.0
-jvm_classloader{classloader="total-loaded"} 14345.0
-jvm_classloader{classloader="unloaded"} 74.0
+jvm_classloader{classloader="loaded"} 15230.0
+jvm_classloader{classloader="total-loaded"} 15305.0
+jvm_classloader{classloader="unloaded"} 75.0
 
 ```

@@ -10,10 +10,10 @@ import org.lyranthe.prometheus.client.internal._
   * @param name The name of the counter
   */
 private[client] final case class Counter0(name: MetricName, help: String)
-    extends LabelledCounter(name, List.empty, new UnsynchronizedAdder())
-    with PrefixedCollector {
-  override final val collectorType = CollectorType.Counter
+    extends LabelledCounter(name, List.empty, new UnsynchronizedDoubleAdder)
+    with MetricFamily {
+  override val metricType = MetricType.Counter
 
-  override def collect(): List[RegistryMetric] =
-    RegistryMetric(None, List.empty, adder.sum) :: Nil
+  override def collect(): List[Metric] =
+    CounterMetric(List.empty, adder.sum) :: Nil
 }

@@ -4,10 +4,10 @@ import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
 
 [#
-private[client] final case class Gauge1(name: MetricName, help: String, labels: List[LabelName], initialValue: Option[Double] = None) extends PrefixedCollector {
-  private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedAdder](new SynchronizedAdder)
+private[client] final case class Gauge1(name: MetricName, help: String, labels: List[LabelName], initialValue: Option[Double] = None) extends MetricFamily {
+  private[client] val adders = new Adders[Tuple1[[#String#]], SynchronizedDoubleAdder](new SynchronizedDoubleAdder)
 
-  override final val collectorType = CollectorType.Gauge
+  override final val metricType = MetricType.Gauge
 
   def labelValues([#labelValue1: String#]): LabelledGauge =
     new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])), initialValue)
@@ -18,11 +18,11 @@ private[client] final case class Gauge1(name: MetricName, help: String, labels: 
   def clear(): Unit =
     adders.clear()
 
-  override def collect(): List[RegistryMetric] =
+  override def collect(): List[Metric] =
     adders.getAll.map({
       case (labelValues, value) =>
         val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
-        RegistryMetric(None, labelAndValue, value)
+        GaugeMetric(labelAndValue, value)
     })
 }#
 ]

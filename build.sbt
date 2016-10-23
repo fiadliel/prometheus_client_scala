@@ -1,3 +1,5 @@
+import sbtprotobuf.{ProtobufPlugin=>PB}
+
 organization in Global := "org.lyranthe.prometheus"
 
 scalaVersion in ThisBuild := "2.11.8"
@@ -54,6 +56,13 @@ val client =
         raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/client_${scalaBinaryVersion.value}/${version.value}/client_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
     .dependsOn(macros)
+
+val protobuf =
+  project
+    .in(file("protobuf"))
+    .settings(publishSettings)
+    .settings(PB.protobufSettings)
+    .dependsOn(client)
 
 val fs2 =
   project

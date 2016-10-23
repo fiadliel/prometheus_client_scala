@@ -1,9 +1,9 @@
 package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.internal.Collector
+import org.lyranthe.prometheus.client.internal.{CounterMetric, GaugeMetric, HistogramMetric}
 
 trait Registry {
-  def unsafeRegister(c: Collector): Unit
+  def unsafeRegister(c: MetricFamily): Unit
   def collect(): List[RegistryMetrics]
   override def toString: String = {
     def labelsToString(labels: List[(LabelName, String)]) = {
@@ -16,25 +16,23 @@ trait Registry {
     val sb = new StringBuilder
 
     collect().foreach { metric =>
-      if (metric.name.isDefined) {
-        sb.append(s"# HELP ${metric.name.get.name} ${metric.help}\n")
-        sb.append(s"# TYPE ${metric.name.get.name} ${metric.collectorType}\n")
-      }
+      sb.append(s"# HELP ${metric.name.name} ${metric.help}\n")
+      sb.append(s"# TYPE ${metric.name.name} ${metric.metricType.toString}\n")
       metric.metrics foreach { rm =>
-        (metric.name, rm.suffix) match {
-          case (Some(m), Some(s)) =>
-            sb.append(s"${m.name}_$s")
-          case (Some(m), None) =>
-            sb.append(m.name)
-          case (None, Some(s)) =>
-            sb.append(s"# TYPE $s ${metric.collectorType}\n")
-            sb.append(s)
-          case (None, None) =>
+        rm match {
+          case GaugeMetric(labels, value) =>
+            sb.append(s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+          case CounterMetric(labels, value) =>
+            sb.append(s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+          case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
+            val labelStr = labelsToString(labels)
+            buckets foreach { bucket =>
+              sb.append(s"${metric.name.name}_bucket${labelsToString(label"le" -> HistogramBuckets
+                .prometheusDoubleFormat(bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
+            }
+            sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
+            sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")
         }
-        sb.append(labelsToString(rm.labels))
-        sb.append(" ")
-        sb.append(rm.value)
-        sb.append("\n")
       }
     }
 

@@ -2,19 +2,16 @@ package org.lyranthe.prometheus.client
 
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
-import org.lyranthe.prometheus.client.internal.Collector
-
 class DefaultRegistry extends Registry {
-  private[this] val rwLock                          = new ReentrantReadWriteLock
-  private[client] var collectors: Vector[Collector] = Vector.empty
+  private[this] val rwLock                             = new ReentrantReadWriteLock
+  private[client] var collectors: Vector[MetricFamily] = Vector.empty
 
-  override def unsafeRegister(c: Collector): Unit = {
+  override def unsafeRegister(c: MetricFamily): Unit = {
     rwLock.writeLock().lock()
     try {
-      require(collectors.forall(_.underlyingName != c.underlyingName || c.underlyingName.isEmpty),
-              s"Duplicate collector with prefix ${c.underlyingName.get}")
+      require(collectors.forall(_.name.name != c.name.name), s"Duplicate collector with prefix ${c.name.name}")
 
-      collectors = (collectors :+ c).sortBy(_.underlyingName.map(_.name))
+      collectors = (collectors :+ c).sortBy(_.name.name)
     } finally {
       rwLock.writeLock().unlock()
     }
@@ -25,7 +22,7 @@ class DefaultRegistry extends Registry {
     try {
       collectors.foldLeft(List.empty[RegistryMetrics])({
         case (metrics, c) =>
-          RegistryMetrics(c.underlyingName, c.help, c.collectorType.toString, c.collect()) :: metrics
+          RegistryMetrics(c.name, c.help, c.metricType, c.collect()) :: metrics
       })
     } finally {
       rwLock.readLock().unlock()

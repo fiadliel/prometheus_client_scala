@@ -10,12 +10,12 @@ import org.lyranthe.prometheus.client.internal._
   * @param name The name of the internal.gauge
   */
 private[client] final case class Gauge0(name: MetricName, help: String, initialValue: Option[Double] = None)
-    extends LabelledGauge(name, List.empty, new SynchronizedAdder)
-    with PrefixedCollector {
-  override final val collectorType = CollectorType.Gauge
+    extends LabelledGauge(name, List.empty, new SynchronizedDoubleAdder)
+    with MetricFamily {
+  override val metricType = MetricType.Gauge
 
-  override def collect(): List[RegistryMetric] =
+  override def collect(): List[Metric] =
     synchronized {
-      RegistryMetric(None, List.empty, adder.sum()) :: Nil
+      GaugeMetric(List.empty, adder.sum) :: Nil
     }
 }

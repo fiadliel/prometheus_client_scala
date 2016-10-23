@@ -1,16 +1,15 @@
 package org.lyranthe.prometheus.client.internal.histogram
 
-import org.lyranthe.prometheus.client.internal.UnsynchronizedAdder
+import org.lyranthe.prometheus.client.internal.{UnsynchronizedDoubleAdder, UnsynchronizedLongAdder}
 
 private[client] object Histogram {
-  def observe(bucketValues: Seq[(Double, Int)], buckets: Array[UnsynchronizedAdder], v: Double): Unit = {
-    bucketValues.foreach {
-      case (upperBound, idx) =>
+  def observe(adders: (UnsynchronizedDoubleAdder, Array[(Double, UnsynchronizedLongAdder)]), v: Double): Unit = {
+    adders._2.foreach {
+      case (upperBound, adder) =>
         if (v <= upperBound)
-          buckets(idx).add(1d)
+          adder.add(1)
     }
 
-    // Last value in array contains sum of observations
-    buckets(buckets.length - 1).add(v)
+    adders._1.add(v)
   }
 }
