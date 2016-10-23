@@ -2,6 +2,7 @@ package org.lyranthe.prometheus.client.internal.gauge
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
+import org.lyranthe.prometheus.client.registry._
 
 [#
 private[client] final case class Gauge1(name: MetricName, help: String, labels: List[LabelName], initialValue: Option[Double] = None) extends MetricFamily {

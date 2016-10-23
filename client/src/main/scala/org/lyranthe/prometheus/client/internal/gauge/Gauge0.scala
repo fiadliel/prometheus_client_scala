@@ -2,7 +2,7 @@ package org.lyranthe.prometheus.client.internal.gauge
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
-import org.lyranthe.prometheus.client.registry.{GaugeMetric, Metric, MetricFamily}
+import org.lyranthe.prometheus.client.registry._
 
 /** This represents a Prometheus internal.gauge with no labels.
   *
