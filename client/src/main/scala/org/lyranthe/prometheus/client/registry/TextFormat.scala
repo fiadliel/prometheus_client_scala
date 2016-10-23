@@ -5,6 +5,17 @@ import org.lyranthe.prometheus.client._
 object TextFormat extends RegistryFormat {
   type Out = String
 
+  def prometheusDoubleFormat(d: Double): String = {
+    if (d == Double.PositiveInfinity)
+      "+Inf"
+    else if (d == Double.NegativeInfinity)
+      "-Inf"
+    else if (d.isNaN)
+      "NaN"
+    else
+      d.toString
+  }
+
   def output(values: => Iterator[RegistryMetrics]): Iterator[String] = {
     def labelsToString(labels: List[(LabelName, String)]) = {
       if (labels.isEmpty)
@@ -26,8 +37,8 @@ object TextFormat extends RegistryFormat {
           case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
             val labelStr = labelsToString(labels)
             buckets foreach { bucket =>
-              sb.append(s"${metric.name.name}_bucket${labelsToString(label"le" -> HistogramBuckets
-                .prometheusDoubleFormat(bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
+              sb.append(s"${metric.name.name}_bucket${labelsToString(
+                label"le" -> prometheusDoubleFormat(bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
             }
             sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")

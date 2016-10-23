@@ -17,16 +17,6 @@ object HistogramBuckets {
     withInf.toList
   }
 
-  def prometheusDoubleFormat(d: Double): String = {
-    if (d == Double.PositiveInfinity)
-      "+Inf"
-    else if (d == Double.NegativeInfinity)
-      "-Inf"
-    else if (d.isNaN)
-      "NaN"
-    else
-      d.toString
-  }
 
   def apply(bucketList: Double*) = new HistogramBuckets {
     override val buckets: List[Double] = bucketsWithInf(bucketList)
