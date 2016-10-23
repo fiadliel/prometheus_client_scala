@@ -127,7 +127,7 @@ val requestLatency = Histogram(metric"request_latency", "Request latency").label
 activeRequests.set(50)
 numErrors.inc
 requestLatency.labelValues("/home").observe(17)
-implicitly[Registry]
+defaultRegistry
 ```
 
 ## Using with FS2 Task (WIP)
@@ -156,7 +156,7 @@ val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/ho
 
 for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
-implicitly[Registry]
+registry
 ```
 
 ## Exposing JMX Statistics
@@ -164,7 +164,7 @@ implicitly[Registry]
 Some JVM statistics can be exposed with:
 
 ```tut:silent
-implicit val registry = DefaultRegistry()
+implicit val defaultRegistry = DefaultRegistry()
 ```
 ```tut
 import fs2._
@@ -172,5 +172,5 @@ import org.lyranthe.prometheus.client._
 
 jmx.unsafeRegister
 
-println(implicitly[Registry])
+println(defaultRegistry)
 ```

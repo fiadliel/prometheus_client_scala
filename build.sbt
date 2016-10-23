@@ -10,6 +10,8 @@ scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups", "-implicits", "-
 sonatypeProfileName := "org.lyranthe"
 publishArtifact in ThisBuild := false
 
+enablePlugins(MicrositesPlugin)
+
 val publishSettings = Seq(
   mimaPreviousArtifacts := Set(organization.value %% name.value % "0.2.0"),
   publishArtifact := true,
@@ -37,6 +39,13 @@ val publishSettings = Seq(
 )
 
 scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
+micrositeName := "Prometheus Scala Client"
+micrositeDescription := "Scala client for Prometheus monitoring system"
+micrositeAuthor := "Gary Coady <gary@lyranthe.org>"
+micrositeGithubOwner := "fiadliel"
+micrositeGithubRepo := "prometheus_client_scala"
+
+lazy val root = project.in(file(".")).dependsOn(client, fs2)
 
 val macros =
   project
@@ -74,16 +83,6 @@ val fs2 =
         raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/fs2_${scalaBinaryVersion.value}/${version.value}/fs2_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
     .dependsOn(client)
-
-val prom_doc =
-  project
-    .in(file("doc"))
-    .settings(tutSettings)
-    .settings(
-      tutSourceDirectory := baseDirectory.value / "src",
-      tutTargetDirectory := baseDirectory.value
-    )
-    .dependsOn(client, fs2)
 
 val benchmark =
   project
