@@ -2,6 +2,7 @@ package org.lyranthe.prometheus.client.internal.counter
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
+import org.lyranthe.prometheus.client.registry.{CounterMetric, Metric, MetricFamily}
 
 /** This represents a Prometheus counter metric with 0 labels.
   *

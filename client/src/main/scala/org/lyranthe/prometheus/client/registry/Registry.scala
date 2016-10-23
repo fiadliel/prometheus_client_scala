@@ -1,6 +1,6 @@
-package org.lyranthe.prometheus.client
+package org.lyranthe.prometheus.client.registry
 
-import org.lyranthe.prometheus.client.internal.{CounterMetric, GaugeMetric, HistogramMetric}
+import org.lyranthe.prometheus.client._
 
 trait Registry {
   def unsafeRegister(c: MetricFamily): Unit

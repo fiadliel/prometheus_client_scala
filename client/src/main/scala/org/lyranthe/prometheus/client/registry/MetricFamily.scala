@@ -1,6 +1,6 @@
-package org.lyranthe.prometheus.client
+package org.lyranthe.prometheus.client.registry
 
-import org.lyranthe.prometheus.client.internal.Metric
+import org.lyranthe.prometheus.client._
 
 /** A metric family represents a counter, gauge or histogram metric.
   *

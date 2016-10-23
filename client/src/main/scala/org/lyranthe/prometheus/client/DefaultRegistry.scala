@@ -1,5 +1,7 @@
 package org.lyranthe.prometheus.client
 
+import org.lyranthe.prometheus.client.registry._
+
 class DefaultRegistry extends Registry {
   @volatile private[client] var collectors: Vector[MetricFamily] = Vector.empty
 

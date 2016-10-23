@@ -2,6 +2,7 @@ package org.lyranthe.prometheus.client.internal.histogram
 
 import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client.internal._
+import org.lyranthe.prometheus.client.registry.{Bucket, HistogramMetric, MetricFamily}
 
 /** This represents a Prometheus internal.histogram with no labels.
   *

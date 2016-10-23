@@ -1,4 +1,4 @@
-package org.lyranthe.prometheus.client.internal
+package org.lyranthe.prometheus.client.registry
 
 import org.lyranthe.prometheus.client.LabelName
 

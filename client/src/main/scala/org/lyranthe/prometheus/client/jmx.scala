@@ -2,7 +2,7 @@ package org.lyranthe.prometheus.client
 
 import java.lang.management._
 
-import org.lyranthe.prometheus.client.internal.{GaugeMetric, Metric}
+import org.lyranthe.prometheus.client.registry._
 
 import scala.collection.JavaConverters._
 

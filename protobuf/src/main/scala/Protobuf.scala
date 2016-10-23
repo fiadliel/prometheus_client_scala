@@ -2,6 +2,7 @@ package org.lyranthe.prometheus.client
 
 import com.google.protobuf.CodedOutputStream
 import io.prometheus.client.{Metrics => PB}
+import org.lyranthe.prometheus.client.registry._
 
 object Protobuf {
 
@@ -9,22 +10,22 @@ object Protobuf {
     labels.map(lp => PB.LabelPair.newBuilder.setName(lp._1.name).setValue(lp._2).build)
   }
 
-  def convertBucket(bucket: internal.Bucket): PB.Bucket = {
+  def convertBucket(bucket: Bucket): PB.Bucket = {
     PB.Bucket.newBuilder.setCumulativeCount(bucket.cumulativeCount).setUpperBound(bucket.upperBound).build
   }
 
-  def convertMetric(metric: internal.Metric): PB.Metric = {
+  def convertMetric(metric: Metric): PB.Metric = {
     import scala.collection.JavaConverters._
 
     val newMetric = PB.Metric.newBuilder
     newMetric.addAllLabel(labelPairs(metric.labels).asJava)
 
     metric match {
-      case internal.GaugeMetric(labels, value) =>
+      case GaugeMetric(labels, value) =>
         newMetric.setGauge(PB.Gauge.newBuilder.setValue(value))
-      case internal.CounterMetric(labels, value) =>
+      case CounterMetric(labels, value) =>
         newMetric.setCounter(PB.Counter.newBuilder.setValue(value))
-      case internal.HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
+      case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
         newMetric.setHistogram(
           PB.Histogram.newBuilder
             .setSampleCount(sampleCount)
