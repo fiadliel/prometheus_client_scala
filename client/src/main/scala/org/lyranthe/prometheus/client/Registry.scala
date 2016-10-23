@@ -4,7 +4,8 @@ import org.lyranthe.prometheus.client.internal.{CounterMetric, GaugeMetric, Hist
 
 trait Registry {
   def unsafeRegister(c: MetricFamily): Unit
-  def collect(): List[RegistryMetrics]
+  def collect(): Iterator[RegistryMetrics]
+
   override def toString: String = {
     def labelsToString(labels: List[(LabelName, String)]) = {
       if (labels.isEmpty)
