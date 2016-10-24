@@ -6,9 +6,9 @@ trait Registry {
   def unsafeRegister(c: MetricFamily): Unit
   def collect(): Iterator[RegistryMetrics]
 
-  def output(format: RegistryFormat): Iterator[Array[Byte]] =
+  def output(format: RegistryFormat): Array[Byte] =
     format.output(collect)
 
   def outputText: String =
-    TextFormat.output(collect).map(new String(_)).mkString
+    new String(TextFormat.output(collect))
 }

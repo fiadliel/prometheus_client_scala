@@ -1,5 +1,7 @@
 package org.lyranthe.prometheus.client.registry
 
+import java.io.ByteArrayOutputStream
+
 import org.lyranthe.prometheus.client._
 
 object TextFormat extends RegistryFormat {
@@ -16,7 +18,9 @@ object TextFormat extends RegistryFormat {
       d.toString
   }
 
-  def output(values: => Iterator[RegistryMetrics]): Iterator[Array[Byte]] = {
+  def output(values: => Iterator[RegistryMetrics]): Array[Byte] = {
+    val outputStream = new ByteArrayOutputStream(4096)
+
     def labelsToString(labels: List[(LabelName, String)]) = {
       if (labels.isEmpty)
         ""
@@ -25,7 +29,7 @@ object TextFormat extends RegistryFormat {
           .mkString("{", ",", "}")
     }
 
-    values.map { metric =>
+    values.foreach { metric =>
       val sb = new StringBuilder
       sb.append(s"# HELP ${metric.name.name} ${metric.help}\n")
       sb.append(s"# TYPE ${metric.name.name} ${metric.metricType.toString}\n")
@@ -48,7 +52,9 @@ object TextFormat extends RegistryFormat {
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")
         }
       }
-      sb.toString.getBytes
+      outputStream.write(sb.toString.getBytes)
     }
+
+    outputStream.toByteArray
   }
 }

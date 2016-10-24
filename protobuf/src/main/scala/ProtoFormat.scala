@@ -1,6 +1,7 @@
 package org.lyranthe.prometheus.client.registry
 
-import com.google.protobuf.CodedOutputStream
+import java.io.ByteArrayOutputStream
+
 import io.prometheus.client.{Metrics => PB}
 import org.lyranthe.prometheus.client._
 
@@ -50,11 +51,12 @@ object ProtoFormat extends RegistryFormat {
     }
   }
 
-  override def output(
-      values: => Iterator[RegistryMetrics]): Iterator[Array[Byte]] = {
+  override def output(values: => Iterator[RegistryMetrics]): Array[Byte] = {
     import scala.collection.JavaConverters._
 
-    values map { metric =>
+    val outputStream = new ByteArrayOutputStream(4096)
+
+    values foreach { metric =>
       val proto = PB.MetricFamily.newBuilder
         .setName(metric.name.name)
         .setHelp(metric.help)
@@ -62,17 +64,9 @@ object ProtoFormat extends RegistryFormat {
         .addAllMetric(metric.metrics.map(convertMetric).asJava)
         .build
 
-      val serializedSize = proto.getSerializedSize
-      val sizeTagSize =
-        CodedOutputStream.computeUInt32SizeNoTag(serializedSize)
-      val arr          = new Array[Byte](sizeTagSize + serializedSize)
-      val outputStream = CodedOutputStream.newInstance(arr)
-
-      outputStream.writeRawVarint32(serializedSize)
       proto.writeTo(outputStream)
-      outputStream.flush
-
-      arr
     }
+
+    outputStream.toByteArray
   }
 }

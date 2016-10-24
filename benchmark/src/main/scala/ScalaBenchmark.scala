@@ -67,5 +67,4 @@ class ScalaBenchmark {
       i += 1
     }
   }
-
 }
