@@ -54,7 +54,7 @@ object ProtoFormat extends RegistryFormat {
   override def output(values: => Iterator[RegistryMetrics]): Array[Byte] = {
     import scala.collection.JavaConverters._
 
-    val outputStream = new ByteArrayOutputStream(4096)
+    val outputStream = new ByteArrayOutputStream(1024)
 
     values foreach { metric =>
       val proto = PB.MetricFamily.newBuilder
@@ -64,7 +64,7 @@ object ProtoFormat extends RegistryFormat {
         .addAllMetric(metric.metrics.map(convertMetric).asJava)
         .build
 
-      proto.writeTo(outputStream)
+      proto.writeDelimitedTo(outputStream)
     }
 
     outputStream.toByteArray
