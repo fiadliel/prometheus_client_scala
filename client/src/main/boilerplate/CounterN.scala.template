@@ -22,7 +22,7 @@ final case class Counter1 private[client] (name: MetricName, help: String, label
   override def collect(): List[Metric] =
     adders.getAll.map({
       case (labelValues, value) =>
-        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        val labelAndValue = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).map((LabelPair.apply _).tupled)
         CounterMetric(labelAndValue, value)
     })
 }#

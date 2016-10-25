@@ -21,12 +21,13 @@ object TextFormat extends RegistryFormat {
   def output(values: => Iterator[RegistryMetrics]): Array[Byte] = {
     val outputStream = new ByteArrayOutputStream(4096)
 
-    def labelsToString(labels: List[(LabelName, String)]) = {
+    def labelsToString(labels: List[LabelPair]) = {
       if (labels.isEmpty)
         ""
       else
-        labels.map { case (label, metric) => s"""${label.name}="$metric"""" }
-          .mkString("{", ",", "}")
+        labels.map {
+          case LabelPair(label, metric) => s"""${label.name}="$metric""""
+        }.mkString("{", ",", "}")
     }
 
     values.foreach { metric =>
@@ -44,9 +45,8 @@ object TextFormat extends RegistryFormat {
           case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
             val labelStr = labelsToString(labels)
             buckets foreach { bucket =>
-              sb.append(
-                s"${metric.name.name}_bucket${labelsToString(label"le" -> prometheusDoubleFormat(
-                  bucket.upperBound) :: labels)} ${bucket.cumulativeCount}\n")
+              sb.append(s"${metric.name.name}_bucket${labelsToString(
+                LabelPair(label"le", prometheusDoubleFormat(bucket.upperBound)) :: labels)} ${bucket.cumulativeCount}\n")
             }
             sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")

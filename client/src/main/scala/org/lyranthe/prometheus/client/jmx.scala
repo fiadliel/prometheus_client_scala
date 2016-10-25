@@ -23,11 +23,11 @@ object jmx {
 
     override def collect(): List[Metric] = {
       gcBeans flatMap { bean =>
-        val nameTuple = label"name" -> bean.getName
+        val nameTuple = LabelPair(label"name", bean.getName)
         List(
-          GaugeMetric(List(nameTuple, label"type" -> "count"),
+          GaugeMetric(List(nameTuple, LabelPair(label"type", "count")),
                       bean.getCollectionCount),
-          GaugeMetric(List(nameTuple, label"type" -> "time"),
+          GaugeMetric(List(nameTuple, LabelPair(label"type", "time")),
                       bean.getCollectionTime / 1e3)
         )
       }
@@ -44,7 +44,8 @@ object jmx {
     override def collect(): List[Metric] = {
       def metrics(region: String, memUsage: MemoryUsage): List[GaugeMetric] = {
         def metric(memType: String, memStatistic: Long): GaugeMetric =
-          GaugeMetric(List(label"region" -> region, label"type" -> memType),
+          GaugeMetric(List(LabelPair(label"region", region),
+                           LabelPair(label"type", memType)),
                       memStatistic)
 
         List(
@@ -70,11 +71,11 @@ object jmx {
 
     override def collect(): List[Metric] = {
       List(
-        GaugeMetric(List(label"classloader" -> "loaded"),
+        GaugeMetric(List(LabelPair(label"classloader", "loaded")),
                     clBean.getLoadedClassCount),
-        GaugeMetric(List(label"classloader" -> "total-loaded"),
+        GaugeMetric(List(LabelPair(label"classloader", "total-loaded")),
                     clBean.getTotalLoadedClassCount),
-        GaugeMetric(List(label"classloader" -> "unloaded"),
+        GaugeMetric(List(LabelPair(label"classloader", "unloaded")),
                     clBean.getUnloadedClassCount)
       )
     }
@@ -103,8 +104,8 @@ object jmx {
       val daemon = threadBean.getDaemonThreadCount
       val all    = threadBean.getThreadCount
       List(
-        GaugeMetric(List(label"type" -> "non-daemon"), all - daemon),
-        GaugeMetric(List(label"type" -> "daemon"), daemon)
+        GaugeMetric(List(LabelPair(label"type", "non-daemon")), all - daemon),
+        GaugeMetric(List(LabelPair(label"type", "daemon")), daemon)
       )
     }
   }

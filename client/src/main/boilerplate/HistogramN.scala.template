@@ -22,7 +22,7 @@ final case class Histogram1 private[client] (name: MetricName, help: String, lab
   override def collect(): List[HistogramMetric] =
     adders.getAll.map({
       case (labelValues, value) =>
-        val labelAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable)
+        val labelAndValues = labels.zip(labelValues.productIterator.asInstanceOf[Iterator[String]].toIterable).map((LabelPair.apply _).tupled)
         HistogramMetric(labelAndValues, value._##2.last._##2, value._##1, value._##2.map {
           case (bucket, adder) => Bucket(adder, bucket)
         })

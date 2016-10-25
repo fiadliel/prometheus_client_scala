@@ -9,9 +9,9 @@ object ProtoFormat extends RegistryFormat {
   override val contentType =
     "application/vnd.google.protobuf; proto=io.prometheus.client.MetricFamily; encoding=delimited"
 
-  def labelPairs(labels: List[(LabelName, String)]): List[PB.LabelPair] = {
+  def labelPairs(labels: List[LabelPair]): List[PB.LabelPair] = {
     labels.map(lp =>
-      PB.LabelPair.newBuilder.setName(lp._1.name).setValue(lp._2).build)
+      PB.LabelPair.newBuilder.setName(lp.name.name).setValue(lp.value).build)
   }
 
   def convertBucket(bucket: Bucket): PB.Bucket = {
