@@ -98,3 +98,15 @@ val benchmark =
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
     )
     .dependsOn(client)
+
+// Site Settings
+import com.typesafe.sbt.site._
+import com.typesafe.sbt.site.SitePlugin.autoImport.siteSubdirName
+import com.typesafe.sbt.site.util.SiteHelpers
+import com.typesafe.sbt.SbtGit.GitKeys._
+
+unidocSettings
+siteSubdirName in SiteScaladoc := "latest/api"
+ghpages.settings
+SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in SiteScaladoc)
+gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
