@@ -13,7 +13,7 @@ class PushRegistry(host: String,
   final private val url = {
     val extra =
       if (additionalLabels.isEmpty) ""
-      else "/" + additionalLabels.mkString("/")
+      else "/" + additionalLabels.flatMap(labels => Vector(labels._1, labels._2)).mkString("/")
     new URL("http", host, port, s"/metrics/job/$job$extra")
   }
 
