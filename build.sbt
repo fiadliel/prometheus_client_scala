@@ -2,7 +2,7 @@ import sbtprotobuf.{ProtobufPlugin => PB}
 
 organization in Global := "org.lyranthe.prometheus"
 
-scalaVersion in ThisBuild := "2.11.8"
+scalaVersion in ThisBuild := "2.12.0"
 crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0")
 
 version in ThisBuild := "git describe --tags --dirty --always".!!
@@ -85,7 +85,7 @@ val benchmark =
     .in(file("benchmark"))
     .enablePlugins(JmhPlugin)
     .settings(
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.16"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.18"
     )
     .dependsOn(client)
 

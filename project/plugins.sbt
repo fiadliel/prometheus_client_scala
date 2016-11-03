@@ -1,7 +1,7 @@
 addSbtPlugin("pl.project13.scala" % "sbt-jmh"         % "0.2.16")
 addSbtPlugin("io.spray"           % "sbt-boilerplate" % "0.6.0")
 addSbtPlugin("org.tpolecat"       % "tut-plugin"      % "0.4.6")
-addSbtPlugin("com.geirsson"       % "sbt-scalafmt"    % "0.4.5")
+addSbtPlugin("com.geirsson"       % "sbt-scalafmt"    % "0.4.8")
 
 // addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.2.4")
 
