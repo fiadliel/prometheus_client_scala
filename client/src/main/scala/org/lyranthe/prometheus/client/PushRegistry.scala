@@ -11,7 +11,9 @@ class PushRegistry(host: String,
                    additionalLabels: Seq[(String, String)])
     extends DefaultRegistry {
   final private val url = {
-    val extra = additionalLabels.mkString("/", "/", "")
+    val extra =
+      if (additionalLabels.isEmpty) ""
+      else "/" + additionalLabels.mkString("/")
     new URL("http", host, port, s"/metrics/job/$job$extra")
   }
 
@@ -21,15 +23,16 @@ class PushRegistry(host: String,
       conn.setRequestMethod("PUT")
       conn.setRequestProperty("Content-Type", "text/plain; version=0.0.4")
       conn.setConnectTimeout(10 * 1000) // 10s
-      conn.setReadTimeout(10 * 1000) // 10s
+      conn.setReadTimeout(10 * 1000)    // 10s
       conn.setDoOutput(true)
       conn.connect()
       val output = new DataOutputStream(conn.getOutputStream)
       output.write(TextFormat.output(collect()))
       output.flush()
+      val responseCode = conn.getResponseCode
       output.close()
 
-      conn.getResponseCode == 202
+      responseCode == 202
     } finally {
       conn.disconnect()
     }
