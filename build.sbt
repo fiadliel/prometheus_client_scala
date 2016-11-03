@@ -3,7 +3,7 @@ import sbtprotobuf.{ProtobufPlugin => PB}
 organization in Global := "org.lyranthe.prometheus"
 
 scalaVersion in ThisBuild := "2.11.8"
-crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0-RC2")
+crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0")
 
 version in ThisBuild := "git describe --tags --dirty --always".!!
   .stripPrefix("v")
@@ -74,7 +74,7 @@ val fs2 =
     .in(file("fs2"))
     .settings(publishSettings)
     .settings(
-      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.1",
+      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.2",
       apiURL := Some(url(
         raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/fs2_${scalaBinaryVersion.value}/${version.value}/fs2_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
