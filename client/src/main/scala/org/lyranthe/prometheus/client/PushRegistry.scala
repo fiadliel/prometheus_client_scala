@@ -39,7 +39,7 @@ class PushRegistry(host: String,
 object PushRegistry {
   def apply(host: String, port: Int = 9091)(
       job: String,
-      instance: Option[String],
+      instance: Option[String] = None,
       additionalLabels: (String, String)*): PushRegistry =
     new PushRegistry(host,
                      port,
