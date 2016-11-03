@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>Registry - org.lyranthe.prometheus.client.Registry</title>
-          <meta name="description" content="Registry - org.lyranthe.prometheus.client.Registry" />
-          <meta name="keywords" content="Registry org.lyranthe.prometheus.client.Registry" />
+          <title>PushRegistry - org.lyranthe.prometheus.client.PushRegistry</title>
+          <meta name="description" content="PushRegistry - org.lyranthe.prometheus.client.PushRegistry" />
+          <meta name="keywords" content="PushRegistry org.lyranthe.prometheus.client.PushRegistry" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -16,7 +16,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../../../index.html';
-            var hash = 'org.lyranthe.prometheus.client.Registry';
+            var hash = 'org.lyranthe.prometheus.client.PushRegistry';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,12 +28,14 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Trait" src="../../../../lib/trait_big.png" />
+        <a href="PushRegistry$.html" title="See companion object"><img alt="Class/Object" src="../../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a href="../../../package.html" class="extype" name="org">org</a>.<a href="../../package.html" class="extype" name="org.lyranthe">lyranthe</a>.<a href="../package.html" class="extype" name="org.lyranthe.prometheus">prometheus</a>.<a href="package.html" class="extype" name="org.lyranthe.prometheus.client">client</a></p>
-        <h1>Registry</h1><h3><span class="morelinks"><div>Related Doc:
-            <a href="package.html" class="extype" name="org.lyranthe.prometheus.client">package client</a>
+        <h1><a href="PushRegistry$.html" title="See companion object">PushRegistry</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="PushRegistry$.html" title="See companion object">object PushRegistry</a>
+            | <a href="package.html" class="extype" name="org.lyranthe.prometheus.client">package client</a>
           </div></span></h3><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -42,20 +44,17 @@
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Registry</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">PushRegistry</span><span class="result"> extends <a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div><div class="toggleContainer block">
-            <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a>, <a href="PushRegistry.html" class="extype" name="org.lyranthe.prometheus.client.PushRegistry">PushRegistry</a></div>
-          </div></div>
+          <div class="superTypes hiddenContent"><a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a>, <a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -72,7 +71,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="org.lyranthe.prometheus.client.Registry"><span>Registry</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="org.lyranthe.prometheus.client.PushRegistry"><span>PushRegistry</span></li><li class="in" name="org.lyranthe.prometheus.client.DefaultRegistry"><span>DefaultRegistry</span></li><li class="in" name="org.lyranthe.prometheus.client.Registry"><span>Registry</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -89,42 +88,21 @@
 
       <div id="template">
         <div id="allMembers">
-        
-
-        
-
-        <div id="values" class="values members">
-              <h3>Abstract Value Members</h3>
-              <ol><li name="org.lyranthe.prometheus.client.Registry#collect" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="collect():Iterator[org.lyranthe.prometheus.client.registry.RegistryMetrics]"></a>
-      <a id="collect():Iterator[RegistryMetrics]"></a>
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="org.lyranthe.prometheus.client.PushRegistry#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(host:String,port:Int,job:String,additionalLabels:Seq[(String,String)]):org.lyranthe.prometheus.client.PushRegistry"></a>
+      <a id="&lt;init&gt;:PushRegistry"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
+        <span class="modifier"></span>
+        <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">collect</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<a href="registry/RegistryMetrics.html" class="extype" name="org.lyranthe.prometheus.client.registry.RegistryMetrics">RegistryMetrics</a>]</span>
+        <span class="name">PushRegistry</span><span class="params">(<span name="host">host: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="port">port: <span class="extype" name="scala.Int">Int</span></span>, <span name="job">job: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="additionalLabels">additionalLabels: <span class="extype" name="scala.Seq">Seq</span>[(<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>)]</span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@collect():Iterator[org.lyranthe.prometheus.client.registry.RegistryMetrics]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="org.lyranthe.prometheus.client.Registry#unsafeRegister" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="unsafeRegister(c:org.lyranthe.prometheus.client.registry.MetricFamily):Unit"></a>
-      <a id="unsafeRegister(MetricFamily):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">unsafeRegister</span><span class="params">(<span name="c">c: <a href="registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@unsafeRegister(c:org.lyranthe.prometheus.client.registry.MetricFamily):Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@&lt;init&gt;(host:String,port:Int,job:String,additionalLabels:Seq[(String,String)]):org.lyranthe.prometheus.client.PushRegistry" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -132,8 +110,12 @@
     </li></ol>
             </div>
 
+        
+
+        
+
         <div id="values" class="values members">
-              <h3>Concrete Value Members</h3>
+              <h3>Value Members</h3>
               <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a>
       <a id="!=(Any):Boolean"></a>
@@ -146,7 +128,7 @@
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@!=(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -163,7 +145,7 @@
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@##():Int" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@##():Int" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -180,7 +162,7 @@
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@==(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@==(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -197,7 +179,7 @@
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@asInstanceOf[T0]:T0" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -214,7 +196,7 @@
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@clone():Object" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@clone():Object" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -225,6 +207,23 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.DefaultRegistry#collect" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collect():Iterator[org.lyranthe.prometheus.client.registry.RegistryMetrics]"></a>
+      <a id="collect():Iterator[RegistryMetrics]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collect</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Iterator">Iterator</span>[<a href="registry/RegistryMetrics.html" class="extype" name="org.lyranthe.prometheus.client.registry.RegistryMetrics">RegistryMetrics</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@collect():Iterator[org.lyranthe.prometheus.client.registry.RegistryMetrics]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a> → <a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -237,7 +236,7 @@
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -254,7 +253,7 @@
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@equals(x$1:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -271,7 +270,7 @@
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@finalize():Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@finalize():Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -294,7 +293,7 @@
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@getClass():Class[_]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@getClass():Class[_]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -311,7 +310,7 @@
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@hashCode():Int" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@hashCode():Int" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -328,7 +327,7 @@
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -345,7 +344,7 @@
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -362,7 +361,7 @@
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@notify():Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@notify():Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -379,12 +378,12 @@
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@notifyAll():Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@notifyAll():Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.Registry#output" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.Registry#output" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="output(format:org.lyranthe.prometheus.client.registry.RegistryFormat):Array[Byte]"></a>
       <a id="output(RegistryFormat):Array[Byte]"></a>
       <h4 class="signature">
@@ -396,12 +395,12 @@
         <span class="name">output</span><span class="params">(<span name="format">format: <a href="registry/RegistryFormat.html" class="extype" name="org.lyranthe.prometheus.client.registry.RegistryFormat">RegistryFormat</a></span>)</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Byte">Byte</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@output(format:org.lyranthe.prometheus.client.registry.RegistryFormat):Array[Byte]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@output(format:org.lyranthe.prometheus.client.registry.RegistryFormat):Array[Byte]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
-    </li><li name="org.lyranthe.prometheus.client.Registry#outputText" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.Registry#outputText" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="outputText:String"></a>
       <a id="outputText:String"></a>
       <h4 class="signature">
@@ -413,11 +412,11 @@
         <span class="name">outputText</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@outputText:String" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@outputText:String" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -430,7 +429,7 @@
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -447,11 +446,45 @@
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@toString():String" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@toString():String" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.PushRegistry#unsafePush" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="unsafePush():Boolean"></a>
+      <a id="unsafePush():Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafePush</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@unsafePush():Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.DefaultRegistry#unsafeRegister" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeRegister(c:org.lyranthe.prometheus.client.registry.MetricFamily):Unit"></a>
+      <a id="unsafeRegister(MetricFamily):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeRegister</span><span class="params">(<span name="c">c: <a href="registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@unsafeRegister(c:org.lyranthe.prometheus.client.registry.MetricFamily):Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a> → <a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -464,7 +497,7 @@
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@wait():Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@wait():Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -487,7 +520,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -510,7 +543,7 @@
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.Registry@wait(x$1:Long):Unit" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.PushRegistry@wait(x$1:Long):Unit" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -530,7 +563,11 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="org.lyranthe.prometheus.client.DefaultRegistry">
+              <h3>Inherited from <a href="DefaultRegistry.html" class="extype" name="org.lyranthe.prometheus.client.DefaultRegistry">DefaultRegistry</a></h3>
+            </div><div class="parent" name="org.lyranthe.prometheus.client.Registry">
+              <h3>Inherited from <a href="Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
