@@ -80,16 +80,6 @@ val fs2 =
     )
     .dependsOn(client)
 
-val prom_doc =
-  project
-    .in(file("doc"))
-    .settings(tutSettings)
-    .settings(
-      tutSourceDirectory := baseDirectory.value / "src",
-      tutTargetDirectory := baseDirectory.value
-    )
-    .dependsOn(client, fs2)
-
 val benchmark =
   project
     .in(file("benchmark"))
@@ -103,10 +93,21 @@ val benchmark =
 import com.typesafe.sbt.site._
 import com.typesafe.sbt.site.SitePlugin.autoImport.siteSubdirName
 import com.typesafe.sbt.site.util.SiteHelpers
+import com.typesafe.sbt.SbtGhPages.GhPagesKeys.ghpagesNoJekyll
 import com.typesafe.sbt.SbtGit.GitKeys._
 
-unidocSettings
-siteSubdirName in SiteScaladoc := "latest/api"
-ghpages.settings
-SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc), siteSubdirName in SiteScaladoc)
-gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
+val site =
+  project
+    .in(file("site"))
+    .settings(unidocSettings)
+    .settings(tutSettings)
+    .settings(ghpages.settings)
+    .settings(
+      siteSubdirName in SiteScaladoc := "latest/api",
+      ghpagesNoJekyll := false,
+      SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
+                                       siteSubdirName in SiteScaladoc),
+      siteMappings ++= tut.value,
+      gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
+    )
+    .dependsOn(client, fs2)
