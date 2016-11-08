@@ -431,7 +431,7 @@ registered collectors.</p>
 <p>You can create a registry with a default implementation with:</p>
 
 <pre><code class="language-scala">scala&gt; implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@7edbdcba
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@4e3d5f98
 </code></pre>
 
 <pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
@@ -516,13 +516,13 @@ res1: String =
 # TYPE request_latency histogram
 request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 0
 request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 0
-request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 0
-request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 3
-request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 3
+request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 5
 request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 9
 request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 9
 request_latency_count{path=&quot;/home&quot;} 9
-request_latency_sum{path=&quot;/home&quot;} 3.732419756
+request_latency_sum{path=&quot;/home&quot;} 4.034287088999999
 &quot;
 </code></pre>
 
@@ -544,31 +544,31 @@ scala&gt; jmx.unsafeRegister
 scala&gt; println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader=&quot;loaded&quot;} 14224.0
-jvm_classloader{classloader=&quot;total-loaded&quot;} 14303.0
-jvm_classloader{classloader=&quot;unloaded&quot;} 79.0
+jvm_classloader{classloader=&quot;loaded&quot;} 15819.0
+jvm_classloader{classloader=&quot;total-loaded&quot;} 16213.0
+jvm_classloader{classloader=&quot;unloaded&quot;} 394.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
 jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 9.0
-jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.147
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.219
 jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;count&quot;} 5.0
-jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.314
+jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.3
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.050673152E9
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.0092544E9
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;init&quot;} 5.36870912E8
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;max&quot;} 1.431830528E9
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 1.85978752E8
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.61890304E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 3.10363416E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.92167936E8
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;init&quot;} 2555904.0
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;max&quot;} -1.0
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.55261848E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.85393752E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.47863563775E9
+jvm_start_time 1.478636014526E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type=&quot;non-daemon&quot;} 11.0
+jvm_threads{type=&quot;non-daemon&quot;} 12.0
 jvm_threads{type=&quot;daemon&quot;} 5.0
 
 </code></pre>
