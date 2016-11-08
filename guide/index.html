@@ -15,42 +15,42 @@
     
     <meta name="description" content="Prometheus client for Scala">
     
-    <link rel="canonical" href="http://127.0.0.1:4000/guide/">
+    <link rel="canonical" href="https://www.lyranthe.org/prometheus_client_scala/guide/">
     
     <meta name="author" content="Gary Coady">
     
 
-    <meta property="og:url" content="http://127.0.0.1:4000/guide/">
+    <meta property="og:url" content="https://www.lyranthe.org/prometheus_client_scala/guide/">
     <meta property="og:title" content="Prometheus for Scala">
-    <meta property="og:image" content="http://127.0.0.1:4000/images/logo.png">
+    <meta property="og:image" content="https://www.lyranthe.org/prometheus_client_scala/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Prometheus for Scala">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:4000/images/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="http://127.0.0.1:4000/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.lyranthe.org/prometheus_client_scala/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://www.lyranthe.org/prometheus_client_scala/images/favicon.ico">
 
     <style>
       @font-face {
         font-family: 'Icon';
-        src: url('http://127.0.0.1:4000/fonts/icon.eot?52m981');
-        src: url('http://127.0.0.1:4000/fonts/icon.eot?#iefix52m981')
+        src: url('https://www.lyranthe.org/prometheus_client_scala/fonts/icon.eot?52m981');
+        src: url('https://www.lyranthe.org/prometheus_client_scala/fonts/icon.eot?#iefix52m981')
                format('embedded-opentype'),
-             url('http://127.0.0.1:4000/fonts/icon.woff?52m981')
+             url('https://www.lyranthe.org/prometheus_client_scala/fonts/icon.woff?52m981')
                format('woff'),
-             url('http://127.0.0.1:4000/fonts/icon.ttf?52m981')
+             url('https://www.lyranthe.org/prometheus_client_scala/fonts/icon.ttf?52m981')
                format('truetype'),
-             url('http://127.0.0.1:4000/fonts/icon.svg?52m981#icon')
+             url('https://www.lyranthe.org/prometheus_client_scala/fonts/icon.svg?52m981#icon')
                format('svg');
         font-weight: normal;
         font-style: normal;
       }
     </style>
 
-    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/application.css">
-    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/temporary.css">
-    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/palettes.css">
-    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/highlight/highlight.css">
+    <link rel="stylesheet" href="https://www.lyranthe.org/prometheus_client_scala/stylesheets/application.css">
+    <link rel="stylesheet" href="https://www.lyranthe.org/prometheus_client_scala/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://www.lyranthe.org/prometheus_client_scala/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://www.lyranthe.org/prometheus_client_scala/stylesheets/highlight/highlight.css">
 
     
     
@@ -66,7 +66,7 @@
     </style>
 
     
-    <script src="http://127.0.0.1:4000/javascripts/modernizr.js"></script>
+    <script src="https://www.lyranthe.org/prometheus_client_scala/javascripts/modernizr.js"></script>
 
     
 
@@ -134,7 +134,7 @@
     <div class="banner">
       
         <div class="logo">
-          <img src="http://127.0.0.1:4000/images/logo.png">
+          <img src="https://www.lyranthe.org/prometheus_client_scala/images/logo.png">
         </div>
       
       <div class="name">
@@ -180,7 +180,7 @@
 
 
 
-<a  title="Material" href="http://127.0.0.1:4000/">
+<a  title="Material" href="https://www.lyranthe.org/prometheus_client_scala/">
 	
 	Material
 </a>
@@ -198,7 +198,7 @@
 
 
 
-<a  title="Getting started" href="http://127.0.0.1:4000/getting-started/">
+<a  title="Getting started" href="https://www.lyranthe.org/prometheus_client_scala/getting-started/">
 	
 	Getting started
 </a>
@@ -216,7 +216,7 @@
 
 
 
-<a  title="Adding content" href="http://127.0.0.1:4000/adding-content/">
+<a  title="Adding content" href="https://www.lyranthe.org/prometheus_client_scala/adding-content/">
 	
 	Adding content
 </a>
@@ -234,7 +234,7 @@
 
 
 
-<a  title="Roadmap" href="http://127.0.0.1:4000/roadmap/">
+<a  title="Roadmap" href="https://www.lyranthe.org/prometheus_client_scala/roadmap/">
 	
 	Roadmap
 </a>
@@ -252,7 +252,7 @@
 
 
 
-<a  title="License" href="http://127.0.0.1:4000/license/">
+<a  title="License" href="https://www.lyranthe.org/prometheus_client_scala/license/">
 	
 	License
 </a>
@@ -431,7 +431,7 @@ registered collectors.</p>
 <p>You can create a registry with a default implementation with:</p>
 
 <pre><code class="language-scala">scala&gt; implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@51fdafc8
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@7edbdcba
 </code></pre>
 
 <pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
@@ -517,12 +517,12 @@ res1: String =
 request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 0
 request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 0
 request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 0
-request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 3
 request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 3
 request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 9
 request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 9
 request_latency_count{path=&quot;/home&quot;} 9
-request_latency_sum{path=&quot;/home&quot;} 4.681214111000001
+request_latency_sum{path=&quot;/home&quot;} 3.732419756
 &quot;
 </code></pre>
 
@@ -544,32 +544,32 @@ scala&gt; jmx.unsafeRegister
 scala&gt; println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader=&quot;loaded&quot;} 14215.0
-jvm_classloader{classloader=&quot;total-loaded&quot;} 14294.0
+jvm_classloader{classloader=&quot;loaded&quot;} 14224.0
+jvm_classloader{classloader=&quot;total-loaded&quot;} 14303.0
 jvm_classloader{classloader=&quot;unloaded&quot;} 79.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
 jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 9.0
-jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.133
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.147
 jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;count&quot;} 5.0
-jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.287
+jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.314
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.01974016E9
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.050673152E9
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;init&quot;} 5.36870912E8
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;max&quot;} 1.431830528E9
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 1.67378416E8
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.62480128E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 1.85978752E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.61890304E8
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;init&quot;} 2555904.0
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;max&quot;} -1.0
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.5470904E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.55261848E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.478635550176E9
+jvm_start_time 1.47863563775E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type=&quot;non-daemon&quot;} 12.0
-jvm_threads{type=&quot;daemon&quot;} 4.0
+jvm_threads{type=&quot;non-daemon&quot;} 11.0
+jvm_threads{type=&quot;daemon&quot;} 5.0
 
 </code></pre>
 
@@ -590,7 +590,7 @@ jvm_threads{type=&quot;daemon&quot;} 4.0
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="http://127.0.0.1:4000/" title="index">
+      <a href="https://www.lyranthe.org/prometheus_client_scala/" title="index">
         <span class="direction">
           Previous
         </span>
@@ -633,12 +633,12 @@ jvm_threads{type=&quot;daemon&quot;} 4.0
 
     <script>
     
-      var base_url = 'http:\/\/127.0.0.1:4000\/';
+      var base_url = 'https:\/\/www.lyranthe.org\/prometheus_client_scala\/';
       var repo_id  = 'fiadliel\/prometheus_client_scala';
     
     </script>
 
-    <script src="http://127.0.0.1:4000/javascripts/application.js"></script>
+    <script src="https://www.lyranthe.org/prometheus_client_scala/javascripts/application.js"></script>
     
 
     <script>
