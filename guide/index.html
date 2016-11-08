@@ -13,7 +13,7 @@
     <meta name="generator" content="Hugo 0.17" />
 
     
-    <meta name="description" content="Prometheus client for Scala">
+    <meta name="description" content="Prometheus Client for Scala">
     
     <link rel="canonical" href="https://www.lyranthe.org/prometheus_client_scala/guide/">
     
@@ -102,6 +102,10 @@
     </div>
 
     
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/fiadliel" title="@fiadliel on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
 
     
     <div class="button button-github" role="button" aria-label="GitHub">
@@ -180,9 +184,9 @@
 
 
 
-<a  title="Material" href="https://www.lyranthe.org/prometheus_client_scala/">
+<a  title="Client Introduction" href="https://www.lyranthe.org/prometheus_client_scala/">
 	
-	Material
+	Client Introduction
 </a>
 
 
@@ -209,60 +213,6 @@
 </li>
 
 
-
-<li>
-  
-    
-
-
-
-<a  title="Adding content" href="https://www.lyranthe.org/prometheus_client_scala/adding-content/">
-	
-	Adding content
-</a>
-
-
-
-  
-</li>
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="Roadmap" href="https://www.lyranthe.org/prometheus_client_scala/roadmap/">
-	
-	Roadmap
-</a>
-
-
-
-  
-</li>
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="License" href="https://www.lyranthe.org/prometheus_client_scala/license/">
-	
-	License
-</a>
-
-
-
-  
-</li>
-
-
         </ul>
         
 
@@ -271,6 +221,12 @@
         <span class="section">The author</span>
         
         <ul>
+          
+          <li>
+            <a href="https://twitter.com/fiadliel" target="_blank" title="@fiadliel on Twitter">
+              @fiadliel on Twitter
+            </a>
+          </li>
           
 
           
@@ -431,7 +387,7 @@ registered collectors.</p>
 <p>You can create a registry with a default implementation with:</p>
 
 <pre><code class="language-scala">scala&gt; implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@2ec5572
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@54a9615d
 </code></pre>
 
 <pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
@@ -514,15 +470,15 @@ scala&gt; implicitly[Registry].outputText
 res1: String =
 &quot;# HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 0
-request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 0
-request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 2
-request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 5
-request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 6
+request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 3
+request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 3
+request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 8
 request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 9
 request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 9
 request_latency_count{path=&quot;/home&quot;} 9
-request_latency_sum{path=&quot;/home&quot;} 2.883459294
+request_latency_sum{path=&quot;/home&quot;} 2.4790363060000002
 &quot;
 </code></pre>
 
@@ -550,22 +506,22 @@ jvm_classloader{classloader=&quot;unloaded&quot;} 394.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
 jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 9.0
-jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.225
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.226
 jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;count&quot;} 5.0
 jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.309
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.022885888E9
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.013448704E9
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;init&quot;} 5.36870912E8
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;max&quot;} 1.431830528E9
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 3.13086232E8
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.89415424E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 3.0755252E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.90529536E8
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;init&quot;} 2555904.0
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;max&quot;} -1.0
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.82653864E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.83522936E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.478637087552E9
+jvm_start_time 1.478637145665E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
 jvm_threads{type=&quot;non-daemon&quot;} 12.0
