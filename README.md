@@ -7,10 +7,10 @@ In addition, it offers some extra insight into your program by exposing some use
 ## Adding the library to your build
 
 ```scala
-libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.4.0"
+libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.5.1"
 ```
 
 ## Documentation
 
- - [Guide](doc/Guide.md)
- - [API](https://www.lyranthe.org/prometheus_client_scala/latest/api/index.html)
+ - [Guide](https://www.lyranthe.org/prometheus_client_scala/guide/)
+ - [API](https://www.lyranthe.org/prometheus_client_scala/latest/api/org/lyranthe/prometheus/client/index.html)
