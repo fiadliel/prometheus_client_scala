@@ -5,6 +5,8 @@ import java.net.{HttpURLConnection, URL}
 
 import org.lyranthe.prometheus.client.registry._
 
+import scala.util.control.NonFatal
+
 class PushRegistry(host: String,
                    port: Int,
                    job: String,
@@ -13,11 +15,14 @@ class PushRegistry(host: String,
   final private val url = {
     val extra =
       if (additionalLabels.isEmpty) ""
-      else "/" + additionalLabels.flatMap(labels => Vector(labels._1, labels._2)).mkString("/")
+      else
+        "/" + additionalLabels
+          .flatMap(labels => Vector(labels._1, labels._2))
+          .mkString("/")
     new URL("http", host, port, s"/metrics/job/$job$extra")
   }
 
-  def unsafePush(): Boolean = {
+  def push(): Either[Throwable, Boolean] = {
     val conn = url.openConnection().asInstanceOf[HttpURLConnection]
     try {
       conn.setRequestMethod("PUT")
@@ -32,7 +37,9 @@ class PushRegistry(host: String,
       val responseCode = conn.getResponseCode
       output.close()
 
-      responseCode == 202
+      Right(responseCode == 202)
+    } catch {
+      case NonFatal(t) => Left(t)
     } finally {
       conn.disconnect()
     }

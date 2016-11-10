@@ -11,10 +11,13 @@ trait MetricFamily {
   def help: String
   def metricType: MetricType
 
-  def unsafeRegister(implicit registry: Registry): this.type = {
-    registry.unsafeRegister(this)
+  def register(implicit registry: Registry): this.type = {
+    registry.register(this)
     this
   }
+
+  def registerAndReturnSuccess(implicit registry: Registry): Boolean =
+    registry.register(this)
 
   def collect(): List[Metric]
 }

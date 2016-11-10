@@ -110,11 +110,15 @@ object jmx {
     }
   }
 
-  def unsafeRegister()(implicit registry: Registry): Unit = {
-    gcUsage.unsafeRegister
-    memUsage.unsafeRegister
-    classLoader.unsafeRegister
-    startTime.unsafeRegister
-    threadData.unsafeRegister
+  def register()(implicit registry: Registry): Boolean = {
+    val results = Vector(
+      gcUsage.register,
+      memUsage.register,
+      classLoader.register,
+      startTime.register,
+      threadData.register
+    )
+
+    results.forall(_ == true)
   }
 }

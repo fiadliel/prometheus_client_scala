@@ -3,7 +3,7 @@ package org.lyranthe.prometheus.client
 import org.lyranthe.prometheus.client.registry._
 
 trait Registry {
-  def unsafeRegister(c: MetricFamily): Unit
+  def register(c: MetricFamily): Boolean
   def collect(): Iterator[RegistryMetrics]
 
   def output(format: RegistryFormat): Array[Byte] =
