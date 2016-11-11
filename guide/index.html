@@ -372,19 +372,19 @@ registered collectors.</p>
 <p>You can create a registry with a default implementation with:</p>
 
 <pre><code class="language-scala">scala&gt; implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@54a9615d
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@2de9d563
 </code></pre>
 
 <pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(1.0,2.0,5.0,10.0,20.0,50.0,100.0,Infinity)
 
-scala&gt; val activeRequests = Gauge(metric&quot;active_requests&quot;, &quot;Active requests&quot;).labels().unsafeRegister
+scala&gt; val activeRequests = Gauge(metric&quot;active_requests&quot;, &quot;Active requests&quot;).labels().register
 activeRequests: org.lyranthe.prometheus.client.gauge.Gauge0 = Counter(MetricName(active_requests))()
 
-scala&gt; val numErrors = Counter(metric&quot;num_errors&quot;, &quot;Total errors&quot;).labels().unsafeRegister
+scala&gt; val numErrors = Counter(metric&quot;num_errors&quot;, &quot;Total errors&quot;).labels().register
 numErrors: org.lyranthe.prometheus.client.counter.Counter0 = Counter(MetricName(num_errors))()
 
-scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).unsafeRegister
+scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).register
 requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))
 
 scala&gt; activeRequests.set(50)
@@ -440,7 +440,7 @@ import org.lyranthe.prometheus.client.fs2_syntax._
 <pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
 histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(0.02,0.05,0.1,0.2,0.5,1.0,Infinity)
 
-scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).unsafeRegister
+scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).register
 requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))
 
 scala&gt; val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
@@ -456,14 +456,14 @@ res1: String =
 &quot;# HELP request_latency Request latency
 # TYPE request_latency histogram
 request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 1
-request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 1
-request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 3
+request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 2
+request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 2
 request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 3
-request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 8
+request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 6
 request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 9
 request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 9
 request_latency_count{path=&quot;/home&quot;} 9
-request_latency_sum{path=&quot;/home&quot;} 2.4790363060000002
+request_latency_sum{path=&quot;/home&quot;} 3.1627661240000005
 &quot;
 </code></pre>
 
@@ -480,37 +480,38 @@ import fs2._
 scala&gt; import org.lyranthe.prometheus.client._
 import org.lyranthe.prometheus.client._
 
-scala&gt; jmx.unsafeRegister
+scala&gt; jmx.register
+res2: Boolean = false
 
 scala&gt; println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader=&quot;loaded&quot;} 15819.0
-jvm_classloader{classloader=&quot;total-loaded&quot;} 16213.0
-jvm_classloader{classloader=&quot;unloaded&quot;} 394.0
+jvm_classloader{classloader=&quot;loaded&quot;} 15222.0
+jvm_classloader{classloader=&quot;total-loaded&quot;} 15301.0
+jvm_classloader{classloader=&quot;unloaded&quot;} 79.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 9.0
-jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.226
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 11.0
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.319
 jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;count&quot;} 5.0
-jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.309
+jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.326
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 1.013448704E9
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 9.98244352E8
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;init&quot;} 5.36870912E8
 jvm_memory_usage{region=&quot;heap&quot;,type=&quot;max&quot;} 1.431830528E9
-jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 3.0755252E8
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.90529536E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 2.71817368E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.90070784E8
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;init&quot;} 2555904.0
 jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;max&quot;} -1.0
-jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.83522936E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.81783664E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.478637145665E9
+jvm_start_time 1.478810439329E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
 jvm_threads{type=&quot;non-daemon&quot;} 12.0
-jvm_threads{type=&quot;daemon&quot;} 5.0
+jvm_threads{type=&quot;daemon&quot;} 4.0
 
 </code></pre>
 
