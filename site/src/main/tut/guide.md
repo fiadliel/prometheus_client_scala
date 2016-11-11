@@ -120,9 +120,9 @@ implicit val defaultRegistry = DefaultRegistry()
 ```tut
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
-val activeRequests = Gauge(metric"active_requests", "Active requests").labels().unsafeRegister
-val numErrors = Counter(metric"num_errors", "Total errors").labels().unsafeRegister
-val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
+val activeRequests = Gauge(metric"active_requests", "Active requests").labels().register
+val numErrors = Counter(metric"num_errors", "Total errors").labels().register
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register
 
 activeRequests.set(50)
 numErrors.inc
@@ -149,7 +149,7 @@ implicit val defaultRegistry = DefaultRegistry()
 ```
 ```tut
 implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
-val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").unsafeRegister
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register
 
 val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))
@@ -170,7 +170,7 @@ implicit val defaultRegistry = DefaultRegistry()
 import fs2._
 import org.lyranthe.prometheus.client._
 
-jmx.unsafeRegister
+jmx.register
 
 println(implicitly[Registry].outputText)
 ```
