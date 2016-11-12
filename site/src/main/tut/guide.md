@@ -152,7 +152,7 @@ implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
 val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register
 
 val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
-val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))
+val myTimedSleepyTask = mySleepyTask.timeSuccess(_ => requestLatency.labelValues("/home"))
 
 for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 
