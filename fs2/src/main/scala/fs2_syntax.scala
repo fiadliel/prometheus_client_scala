@@ -39,10 +39,10 @@ object fs2_syntax {
 
     def time(f: Attempt[A] => Option[LabelledHistogram])(
         implicit F: Effect[F]): F[A] = {
-      F.delay(System.nanoTime).flatMap { start =>
+      F.delay(Timer()).flatMap { timer =>
         underlying.attempt.flatMap {
           case attempt =>
-            f(attempt).foreach(_.observe((System.nanoTime() - start) / 1e9))
+            f(attempt).foreach(_.observeDuration(timer))
             attempt.fold(F.fail, F.pure)
         }
       }
