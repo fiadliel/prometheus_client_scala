@@ -2,7 +2,6 @@ package org.lyranthe.prometheus.client
 
 import java.time.Clock
 
-import fs2._
 import fs2.util.{Attempt, Effect}
 import fs2.util.syntax._
 

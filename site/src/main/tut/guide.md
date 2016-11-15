@@ -130,6 +130,79 @@ requestLatency.labelValues("select \nname, age\nfrom\nusers").observe(17)
 implicitly[Registry].outputText
 ```
 
+## Using with vanilla scala
+
+Counters and Histograms can be easily combined with `scala.util.Try` and `scala.concurrent.Feature` via facility methods provided in `org.lyranthe.prometheus.client.scala_syntax` 
+
+Once imported the following:
+
+```tut:reset
+import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client.scala_syntax._
+import scala.util.Try
+```
+```tut:silent
+implicit val defaultRegistry = DefaultRegistry()
+```
+
+it is possible to count or measure duration of all/success/failure for `Try[T]` and `Future[T]` monadic computations:
+
+```tut
+val myCounter = Counter(metric"my_counter", "My Counter").labels(label"outcome").register(defaultRegistry)
+
+val answerToEverything: () => Try[Int] = () => countSuccess(myCounter.labelValues("success"))(Try {
+  if (math.random > 0.75) {
+    throw new Exception("Boom!")
+  } else {
+    42
+  }
+})
+
+for(i <- Range(1, 10)) answerToEverything.apply()
+
+println(defaultRegistry.outputText)
+```
+
+With the use of `scala_syntax.helper` module, it is also possible to count both successes and failures using the more generic `countN` method.
+
+An example is provided below:
+
+```tut
+val answerToEverything2: () => Try[Int] = () => countN(Try {
+  if (math.random > 0.75) {
+    throw new Exception("Boom!")
+  } else {
+    42
+  }
+})(helper.success(myCounter.labelValues("success")),
+  helper.failure(myCounter.labelValues("failure")))
+
+for(i <- Range(1, 10)) answerToEverything2.apply()
+
+println(defaultRegistry.outputText)
+```
+
+Similar approach has been adopted for futures:
+
+```tut
+import scala.concurrent.{Future, Await}
+import scala.concurrent.duration.Duration
+import scala.concurrent.ExecutionContext.Implicits.global
+
+implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
+val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register(defaultRegistry)
+
+val timer = timeFuture(requestLatency.labelValues("/"))(Future {
+  Thread.sleep(100)
+})
+
+Await.ready(timer, Duration.Inf)
+
+Thread.sleep(100) // waiting for the metric to propagate
+
+println(defaultRegistry.outputText)
+```
+
 ## Using with FS2 Task (WIP)
 
 Both gauges and histograms can be used to time FS2 Tasks (or any type which has an `fs2.util.Effect` instance).
