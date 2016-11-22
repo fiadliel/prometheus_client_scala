@@ -27,9 +27,9 @@ val publishSettings = Seq(
       </license>
     </licenses>
     <scm>
-      <connection>scm:git:github.com/fiadliel/prometheus_scala_client.git</connection>
-      <developerConnection>scm:git:git@github.com:fiadliel/prometheus_scala_client.git</developerConnection>
-      <url>github.com/fiadliel/prometheus_scala_client</url>
+      <connection>scm:git:github.com/fiadliel/prometheus_client_scala.git</connection>
+      <developerConnection>scm:git:git@github.com:fiadliel/prometheus_client_scala.git</developerConnection>
+      <url>github.com/fiadliel/prometheus_client_scala</url>
     </scm>
     <developers>
       <developer>
