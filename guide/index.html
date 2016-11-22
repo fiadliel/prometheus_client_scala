@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title> - Prometheus for Scala</title>
+    <meta name="generator" content="Hugo 0.17" />
+
+    
+    <meta name="description" content="Prometheus Client for Scala">
+    
+    <link rel="canonical" href="http://127.0.0.1:4000/guide/">
+    
+    <meta name="author" content="Gary Coady">
+    
+
+    <meta property="og:url" content="http://127.0.0.1:4000/guide/">
+    <meta property="og:title" content="Prometheus for Scala">
+    <meta property="og:image" content="http://127.0.0.1:4000/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Prometheus for Scala">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:4000/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="http://127.0.0.1:4000/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('http://127.0.0.1:4000/fonts/icon.eot?52m981');
+        src: url('http://127.0.0.1:4000/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+             url('http://127.0.0.1:4000/fonts/icon.woff?52m981')
+               format('woff'),
+             url('http://127.0.0.1:4000/fonts/icon.ttf?52m981')
+               format('truetype'),
+             url('http://127.0.0.1:4000/fonts/icon.svg?52m981#icon')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/application.css">
+    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/temporary.css">
+    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/palettes.css">
+    <link rel="stylesheet" href="http://127.0.0.1:4000/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="http://127.0.0.1:4000/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-red palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/fiadliel" title="@fiadliel on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/fiadliel" title="@fiadliel on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/fiadliel/prometheus_client_scala" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="http://127.0.0.1:4000/images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>Prometheus for Scala <span class="version">0.5.0</span></strong>
+        
+          <br>
+          fiadliel/prometheus_client_scala
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/fiadliel/prometheus_client_scala/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/fiadliel/prometheus_client_scala/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Guide" href="http://127.0.0.1:4000/guide/">
+	
+	Guide
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+        
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/fiadliel" target="_blank" title="@fiadliel on Twitter">
+              @fiadliel on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/fiadliel" target="_blank" title="@fiadliel on GitHub">
+              @fiadliel on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:gary@lyranthe.org" title="Email of gary@lyranthe.org">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1> </h1>
+
+			
+
+<h1 id="introduction-to-prometheus-scala-client">Introduction to Prometheus Scala client</h1>
+
+<h2 id="synopsis">Synopsis</h2>
+
+<p>Prometheus offers an idiomatic API for instrumenting applications written in Scala. It tries to provide an API which is efficient, easy to use.
+Also, as far as possible, it tries to report API usage errors at compile time instead of runtime.</p>
+
+<p>In addition, it offers some extra insight into your program by exposing some useful VM statistics.</p>
+
+<h2 id="important-definitions">Important definitions</h2>
+
+<h4 id="metric">Metric</h4>
+
+<p>A metric is a particular &ldquo;thing&rdquo; you wish to monitor over time. It is represented in one of three ways:
+ - gauges, which provide a single value which may go up or down
+ - counters, which increase monotonically
+ - histograms, which provide values aggregated into configured buckets.</p>
+
+<h4 id="label">Label</h4>
+
+<p>Metrics may have associated labels. For each supplied label, a corresponding label value
+is provided when noting an event. These labels are useful for grouping your timeseries
+in various ways.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>To start using the API, import the main package:</p>
+
+<pre><code class="language-scala">scala&gt; import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client._
+</code></pre>
+
+<h2 id="string-interpolators">String interpolators</h2>
+
+<p>Metric names and labels have certain requirements for what characters are allowed. To
+allow this to be correctly checked at compile time, two string interpolators are provided:</p>
+
+<ul>
+<li><code>metric&quot;&quot;</code> creates metric names</li>
+<li><code>label&quot;&quot;</code> creates label names</li>
+</ul>
+
+<p>These interpolators require constant values, some examples are shown below.</p>
+
+<p>Some valid metric names:</p>
+
+<pre><code class="language-scala">scala&gt; metric&quot;http_requests_total&quot;
+res0: org.lyranthe.prometheus.client.MetricName = MetricName(http_requests_total)
+
+scala&gt; final val system = &quot;http&quot;
+system: String(&quot;http&quot;) = http
+
+scala&gt; final val subsystem = &quot;requests&quot;
+subsystem: String(&quot;requests&quot;) = requests
+
+scala&gt; metric&quot;${system}_${subsystem}_total&quot;
+res1: org.lyranthe.prometheus.client.MetricName = MetricName(http_requests_total)
+</code></pre>
+
+<p>Some invalid metric names:</p>
+
+<pre><code class="language-scala">scala&gt; metric&quot;1&quot;
+&lt;console&gt;:16: error: Metric format incorrect: 1, should follow format ^[a-zA-Z_:][a-zA-Z0-9_:]*$
+       metric&quot;1&quot;
+       ^
+</code></pre>
+
+<pre><code class="language-scala">scala&gt; val subsystem = &quot;requests&quot;
+subsystem: String = requests
+</code></pre>
+
+<pre><code class="language-scala">scala&gt; metric&quot;${system}_${subsystem}_total&quot;
+&lt;console&gt;:18: error: Non-literal value supplied
+       metric&quot;${system}_${subsystem}_total&quot;
+                          ^
+</code></pre>
+
+<h3 id="creating-a-monitoring-variable">Creating a monitoring variable</h3>
+
+<p>To create a simple counter:</p>
+
+<pre><code class="language-scala">scala&gt; val totalRequests = Counter(metric&quot;total_requests&quot;, &quot;Total requests&quot;).labels()
+totalRequests: org.lyranthe.prometheus.client.counter.Counter0 = Counter(MetricName(total_requests))()
+</code></pre>
+
+<p>The resulting counter has a metric name <code>total_requests</code>, a help message with the contents,
+&ldquo;Total requests&rdquo;, and has no labels.</p>
+
+<p>You can use this in this way:</p>
+
+<pre><code class="language-scala">scala&gt; totalRequests.inc()
+</code></pre>
+
+<h3 id="creating-a-monitoring-variable-with-labels">Creating a monitoring variable with labels</h3>
+
+<p>If you need labels attached to the counter, specify the label names using
+the <code>.labels</code> method:</p>
+
+<pre><code class="language-scala">scala&gt; val totalErrors = Counter(metric&quot;total_errors&quot;, &quot;Total errors&quot;).labels(label&quot;code&quot;)
+totalErrors: org.lyranthe.prometheus.client.counter.Counter1 = Counter1(MetricName(total_errors),Total errors,List(LabelName(code)))
+</code></pre>
+
+<p>To increment a counter with an error code of &ldquo;404&rdquo;, one might
+do the following:</p>
+
+<pre><code class="language-scala">scala&gt; totalErrors.labelValues(&quot;404&quot;).inc()
+</code></pre>
+
+<h3 id="behavior-with-incorrect-input">Behavior with incorrect input</h3>
+
+<p>We will obviously get a compilation error if we try to provide an incorrect
+number of values when using this counter:</p>
+
+<pre><code class="language-scala">scala&gt; totalErrors.labelValues(&quot;404&quot;, &quot;/path&quot;).inc()
+&lt;console&gt;:17: error: too many arguments (2) for method labelValues: (labelValue1: String)org.lyranthe.prometheus.client.counter.LabelledCounter
+       totalErrors.labelValues(&quot;404&quot;, &quot;/path&quot;).inc()
+                                      ^
+</code></pre>
+
+<h2 id="the-registry">The Registry</h2>
+
+<p>The <code>Registry</code> is a service to which collectors are registered. You can
+then call <code>collect</code> to obtain current monitoring values for all the
+registered collectors.</p>
+
+<p>You can create a registry with a default implementation with:</p>
+
+<pre><code class="language-scala">scala&gt; implicit val defaultRegistry = DefaultRegistry()
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@2de9d563
+</code></pre>
+
+<pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
+histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(1.0,2.0,5.0,10.0,20.0,50.0,100.0,Infinity)
+
+scala&gt; val activeRequests = Gauge(metric&quot;active_requests&quot;, &quot;Active requests&quot;).labels().register
+activeRequests: org.lyranthe.prometheus.client.gauge.Gauge0 = Counter(MetricName(active_requests))()
+
+scala&gt; val numErrors = Counter(metric&quot;num_errors&quot;, &quot;Total errors&quot;).labels().register
+numErrors: org.lyranthe.prometheus.client.counter.Counter0 = Counter(MetricName(num_errors))()
+
+scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).register
+requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))
+
+scala&gt; activeRequests.set(50)
+
+scala&gt; numErrors.inc
+
+scala&gt; requestLatency.labelValues(&quot;/home&quot;).observe(17)
+
+scala&gt; implicitly[Registry].outputText
+res10: String =
+&quot;# HELP active_requests Active requests
+# TYPE active_requests gauge
+active_requests 50.0
+# HELP num_errors Total errors
+# TYPE num_errors counter
+num_errors 1.0
+# HELP request_latency Request latency
+# TYPE request_latency histogram
+request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 0
+request_latency_bucket{le=&quot;2.0&quot;,path=&quot;/home&quot;} 0
+request_latency_bucket{le=&quot;5.0&quot;,path=&quot;/home&quot;} 0
+request_latency_bucket{le=&quot;10.0&quot;,path=&quot;/home&quot;} 0
+request_latency_bucket{le=&quot;20.0&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;50.0&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;100.0&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 1
+request_latency_count{path=&quot;/home&quot;} 1
+request_latency_sum{path=&quot;/home&quot;} 17.0
+&quot;
+</code></pre>
+
+<h2 id="using-with-fs2-task-wip">Using with FS2 Task (WIP)</h2>
+
+<p>Both gauges and histograms can be used to time FS2 Tasks (or any type which has an <code>fs2.util.Effect</code> instance).</p>
+
+<p>Certain imports are needed:</p>
+
+<pre><code class="language-scala">scala&gt; import fs2._
+import fs2._
+
+scala&gt; import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client._
+
+scala&gt; import org.lyranthe.prometheus.client.fs2_syntax._
+import org.lyranthe.prometheus.client.fs2_syntax._
+</code></pre>
+
+<p>Then the method <code>timeSuccess</code> can be used to capture the duration of the task (in seconds):</p>
+
+<pre><code class="language-scala">implicit val defaultRegistry = DefaultRegistry()
+</code></pre>
+
+<pre><code class="language-scala">scala&gt; implicit val histogramBuckets = HistogramBuckets(0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
+histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: List[Double]} = HistogramBuckets(0.02,0.05,0.1,0.2,0.5,1.0,Infinity)
+
+scala&gt; val requestLatency = Histogram(metric&quot;request_latency&quot;, &quot;Request latency&quot;).labels(label&quot;path&quot;).register
+requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(0.02, 0.05, 0.1, 0.2, 0.5, 1.0, Infinity))
+
+scala&gt; val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
+mySleepyTask: fs2.Task[Unit] = Task
+
+scala&gt; val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues(&quot;/home&quot;))
+myTimedSleepyTask: fs2.Task[Unit] = Task
+
+scala&gt; for (i &lt;- Range(1, 10)) myTimedSleepyTask.unsafeRun
+
+scala&gt; implicitly[Registry].outputText
+res1: String =
+&quot;# HELP request_latency Request latency
+# TYPE request_latency histogram
+request_latency_bucket{le=&quot;0.02&quot;,path=&quot;/home&quot;} 1
+request_latency_bucket{le=&quot;0.05&quot;,path=&quot;/home&quot;} 2
+request_latency_bucket{le=&quot;0.1&quot;,path=&quot;/home&quot;} 2
+request_latency_bucket{le=&quot;0.2&quot;,path=&quot;/home&quot;} 3
+request_latency_bucket{le=&quot;0.5&quot;,path=&quot;/home&quot;} 6
+request_latency_bucket{le=&quot;1.0&quot;,path=&quot;/home&quot;} 9
+request_latency_bucket{le=&quot;+Inf&quot;,path=&quot;/home&quot;} 9
+request_latency_count{path=&quot;/home&quot;} 9
+request_latency_sum{path=&quot;/home&quot;} 3.1627661240000005
+&quot;
+</code></pre>
+
+<h2 id="exposing-jmx-statistics">Exposing JMX Statistics</h2>
+
+<p>Some JVM statistics can be exposed with:</p>
+
+<pre><code class="language-scala">implicit val defaultRegistry = DefaultRegistry()
+</code></pre>
+
+<pre><code class="language-scala">scala&gt; import fs2._
+import fs2._
+
+scala&gt; import org.lyranthe.prometheus.client._
+import org.lyranthe.prometheus.client._
+
+scala&gt; jmx.register
+res2: Boolean = false
+
+scala&gt; println(implicitly[Registry].outputText)
+# HELP jvm_classloader JVM Classloader statistics
+# TYPE jvm_classloader gauge
+jvm_classloader{classloader=&quot;loaded&quot;} 15222.0
+jvm_classloader{classloader=&quot;total-loaded&quot;} 15301.0
+jvm_classloader{classloader=&quot;unloaded&quot;} 79.0
+# HELP jvm_gc_stats JVM Garbage Collector Statistics
+# TYPE jvm_gc_stats gauge
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;count&quot;} 11.0
+jvm_gc_stats{name=&quot;PS Scavenge&quot;,type=&quot;time&quot;} 0.319
+jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;count&quot;} 5.0
+jvm_gc_stats{name=&quot;PS MarkSweep&quot;,type=&quot;time&quot;} 0.326
+# HELP jvm_memory_usage JVM Memory Usage
+# TYPE jvm_memory_usage gauge
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;committed&quot;} 9.98244352E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;init&quot;} 5.36870912E8
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;max&quot;} 1.431830528E9
+jvm_memory_usage{region=&quot;heap&quot;,type=&quot;used&quot;} 2.71817368E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;committed&quot;} 1.90070784E8
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;init&quot;} 2555904.0
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;max&quot;} -1.0
+jvm_memory_usage{region=&quot;non-heap&quot;,type=&quot;used&quot;} 1.81783664E8
+# HELP jvm_start_time JVM Start Time
+# TYPE jvm_start_time gauge
+jvm_start_time 1.478810439329E9
+# HELP jvm_threads JVM Thread Information
+# TYPE jvm_threads gauge
+jvm_threads{type=&quot;non-daemon&quot;} 12.0
+jvm_threads{type=&quot;daemon&quot;} 4.0
+
+</code></pre>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2016 Released under the MIT license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="http://127.0.0.1:4000/" title="index">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              index
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'http:\/\/127.0.0.1:4000\/';
+      var repo_id  = 'fiadliel\/prometheus_client_scala';
+    
+    </script>
+
+    <script src="http://127.0.0.1:4000/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+            
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+        
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = "#";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+
+    <script src="//gohugo.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
