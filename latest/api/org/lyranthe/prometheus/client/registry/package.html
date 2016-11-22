@@ -1,0 +1,292 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>registry - org.lyranthe.prometheus.client.registry</title>
+          <meta name="description" content="registry - org.lyranthe.prometheus.client.registry" />
+          <meta name="keywords" content="registry org.lyranthe.prometheus.client.registry" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'org.lyranthe.prometheus.client.registry.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="org">org</a>.<a href="../../../package.html" class="extype" name="org.lyranthe">lyranthe</a>.<a href="../../package.html" class="extype" name="org.lyranthe.prometheus">prometheus</a>.<a href="../package.html" class="extype" name="org.lyranthe.prometheus.client">client</a></p>
+        <h1>registry</h1><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">registry</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="org.lyranthe.prometheus.client.registry.Bucket" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BucketextendsProductwithSerializable"></a>
+      <a id="Bucket:Bucket"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Bucket.html"><span class="name">Bucket</span></a><span class="params">(<span name="cumulativeCount">cumulativeCount: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="upperBound">upperBound: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a></span>)</span><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@BucketextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.CounterMetric" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CounterMetricextendsMetricwithProductwithSerializable"></a>
+      <a id="CounterMetric:CounterMetric"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CounterMetric.html"><span class="name">CounterMetric</span></a><span class="params">(<span name="labels">labels: <span class="extype" name="scala.List">List</span>[<a href="LabelPair.html" class="extype" name="org.lyranthe.prometheus.client.registry.LabelPair">LabelPair</a>]</span>, <span name="value">value: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a></span>)</span><span class="result"> extends <a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@CounterMetricextendsMetricwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.GaugeMetric" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="GaugeMetricextendsMetricwithProductwithSerializable"></a>
+      <a id="GaugeMetric:GaugeMetric"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="GaugeMetric.html"><span class="name">GaugeMetric</span></a><span class="params">(<span name="labels">labels: <span class="extype" name="scala.List">List</span>[<a href="LabelPair.html" class="extype" name="org.lyranthe.prometheus.client.registry.LabelPair">LabelPair</a>]</span>, <span name="value">value: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a></span>)</span><span class="result"> extends <a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@GaugeMetricextendsMetricwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.HistogramMetric" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HistogramMetricextendsMetricwithProductwithSerializable"></a>
+      <a id="HistogramMetric:HistogramMetric"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="HistogramMetric.html"><span class="name">HistogramMetric</span></a><span class="params">(<span name="labels">labels: <span class="extype" name="scala.List">List</span>[<a href="LabelPair.html" class="extype" name="org.lyranthe.prometheus.client.registry.LabelPair">LabelPair</a>]</span>, <span name="sampleCount">sampleCount: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="sampleSum">sampleSum: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a></span>, <span name="buckets">buckets: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Array" class="extype" target="_top">Array</a>[<a href="Bucket.html" class="extype" name="org.lyranthe.prometheus.client.registry.Bucket">Bucket</a>]</span>)</span><span class="result"> extends <a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@HistogramMetricextendsMetricwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.LabelPair" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LabelPairextendsProductwithSerializable"></a>
+      <a id="LabelPair:LabelPair"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LabelPair.html"><span class="name">LabelPair</span></a><span class="params">(<span name="name">name: <a href="../LabelName.html" class="extype" name="org.lyranthe.prometheus.client.LabelName">LabelName</a></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@LabelPairextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.Metric" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MetricextendsAnyRef"></a>
+      <a id="Metric:Metric"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Metric.html"><span class="name">Metric</span></a><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@MetricextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.MetricFamily" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="MetricFamilyextendsAnyRef"></a>
+      <a id="MetricFamily:MetricFamily"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="MetricFamily.html"><span class="name">MetricFamily</span></a><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@MetricFamilyextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A metric family represents a counter, gauge or histogram metric.</p><div class="fullcomment"><div class="comment cmt"><p>A metric family represents a counter, gauge or histogram metric.</p><p>These
+</p></div></div>
+    </li><li name="org.lyranthe.prometheus.client.registry.RegistryFormat" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RegistryFormatextendsAnyRef"></a>
+      <a id="RegistryFormat:RegistryFormat"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="RegistryFormat.html"><span class="name">RegistryFormat</span></a><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@RegistryFormatextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.RegistryMetrics" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RegistryMetricsextendsProductwithSerializable"></a>
+      <a id="RegistryMetrics:RegistryMetrics"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RegistryMetrics.html"><span class="name">RegistryMetrics</span></a><span class="params">(<span name="name">name: <a href="../MetricName.html" class="extype" name="org.lyranthe.prometheus.client.MetricName">MetricName</a></span>, <span name="help">help: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metricType">metricType: <a href="../MetricType.html" class="extype" name="org.lyranthe.prometheus.client.MetricType">MetricType</a></span>, <span name="metrics">metrics: <span class="extype" name="scala.List">List</span>[<a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a>]</span>)</span><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@RegistryMetricsextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="org.lyranthe.prometheus.client.registry.ProtoFormat" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ProtoFormat"></a>
+      <a id="ProtoFormat:ProtoFormat"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ProtoFormat$.html"><span class="name">ProtoFormat</span></a><span class="result"> extends <a href="RegistryFormat.html" class="extype" name="org.lyranthe.prometheus.client.registry.RegistryFormat">RegistryFormat</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@ProtoFormat" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="org.lyranthe.prometheus.client.registry.TextFormat" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TextFormat"></a>
+      <a id="TextFormat:TextFormat"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TextFormat$.html"><span class="name">TextFormat</span></a><span class="result"> extends <a href="RegistryFormat.html" class="extype" name="org.lyranthe.prometheus.client.registry.RegistryFormat">RegistryFormat</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.package@TextFormat" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
