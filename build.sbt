@@ -2,7 +2,7 @@ import sbtprotobuf.{ProtobufPlugin => PB}
 
 organization in Global := "org.lyranthe.prometheus"
 
-scalaVersion in ThisBuild := "2.12.0"
+scalaVersion in ThisBuild := "2.11.8"
 crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0")
 
 version in ThisBuild := "git describe --tags --dirty --always".!!
@@ -27,9 +27,9 @@ val publishSettings = Seq(
       </license>
     </licenses>
     <scm>
-      <connection>scm:git:github.com/fiadliel/prometheus_scala_client.git</connection>
-      <developerConnection>scm:git:git@github.com:fiadliel/prometheus_scala_client.git</developerConnection>
-      <url>github.com/fiadliel/prometheus_scala_client</url>
+      <connection>scm:git:github.com/fiadliel/prometheus_client_scala.git</connection>
+      <developerConnection>scm:git:git@github.com:fiadliel/prometheus_client_scala.git</developerConnection>
+      <url>github.com/fiadliel/prometheus_client_scala</url>
     </scm>
     <developers>
       <developer>
@@ -74,9 +74,7 @@ val fs2 =
     .in(file("fs2"))
     .settings(publishSettings)
     .settings(
-      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.2",
-      apiURL := Some(url(
-        raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/fs2_${scalaBinaryVersion.value}/${version.value}/fs2_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
+      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.2"
     )
     .dependsOn(client)
 
@@ -99,10 +97,13 @@ import com.typesafe.sbt.SbtGit.GitKeys._
 val site =
   project
     .in(file("site"))
+    .enablePlugins(HugoPlugin)
     .settings(unidocSettings)
     .settings(tutSettings)
     .settings(ghpages.settings)
     .settings(
+      baseURL in Hugo := new URI("https://www.lyranthe.org/prometheus_client_scala"),
+      includeFilter in Hugo := "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
       siteSubdirName in SiteScaladoc := "latest/api",
       ghpagesNoJekyll := false,
       SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
