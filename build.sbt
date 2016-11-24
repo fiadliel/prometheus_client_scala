@@ -90,6 +90,7 @@ val benchmark =
 val play =
   project
     .in(file("play"))
+    .settings(publishSettings)
     .settings(
       libraryDependencies ++= Seq(
         "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources()
