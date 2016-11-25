@@ -23,7 +23,8 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
       .labels(label"method", label"path", label"status")
       .register
 
-  private val counter = Counter(metric"http_request_badregex_total", "Route not found")
+  private val httpRequestMismatch =
+    Counter(metric"http_request_mismatch_total", "Number mismatched routes")
     .labels()
     .register
 
