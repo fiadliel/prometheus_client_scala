@@ -18,12 +18,10 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
     HistogramBuckets(buckets: _*)
   }
 
-
   private val httpRequestLatency =
     Histogram(metric"http_request_duration_seconds", "Duration of HTTP request in seconds")(httpHistogramBuckets)
-      .labels(label"path", label"status")
+      .labels(label"method", label"path", label"status")
       .register
-
 
   private val counter = Counter(metric"http_request_badregex_total", "Route not found")
     .labels()
@@ -32,10 +30,11 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
   def apply(nextFilter: RequestHeader => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
     val future = nextFilter(requestHeader)
     val routeOpt = for {
+      method <- requestHeader.tags.get("ROUTE_VERB")
       routePattern <- requestHeader.tags.get("ROUTE_PATTERN")
       route <- RouteRegex findFirstIn routePattern
     } yield {
-      future.onComplete(this.time(statusCode => httpRequestLatency.labelValues(route, statusCode)))
+      future.onComplete(this.time(statusCode => httpRequestLatency.labelValues(method, route, statusCode))())
       route
     }
     if (routeOpt.isEmpty) {
