@@ -13,4 +13,4 @@ libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.5.1"
 ## Documentation
 
  - [Guide](https://www.lyranthe.org/prometheus_client_scala/guide/)
- - [API](https://www.lyranthe.org/prometheus_client_scala/latest/api/org/lyranthe/prometheus/client/index.html)
+ - [API](https://www.lyranthe.org/prometheus_client_scala/latest/api/#org.lyranthe.prometheus.client.package)
