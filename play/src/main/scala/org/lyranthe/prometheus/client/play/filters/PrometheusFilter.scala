@@ -9,11 +9,9 @@ import scala.util.{Failure, Success, Try}
 
 class PrometheusFilter()(implicit val registry: Registry, executionContext: ExecutionContext) extends Filter {
 
-  private val ClientErrorClass = "4xx"
+  private final val ServerErrorClass = "5xx"
 
-  private val ServerErrorClass = "5xx"
-
-  private val RouteRegex = "[/a-zA-Z0-9$_\\-]+".r
+  private final val RouteRegex = "^[/a-zA-Z0-9$_\\-]+$".r
 
   private val httpHistogramBuckets = {
     val buckets = for(p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10); s <- Vector(1, 2, 5)) yield (p * s)
@@ -27,7 +25,7 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
       .register
 
 
-  private val counter = Counter(metric"http_request_route_not_found", "Route not found")
+  private val counter = Counter(metric"http_request_badregex_total", "Route not found")
     .labels()
     .register
 
@@ -48,9 +46,8 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
 
   private def statusCodeLabel(result: Result) = (result.header.status / 100) + "xx"
 
-  private def time(templatedHistogram: String => LabelledHistogram)(implicit timer: Timer = Timer()): Try[Result] => Unit = {
+  private def time(templatedHistogram: String => LabelledHistogram)(timer: Timer = Timer()): Try[Result] => Unit = {
     case Success(result) => templatedHistogram(statusCodeLabel(result)).observeDuration(timer)
-    case Failure(_: IllegalArgumentException) => templatedHistogram(ClientErrorClass).observeDuration(timer)
     case Failure(_) => templatedHistogram(ServerErrorClass).observeDuration(timer)
   }
 
