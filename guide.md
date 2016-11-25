@@ -134,7 +134,7 @@ You can create a registry with a default implementation with:
 
 ```scala
 scala> implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@439a9b08
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@608d252d
 ```
 
 ```scala
@@ -222,13 +222,13 @@ res1: String =
 # TYPE request_latency histogram
 request_latency_bucket{le="0.02",path="/home"} 0
 request_latency_bucket{le="0.05",path="/home"} 1
-request_latency_bucket{le="0.1",path="/home"} 2
+request_latency_bucket{le="0.1",path="/home"} 1
 request_latency_bucket{le="0.2",path="/home"} 3
-request_latency_bucket{le="0.5",path="/home"} 5
+request_latency_bucket{le="0.5",path="/home"} 8
 request_latency_bucket{le="1.0",path="/home"} 9
 request_latency_bucket{le="+Inf",path="/home"} 9
 request_latency_count{path="/home"} 9
-request_latency_sum{path="/home"} 3.743899291000001
+request_latency_sum{path="/home"} 2.319469275
 "
 ```
 
@@ -252,31 +252,31 @@ res2: Boolean = false
 scala> println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader="loaded"} 17786.0
-jvm_classloader{classloader="total-loaded"} 17800.0
-jvm_classloader{classloader="unloaded"} 14.0
+jvm_classloader{classloader="loaded"} 17872.0
+jvm_classloader{classloader="total-loaded"} 18266.0
+jvm_classloader{classloader="unloaded"} 394.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name="PS Scavenge",type="count"} 16.0
-jvm_gc_stats{name="PS Scavenge",type="time"} 0.404
+jvm_gc_stats{name="PS Scavenge",type="count"} 15.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.453
 jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
-jvm_gc_stats{name="PS MarkSweep",type="time"} 0.978
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.327
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 1.107820544E9
+jvm_memory_usage{region="heap",type="committed"} 9.15931136E8
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
 jvm_memory_usage{region="heap",type="max"} 1.431830528E9
-jvm_memory_usage{region="heap",type="used"} 2.1367516E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.867776E8
+jvm_memory_usage{region="heap",type="used"} 3.6319736E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.9795968E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",type="used"} 1.846558E8
+jvm_memory_usage{region="non-heap",type="used"} 1.9442412E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.480089293591E9
+jvm_start_time 1.480089554714E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type="non-daemon"} 11.0
+jvm_threads{type="non-daemon"} 12.0
 jvm_threads{type="daemon"} 5.0
 
 ```
