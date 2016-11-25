@@ -87,6 +87,17 @@ val benchmark =
     )
     .dependsOn(client)
 
+val play =
+  project
+    .in(file("play"))
+    .settings(publishSettings)
+    .settings(
+      libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources()
+      )
+    )
+    .dependsOn(client)
+
 // Site Settings
 import com.typesafe.sbt.site._
 import com.typesafe.sbt.site.SitePlugin.autoImport.siteSubdirName
