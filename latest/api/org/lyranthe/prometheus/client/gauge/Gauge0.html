@@ -45,14 +45,14 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Gauge0</span><span class="result"> extends <a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a> with <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">Gauge0</span><span class="result"> extends <a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a> with <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>This represents a Prometheus internal.gauge with no labels.</p><p>A Prometheus internal.gauge should be used for values which go up and down.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a>, <a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a>, <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a>, <a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -70,7 +70,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="org.lyranthe.prometheus.client.gauge.Gauge0"><span>Gauge0</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="org.lyranthe.prometheus.client.registry.MetricFamily"><span>MetricFamily</span></li><li class="in" name="org.lyranthe.prometheus.client.gauge.LabelledGauge"><span>LabelledGauge</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="org.lyranthe.prometheus.client.gauge.Gauge0"><span>Gauge0</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="org.lyranthe.prometheus.client.registry.MetricFamily"><span>MetricFamily</span></li><li class="in" name="org.lyranthe.prometheus.client.LabelledGauge"><span>LabelledGauge</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -146,7 +146,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#adder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#adder" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="adder:org.lyranthe.prometheus.client.internal.SynchronizedDoubleAdder"></a>
       <a id="adder:SynchronizedDoubleAdder"></a>
       <h4 class="signature">
@@ -162,7 +162,7 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -220,7 +220,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.lyranthe.prometheus.client.gauge.Gauge0">Gauge0</a> → <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#dec" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#dec" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dec():Unit"></a>
       <a id="dec():Unit"></a>
       <h4 class="signature">
@@ -236,8 +236,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#decBy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#decBy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="decBy(v:Double):Unit"></a>
       <a id="decBy(Double):Unit"></a>
       <h4 class="signature">
@@ -253,7 +253,7 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -328,7 +328,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.lyranthe.prometheus.client.gauge.Gauge0">Gauge0</a> → <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#inc" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#inc" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="inc():Unit"></a>
       <a id="inc():Unit"></a>
       <h4 class="signature">
@@ -344,8 +344,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#incBy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#incBy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="incBy(v:Double):Unit"></a>
       <a id="incBy(Double):Unit"></a>
       <h4 class="signature">
@@ -361,7 +361,7 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
     </li><li name="org.lyranthe.prometheus.client.gauge.Gauge0#initialValue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="initialValue:Option[Double]"></a>
       <a id="initialValue:Option[Double]"></a>
@@ -515,7 +515,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#set" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#set" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="set(v:Double):Unit"></a>
       <a id="set(Double):Unit"></a>
       <h4 class="signature">
@@ -531,8 +531,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#setToCurrentTime" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#setToCurrentTime" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="setToCurrentTime()(implicitclock:java.time.Clock):Unit"></a>
       <a id="setToCurrentTime()(Clock):Unit"></a>
       <h4 class="signature">
@@ -548,8 +548,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#setToDuration" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#setToDuration" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="setToDuration(duration:java.time.Duration):Unit"></a>
       <a id="setToDuration(Duration):Unit"></a>
       <h4 class="signature">
@@ -565,8 +565,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#setToInstant" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#setToInstant" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="setToInstant(instant:java.time.Instant):Unit"></a>
       <a id="setToInstant(Instant):Unit"></a>
       <h4 class="signature">
@@ -582,8 +582,8 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#sum" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#sum" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="sum():Double"></a>
       <a id="sum():Double"></a>
       <h4 class="signature">
@@ -599,7 +599,7 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -617,7 +617,7 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="org.lyranthe.prometheus.client.gauge.LabelledGauge#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="org.lyranthe.prometheus.client.LabelledGauge#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
       <h4 class="signature">
@@ -633,7 +633,7 @@
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -722,8 +722,8 @@
               <h3>Inherited from <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Equals" class="extype" target="_top">Equals</a></h3>
             </div><div class="parent" name="org.lyranthe.prometheus.client.registry.MetricFamily">
               <h3>Inherited from <a href="../registry/MetricFamily.html" class="extype" name="org.lyranthe.prometheus.client.registry.MetricFamily">MetricFamily</a></h3>
-            </div><div class="parent" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">
-              <h3>Inherited from <a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></h3>
+            </div><div class="parent" name="org.lyranthe.prometheus.client.LabelledGauge">
+              <h3>Inherited from <a href="../LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">

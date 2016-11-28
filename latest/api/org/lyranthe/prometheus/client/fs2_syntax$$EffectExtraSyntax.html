@@ -183,7 +183,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#count" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="count(f:fs2.util.Attempt[A]=&gt;Option[(org.lyranthe.prometheus.client.counter.LabelledCounter,Double)])(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="count(f:fs2.util.Attempt[A]=&gt;Option[(org.lyranthe.prometheus.client.LabelledCounter,Double)])(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="count((Attempt[A])⇒Option[(LabelledCounter,Double)])(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -191,16 +191,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">count</span><span class="params">(<span name="f">f: (<span class="extype" name="fs2.util.Attempt">Attempt</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[(<a href="counter/LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.counter.LabelledCounter">LabelledCounter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a>)]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">count</span><span class="params">(<span name="f">f: (<span class="extype" name="fs2.util.Attempt">Attempt</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[(<a href="LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.LabelledCounter">LabelledCounter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a>)]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@count(f:fs2.util.Attempt[A]=&gt;Option[(org.lyranthe.prometheus.client.counter.LabelledCounter,Double)])(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@count(f:fs2.util.Attempt[A]=&gt;Option[(org.lyranthe.prometheus.client.LabelledCounter,Double)])(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#countFailure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="countFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.counter.LabelledCounter)(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="countFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.LabelledCounter)(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="countFailure((Throwable)⇒LabelledCounter)(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -208,16 +208,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">countFailure</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="counter/LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.counter.LabelledCounter">LabelledCounter</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">countFailure</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.LabelledCounter">LabelledCounter</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@countFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.counter.LabelledCounter)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@countFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.LabelledCounter)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#countSuccess" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="countSuccess(f:A=&gt;(org.lyranthe.prometheus.client.counter.LabelledCounter,Double))(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="countSuccess(f:A=&gt;(org.lyranthe.prometheus.client.LabelledCounter,Double))(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="countSuccess((A)⇒(LabelledCounter,Double))(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -225,10 +225,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">countSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ (<a href="counter/LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.counter.LabelledCounter">LabelledCounter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a>)</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">countSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ (<a href="LabelledCounter.html" class="extype" name="org.lyranthe.prometheus.client.LabelledCounter">LabelledCounter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Double" class="extype" target="_top">Double</a>)</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@countSuccess(f:A=&gt;(org.lyranthe.prometheus.client.counter.LabelledCounter,Double))(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@countSuccess(f:A=&gt;(org.lyranthe.prometheus.client.LabelledCounter,Double))(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -268,7 +268,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#markSuccess" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="markSuccess(f:A=&gt;org.lyranthe.prometheus.client.gauge.LabelledGauge)(implicitF:fs2.util.Effect[F],implicitclock:java.time.Clock):F[A]"></a>
+      <a id="markSuccess(f:A=&gt;org.lyranthe.prometheus.client.LabelledGauge)(implicitF:fs2.util.Effect[F],implicitclock:java.time.Clock):F[A]"></a>
       <a id="markSuccess((A)⇒LabelledGauge)(Effect[F],Clock):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -276,16 +276,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">markSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ <a href="gauge/LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.gauge.LabelledGauge">LabelledGauge</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>, <span name="clock">clock: <span class="extype" name="java.time.Clock">Clock</span></span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">markSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ <a href="LabelledGauge.html" class="extype" name="org.lyranthe.prometheus.client.LabelledGauge">LabelledGauge</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>, <span name="clock">clock: <span class="extype" name="java.time.Clock">Clock</span></span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@markSuccess(f:A=&gt;org.lyranthe.prometheus.client.gauge.LabelledGauge)(implicitF:fs2.util.Effect[F],implicitclock:java.time.Clock):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@markSuccess(f:A=&gt;org.lyranthe.prometheus.client.LabelledGauge)(implicitF:fs2.util.Effect[F],implicitclock:java.time.Clock):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#time" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="time(f:fs2.util.Attempt[A]=&gt;Option[org.lyranthe.prometheus.client.histogram.LabelledHistogram])(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="time(f:fs2.util.Attempt[A]=&gt;Option[org.lyranthe.prometheus.client.LabelledHistogram])(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="time((Attempt[A])⇒Option[LabelledHistogram])(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -293,16 +293,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">time</span><span class="params">(<span name="f">f: (<span class="extype" name="fs2.util.Attempt">Attempt</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<a href="histogram/LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.histogram.LabelledHistogram">LabelledHistogram</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">time</span><span class="params">(<span name="f">f: (<span class="extype" name="fs2.util.Attempt">Attempt</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<a href="LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.LabelledHistogram">LabelledHistogram</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@time(f:fs2.util.Attempt[A]=&gt;Option[org.lyranthe.prometheus.client.histogram.LabelledHistogram])(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@time(f:fs2.util.Attempt[A]=&gt;Option[org.lyranthe.prometheus.client.LabelledHistogram])(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#timeFailure" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="timeFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.histogram.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="timeFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="timeFailure((Throwable)⇒LabelledHistogram)(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -310,16 +310,16 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">timeFailure</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="histogram/LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.histogram.LabelledHistogram">LabelledHistogram</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">timeFailure</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.LabelledHistogram">LabelledHistogram</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@timeFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.histogram.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@timeFailure(f:Throwable=&gt;org.lyranthe.prometheus.client.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
     </li><li name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax#timeSuccess" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="timeSuccess(f:A=&gt;org.lyranthe.prometheus.client.histogram.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]"></a>
+      <a id="timeSuccess(f:A=&gt;org.lyranthe.prometheus.client.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]"></a>
       <a id="timeSuccess((A)⇒LabelledHistogram)(Effect[F]):F[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -327,10 +327,10 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">timeSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ <a href="histogram/LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.histogram.LabelledHistogram">LabelledHistogram</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
+        <span class="name">timeSuccess</span><span class="params">(<span name="f">f: (<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>) ⇒ <a href="LabelledHistogram.html" class="extype" name="org.lyranthe.prometheus.client.LabelledHistogram">LabelledHistogram</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/co/fs2/fs2-core_2.11/0.9.2/fs2-core_2.11-0.9.2-javadoc.jar/!/index.html#fs2.util.Effect" class="extype" target="_top">Effect</a>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.F">F</span>[<span class="extype" name="org.lyranthe.prometheus.client.fs2_syntax.EffectExtraSyntax.A">A</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@timeSuccess(f:A=&gt;org.lyranthe.prometheus.client.histogram.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
+      <a href="../../../../index.html#org.lyranthe.prometheus.client.fs2_syntax$$EffectExtraSyntax@timeSuccess(f:A=&gt;org.lyranthe.prometheus.client.LabelledHistogram)(implicitF:fs2.util.Effect[F]):F[A]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
