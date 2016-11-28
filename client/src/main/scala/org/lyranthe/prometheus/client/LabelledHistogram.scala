@@ -12,9 +12,9 @@ class LabelledHistogram private[client] (
     val buckets: (UnsynchronizedDoubleAdder,
                   Array[(Double, UnsynchronizedLongAdder)])) {
   def observe(v: Double): Unit =
-    Histogram.observe(buckets, v)
+    histogram.Histogram.observe(buckets, v)
 
   def observeDuration(timer: Timer)(
       implicit timeSource: NanoTimeSource): Unit =
-    Histogram.observe(buckets, timer.duration)
+    histogram.Histogram.observe(buckets, timer.duration)
 }

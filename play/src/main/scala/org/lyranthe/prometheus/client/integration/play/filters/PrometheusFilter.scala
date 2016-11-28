@@ -2,7 +2,6 @@ package org.lyranthe.prometheus.client.integration.play.filters
 
 import com.google.inject.{Inject, Singleton}
 import org.lyranthe.prometheus.client._
-import org.lyranthe.prometheus.client.histogram.LabelledHistogram
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
