@@ -107,10 +107,25 @@ val play24 =
     .in(file("play24"))
     .settings(publishSettings)
     .settings(
+      yax(file("yax/play"), "play24"),
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
         "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources ()
+      )
+    )
+    .dependsOn(client)
+
+val play25 =
+  project
+    .in(file("play25"))
+    .settings(publishSettings)
+    .settings(
+      yax(file("yax/play"), "play25"),
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211),
+      libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play" % "2.5.10" % "provided" withSources ()
       )
     )
     .dependsOn(client)

@@ -1,6 +1,9 @@
 package org.lyranthe.prometheus.client.integration.play.filters
 
 import com.google.inject.{Inject, Singleton}
+#+play25
+import akka.stream.Materializer
+#-play25
 import org.lyranthe.prometheus.client._
 import play.api.mvc._
 
@@ -10,14 +13,13 @@ import scala.util.{Failure, Success, Try}
 private case class RouteDetails(method: String, route: String)
 
 @Singleton
-class PrometheusFilter @Inject()(registry: Registry,
-                                 executionContext: ExecutionContext)
-    extends Filter {
-
-  private implicit val defaultRegistry = registry
-
-  private implicit val localExecutionContext = executionContext
-
+class PrometheusFilter @Inject()(implicit
+#+play25
+  val mat: Materializer,
+#-play25
+  registry: Registry,
+  executionContext: ExecutionContext
+) extends Filter {
   private final val ServerErrorClass = "5xx"
 
   private final val RouteRegex = "^[/a-zA-Z0-9$_\\-]+$".r
