@@ -119,9 +119,9 @@ number of values when using this counter:
 
 ```scala
 scala> totalErrors.labelValues("404", "/path").inc()
-<console>:17: error: too many arguments (2) for method labelValues: (labelValue1: String)org.lyranthe.prometheus.client.counter.LabelledCounter
+<console>:17: error: too many arguments for method labelValues: (labelValue1: String)org.lyranthe.prometheus.client.LabelledCounter
        totalErrors.labelValues("404", "/path").inc()
-                                      ^
+                              ^
 ```
 
 ## The Registry
@@ -134,7 +134,7 @@ You can create a registry with a default implementation with:
 
 ```scala
 scala> implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@2de9d563
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@583bcaf3
 ```
 
 ```scala
@@ -211,7 +211,7 @@ requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1
 scala> val mySleepyTask = Task.delay(Thread.sleep(scala.util.Random.nextInt(800)))
 mySleepyTask: fs2.Task[Unit] = Task
 
-scala> val myTimedSleepyTask = mySleepyTask.timeSuccess(requestLatency.labelValues("/home"))
+scala> val myTimedSleepyTask = mySleepyTask.timeSuccess(_ => requestLatency.labelValues("/home"))
 myTimedSleepyTask: fs2.Task[Unit] = Task
 
 scala> for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
@@ -220,16 +220,54 @@ scala> implicitly[Registry].outputText
 res1: String =
 "# HELP request_latency Request latency
 # TYPE request_latency histogram
-request_latency_bucket{le="0.02",path="/home"} 1
-request_latency_bucket{le="0.05",path="/home"} 2
-request_latency_bucket{le="0.1",path="/home"} 2
-request_latency_bucket{le="0.2",path="/home"} 3
+request_latency_bucket{le="0.02",path="/home"} 0
+request_latency_bucket{le="0.05",path="/home"} 0
+request_latency_bucket{le="0.1",path="/home"} 0
+request_latency_bucket{le="0.2",path="/home"} 2
 request_latency_bucket{le="0.5",path="/home"} 6
 request_latency_bucket{le="1.0",path="/home"} 9
 request_latency_bucket{le="+Inf",path="/home"} 9
 request_latency_count{path="/home"} 9
-request_latency_sum{path="/home"} 3.1627661240000005
+request_latency_sum{path="/home"} 3.376579453
 "
+```
+
+## Using with Play 2.4.x
+
+It is possible to add instrumentation to your 2.4.x Play app Controllers very easily.
+A [Play filter](https://www.playframework.com/documentation/2.4.x/ScalaHttpFilters) named `PrometheusFilter` is available in the `play` contrib module and will add a Histogram metric named `http_request_duration_seconds` with the following labels:
+* method (the http method, i.e. GET / PUT)
+* path (the route path)
+* status (the http response code family, i.e. 2xx, 4xx, 5xx)
+
+Create a `Filter` class in the root of your `Play` service with the following implementation:
+
+```scala
+import com.google.inject.Inject
+import org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter
+import play.api.http.HttpFilters
+
+class Filters @Inject()(prometheusFilter: PrometheusFilter) extends HttpFilters {
+
+  val filters = Seq(prometheusFilter)
+
+}
+```
+
+Please note that an implementation of a `org.lyranthe.prometheus.client.Registry` must be availabe in the *Guice* context.
+
+An example:
+
+```scala
+import com.google.inject.AbstractModule
+
+class Module extends AbstractModule {
+
+  override def configure() = {
+    bind(classOf[Registry]).to(classOf[DefaultRegistry])
+  }
+  
+}
 ```
 
 ## Exposing JMX Statistics
@@ -252,31 +290,31 @@ res2: Boolean = false
 scala> println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader="loaded"} 15222.0
-jvm_classloader{classloader="total-loaded"} 15301.0
-jvm_classloader{classloader="unloaded"} 79.0
+jvm_classloader{classloader="loaded"} 15091.0
+jvm_classloader{classloader="total-loaded"} 15173.0
+jvm_classloader{classloader="unloaded"} 82.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name="PS Scavenge",type="count"} 11.0
-jvm_gc_stats{name="PS Scavenge",type="time"} 0.319
+jvm_gc_stats{name="PS Scavenge",type="count"} 9.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.159
 jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
-jvm_gc_stats{name="PS MarkSweep",type="time"} 0.326
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.349
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 9.98244352E8
+jvm_memory_usage{region="heap",type="committed"} 1.065353216E9
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
 jvm_memory_usage{region="heap",type="max"} 1.431830528E9
-jvm_memory_usage{region="heap",type="used"} 2.71817368E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.90070784E8
+jvm_memory_usage{region="heap",type="used"} 1.56815184E8
+jvm_memory_usage{region="non-heap",type="committed"} 1.4721024E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",type="used"} 1.81783664E8
+jvm_memory_usage{region="non-heap",type="used"} 1.45320496E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.478810439329E9
+jvm_start_time 1.480356658319E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
-jvm_threads{type="non-daemon"} 12.0
-jvm_threads{type="daemon"} 4.0
+jvm_threads{type="non-daemon"} 11.0
+jvm_threads{type="daemon"} 5.0
 
 ```
