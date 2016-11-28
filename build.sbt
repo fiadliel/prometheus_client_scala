@@ -102,9 +102,9 @@ val benchmark =
     )
     .dependsOn(client)
 
-val play =
+val play24 =
   project
-    .in(file("play"))
+    .in(file("play24"))
     .settings(publishSettings)
     .settings(
       scalaVersion := scala211,

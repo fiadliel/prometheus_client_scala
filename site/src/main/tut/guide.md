@@ -171,7 +171,7 @@ Create a `Filter` class in the root of your `Play` service with the following im
 
 ```scala
 import com.google.inject.Inject
-import org.lyranthe.prometheus.client.play.filters.PrometheusFilter
+import org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter
 import play.api.http.HttpFilters
 
 class Filters @Inject()(prometheusFilter: PrometheusFilter) extends HttpFilters {
@@ -182,6 +182,20 @@ class Filters @Inject()(prometheusFilter: PrometheusFilter) extends HttpFilters 
 ```
 
 Please note that an implementation of a `org.lyranthe.prometheus.client.Registry` must be availabe in the *Guice* context.
+
+An example:
+
+```scala
+import com.google.inject.AbstractModule
+
+class Module extends AbstractModule {
+
+  override def configure() = {
+    bind(classOf[Registry]).to(classOf[DefaultRegistry])
+  }
+  
+}
+```
 
 ## Exposing JMX Statistics
 

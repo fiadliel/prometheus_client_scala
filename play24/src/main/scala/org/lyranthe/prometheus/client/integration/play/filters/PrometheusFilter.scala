@@ -8,9 +8,13 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 @Singleton
-class PrometheusFilter @Inject()()(implicit val registry: Registry,
-                                   executionContext: ExecutionContext)
+class PrometheusFilter @Inject()(registry: Registry,
+                                 executionContext: ExecutionContext)
     extends Filter {
+
+  private implicit val defaultRegistry = registry
+
+  private implicit val localExecutionContext = executionContext
 
   private final val ServerErrorClass = "5xx"
 
