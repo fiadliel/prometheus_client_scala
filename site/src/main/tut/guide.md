@@ -159,6 +159,44 @@ for (i <- Range(1, 10)) myTimedSleepyTask.unsafeRun
 implicitly[Registry].outputText
 ```
 
+## Using with Play 2.4.x
+
+It is possible to add instrumentation to your 2.4.x Play app Controllers very easily.
+A [Play filter](https://www.playframework.com/documentation/2.4.x/ScalaHttpFilters) named `PrometheusFilter` is available in the `play` contrib module and will add a Histogram metric named `http_request_duration_seconds` with the following labels:
+* method (the http method, i.e. GET / PUT)
+* path (the route path)
+* status (the http response code family, i.e. 2xx, 4xx, 5xx)
+
+Create a `Filter` class in the root of your `Play` service with the following implementation:
+
+```scala
+import com.google.inject.Inject
+import org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter
+import play.api.http.HttpFilters
+
+class Filters @Inject()(prometheusFilter: PrometheusFilter) extends HttpFilters {
+
+  val filters = Seq(prometheusFilter)
+
+}
+```
+
+Please note that an implementation of a `org.lyranthe.prometheus.client.Registry` must be availabe in the *Guice* context.
+
+An example:
+
+```scala
+import com.google.inject.AbstractModule
+
+class Module extends AbstractModule {
+
+  override def configure() = {
+    bind(classOf[Registry]).to(classOf[DefaultRegistry])
+  }
+  
+}
+```
+
 ## Exposing JMX Statistics
 
 Some JVM statistics can be exposed with:

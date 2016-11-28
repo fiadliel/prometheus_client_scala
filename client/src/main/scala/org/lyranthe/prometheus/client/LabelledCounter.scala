@@ -1,6 +1,5 @@
-package org.lyranthe.prometheus.client.counter
+package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.{LabelName, MetricName}
 import org.lyranthe.prometheus.client.internal.UnsynchronizedDoubleAdder
 
 /** Represents counter and associated labels.

@@ -2,8 +2,8 @@ import sbtprotobuf.{ProtobufPlugin => PB}
 
 organization in Global := "org.lyranthe.prometheus"
 
-scalaVersion in ThisBuild := "2.11.8"
-crossScalaVersions in ThisBuild := Seq("2.11.8", "2.12.0")
+val scala211 = "2.11.8"
+val scala212 = "2.12.0"
 
 version in ThisBuild := "git describe --tags --dirty --always".!!
   .stripPrefix("v")
@@ -14,6 +14,9 @@ scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
                                                      "-diagrams")
 sonatypeProfileName := "org.lyranthe"
 publishArtifact in ThisBuild := false
+enablePlugins(CrossPerProjectPlugin)
+scalaVersion in ThisBuild := scala211
+crossScalaVersions in ThisBuild := Seq(scala211, scala212)
 
 val publishSettings = Seq(
   mimaPreviousArtifacts := Set(organization.value %% name.value % "0.2.0"),
@@ -48,7 +51,9 @@ val macros =
     .in(file("macros"))
     .settings(publishSettings)
     .settings(
-      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212)
     )
 
 val client =
@@ -57,6 +62,8 @@ val client =
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(publishSettings)
     .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
       apiURL := Some(url(
         raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/client_${scalaBinaryVersion.value}/${version.value}/client_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
@@ -67,6 +74,10 @@ val protobuf =
     .in(file("protobuf"))
     .settings(publishSettings)
     .settings(PB.protobufSettings)
+    .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212)
+    )
     .dependsOn(client)
 
 val fs2 =
@@ -74,6 +85,8 @@ val fs2 =
     .in(file("fs2"))
     .settings(publishSettings)
     .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.2"
     )
     .dependsOn(client)
@@ -83,17 +96,21 @@ val benchmark =
     .in(file("benchmark"))
     .enablePlugins(JmhPlugin)
     .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211),
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.18"
     )
     .dependsOn(client)
 
-val play =
+val play24 =
   project
-    .in(file("play"))
+    .in(file("play24"))
     .settings(publishSettings)
     .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources()
+        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources ()
       )
     )
     .dependsOn(client)
@@ -113,7 +130,10 @@ val site =
     .settings(tutSettings)
     .settings(ghpages.settings)
     .settings(
-      baseURL in Hugo := new URI("https://www.lyranthe.org/prometheus_client_scala"),
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211),
+      baseURL in Hugo := new URI(
+        "https://www.lyranthe.org/prometheus_client_scala"),
       includeFilter in Hugo := "*.css" | "*.js" | "*.png" | "*.jpg" | "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
       siteSubdirName in SiteScaladoc := "latest/api",
       ghpagesNoJekyll := false,
