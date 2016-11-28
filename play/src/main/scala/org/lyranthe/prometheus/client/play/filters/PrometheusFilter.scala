@@ -1,13 +1,15 @@
 package org.lyranthe.prometheus.client.play.filters
 
-import org.lyranthe.prometheus.client.{play => _, _}
+import com.google.inject.{Inject, Singleton}
 import org.lyranthe.prometheus.client.histogram.LabelledHistogram
+import org.lyranthe.prometheus.client.{play => _, _}
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
-class PrometheusFilter()(implicit val registry: Registry, executionContext: ExecutionContext) extends Filter {
+@Singleton
+class PrometheusFilter @Inject()()(implicit val registry: Registry, executionContext: ExecutionContext) extends Filter {
 
   private final val ServerErrorClass = "5xx"
 
@@ -25,8 +27,8 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
 
   private val httpRequestMismatch =
     Counter(metric"http_request_mismatch_total", "Number mismatched routes")
-    .labels()
-    .register
+      .labels()
+      .register
 
   def apply(nextFilter: RequestHeader => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
     val future = nextFilter(requestHeader)
@@ -39,7 +41,7 @@ class PrometheusFilter()(implicit val registry: Registry, executionContext: Exec
       route
     }
     if (routeOpt.isEmpty) {
-      counter.inc()
+      httpRequestMismatch.inc()
     }
     future
   }
