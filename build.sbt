@@ -110,18 +110,7 @@ val play =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources()
-      )
-    )
-    .dependsOn(client)
-
-val play =
-  project
-    .in(file("play"))
-    .settings(publishSettings)
-    .settings(
-      libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources()
+        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources ()
       )
     )
     .dependsOn(client)
@@ -143,7 +132,8 @@ val site =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      baseURL in Hugo := new URI("https://www.lyranthe.org/prometheus_client_scala"),
+      baseURL in Hugo := new URI(
+        "https://www.lyranthe.org/prometheus_client_scala"),
       includeFilter in Hugo := "*.css" | "*.js" | "*.png" | "*.jpg" | "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
       siteSubdirName in SiteScaladoc := "latest/api",
       ghpagesNoJekyll := false,

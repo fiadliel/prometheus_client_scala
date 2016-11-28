@@ -1,8 +1,7 @@
-package org.lyranthe.prometheus.client.gauge
+package org.lyranthe.prometheus.client
 
 import java.time.{Clock, Duration, Instant}
 
-import org.lyranthe.prometheus.client.{LabelName, MetricName}
 import org.lyranthe.prometheus.client.internal.SynchronizedDoubleAdder
 
 class LabelledGauge private[client] (name: MetricName,

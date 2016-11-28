@@ -1,6 +1,5 @@
-package org.lyranthe.prometheus.client.histogram
+package org.lyranthe.prometheus.client
 
-import org.lyranthe.prometheus.client.{LabelName, MetricName, Timer}
 import org.lyranthe.prometheus.client.internal.{
   NanoTimeSource,
   UnsynchronizedDoubleAdder,
