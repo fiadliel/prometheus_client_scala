@@ -114,7 +114,7 @@ val site =
     .settings(ghpages.settings)
     .settings(
       baseURL in Hugo := new URI("https://www.lyranthe.org/prometheus_client_scala"),
-      includeFilter in Hugo := "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
+      includeFilter in Hugo := "*.css" | "*.js" | "*.png" | "*.jpg" | "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
       siteSubdirName in SiteScaladoc := "latest/api",
       ghpagesNoJekyll := false,
       SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
