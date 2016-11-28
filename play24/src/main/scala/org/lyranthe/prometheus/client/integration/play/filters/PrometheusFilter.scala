@@ -7,6 +7,8 @@ import play.api.mvc._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
+private case class RouteDetails(method: String, route: String)
+
 @Singleton
 class PrometheusFilter @Inject()(registry: Registry,
                                  executionContext: ExecutionContext)
@@ -39,27 +41,40 @@ class PrometheusFilter @Inject()(registry: Registry,
 
   def apply(nextFilter: RequestHeader => Future[Result])(
       requestHeader: RequestHeader): Future[Result] = {
+    val timer  = Timer()
     val future = nextFilter(requestHeader)
-    val routeOpt = for {
+
+    getRouteDetails(requestHeader) match {
+      case Some(details) =>
+        future.onComplete {
+          time(timer) { statusCode =>
+            httpRequestLatency.labelValues(details.method,
+                                           details.route,
+                                           statusCode)
+          }
+        }
+
+      case None =>
+        httpRequestMismatch.inc()
+    }
+
+    future
+  }
+
+  private def getRouteDetails(
+      requestHeader: RequestHeader): Option[RouteDetails] = {
+    for {
       method       <- requestHeader.tags.get("ROUTE_VERB")
       routePattern <- requestHeader.tags.get("ROUTE_PATTERN")
       route        <- RouteRegex findFirstIn routePattern
-    } yield {
-      future.onComplete(this.time(statusCode =>
-        httpRequestLatency.labelValues(method, route, statusCode))())
-      route
-    }
-    if (routeOpt.isEmpty) {
-      httpRequestMismatch.inc()
-    }
-    future
+    } yield RouteDetails(method, route)
   }
 
   private def statusCodeLabel(result: Result) =
     (result.header.status / 100) + "xx"
 
-  private def time(templatedHistogram: String => LabelledHistogram)(
-      timer: Timer = Timer()): Try[Result] => Unit = {
+  private def time(timer: Timer)(
+      templatedHistogram: String => LabelledHistogram): Try[Result] => Unit = {
     case Success(result) =>
       templatedHistogram(statusCodeLabel(result)).observeDuration(timer)
     case Failure(_) =>
