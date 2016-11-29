@@ -7,7 +7,7 @@ In addition, it offers some extra insight into your program by exposing some use
 ## Adding the library to your build
 
 ```scala
-libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.7.0"
+libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.8.0"
 ```
 
 ## Documentation
