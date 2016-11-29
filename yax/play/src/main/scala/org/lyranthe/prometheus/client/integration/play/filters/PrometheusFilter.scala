@@ -22,7 +22,7 @@ class PrometheusFilter @Inject()(implicit
 ) extends Filter {
   private final val ServerErrorClass = "5xx"
 
-  private final val RouteRegex = "^[/a-zA-Z0-9$_\\-]+$".r
+  private final val RouteRegex = "^/[^<]*".r
 
   private val httpHistogramBuckets = {
     val buckets = for (p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10);
