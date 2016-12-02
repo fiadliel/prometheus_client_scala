@@ -1,3 +1,5 @@
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.13")
+
 addSbtPlugin("pl.project13.scala" % "sbt-jmh"         % "0.2.16")
 addSbtPlugin("io.spray"           % "sbt-boilerplate" % "0.6.0")
 addSbtPlugin("org.tpolecat"       % "tut-plugin"      % "0.4.6")

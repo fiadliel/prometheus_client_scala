@@ -1,5 +1,7 @@
 import sbtprotobuf.{ProtobufPlugin => PB}
 
+enablePlugins(ScalaJSPlugin)
+
 organization in Global := "org.lyranthe.prometheus"
 
 val scala211 = "2.11.8"
@@ -47,7 +49,7 @@ val publishSettings = Seq(
 scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
 
 val macros =
-  project
+  crossProject
     .in(file("macros"))
     .settings(publishSettings)
     .settings(
@@ -56,18 +58,25 @@ val macros =
       crossScalaVersions := Seq(scala211, scala212)
     )
 
+val macrosJVM = macros.jvm
+val macrosJS  = macros.js
+
 val client =
-  project
+  crossProject
     .in(file("client"))
     .enablePlugins(spray.boilerplate.BoilerplatePlugin)
     .settings(publishSettings)
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
+      boilerplateSource in Compile := baseDirectory.value.getParentFile / "shared" / "src" / "main" / "boilerplate",
       apiURL := Some(url(
         raw"https://oss.sonatype.org/service/local/repositories/public/archive/org/lyranthe/prometheus/client_${scalaBinaryVersion.value}/${version.value}/client_${scalaBinaryVersion.value}-${version.value}-javadoc.jar/!/index.html"))
     )
     .dependsOn(macros)
+
+val clientJVM = client.jvm
+val clientJS  = client.js
 
 val protobuf =
   project
@@ -78,18 +87,21 @@ val protobuf =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212)
     )
-    .dependsOn(client)
+    .dependsOn(clientJVM)
 
 val fs2 =
-  project
+  crossProject
     .in(file("fs2"))
     .settings(publishSettings)
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "co.fs2" %% "fs2-core" % "0.9.2"
+      libraryDependencies += "co.fs2" %%% "fs2-core" % "0.9.2"
     )
     .dependsOn(client)
+
+val fs2JVM = fs2.jvm
+val fs2JS  = fs2.js
 
 val benchmark =
   project
@@ -100,7 +112,7 @@ val benchmark =
       crossScalaVersions := Seq(scala211),
       libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.18"
     )
-    .dependsOn(client)
+    .dependsOn(clientJVM)
 
 val play24 =
   project
@@ -114,7 +126,7 @@ val play24 =
         "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources ()
       )
     )
-    .dependsOn(client)
+    .dependsOn(clientJVM)
 
 val play25 =
   project
@@ -128,7 +140,7 @@ val play25 =
         "com.typesafe.play" %% "play" % "2.5.10" % "provided" withSources ()
       )
     )
-    .dependsOn(client)
+    .dependsOn(clientJVM)
 
 // Site Settings
 import com.typesafe.sbt.site._
@@ -157,4 +169,4 @@ val site =
       siteMappings ++= tut.value,
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )
-    .dependsOn(client, fs2)
+    .dependsOn(clientJVM, fs2JVM)
