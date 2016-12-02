@@ -103,6 +103,17 @@ val fs2 =
 val fs2JVM = fs2.jvm
 val fs2JS  = fs2.js
 
+val scalaz72 =
+  project
+    .in(file("scalaz"))
+    .settings(publishSettings)
+    .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies += "org.scalaz" %% "scalaz-concurrent" % "7.2.7"
+    )
+    .dependsOn(clientJVM)
+
 val benchmark =
   project
     .in(file("benchmark"))
