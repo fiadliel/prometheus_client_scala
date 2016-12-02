@@ -114,6 +114,20 @@ val scalaz72 =
     )
     .dependsOn(clientJVM)
 
+val monix21 =
+  crossProject
+    .in(file("monix"))
+    .settings(publishSettings)
+    .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies += "io.monix" %%% "monix-eval" % "2.1.1"
+    )
+    .dependsOn(client)
+
+val monix21JVM = monix21.jvm
+val monix21JS = monix21.js
+
 val benchmark =
   project
     .in(file("benchmark"))
