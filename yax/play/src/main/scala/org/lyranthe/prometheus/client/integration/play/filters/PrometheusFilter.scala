@@ -22,8 +22,6 @@ class PrometheusFilter @Inject()(implicit
 ) extends Filter {
   private final val ServerErrorClass = "5xx"
 
-  private final val RouteRegex = "^/[^<]*".r
-
   private val httpHistogramBuckets = {
     val buckets = for (p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10);
                        s <- Vector(1, 2, 5)) yield (p * s)
@@ -68,8 +66,7 @@ class PrometheusFilter @Inject()(implicit
     for {
       method        <- requestHeader.tags.get("ROUTE_VERB")
       routePattern  <- requestHeader.tags.get("ROUTE_PATTERN")
-      routeTemplate <- RouteRegex findFirstIn routePattern
-      route         =  routeTemplate.replaceAll("\\$", ":")
+      route         =  routePattern.replaceAll("<.*>", "").replaceAll("\\$", ":")
     } yield RouteDetails(method, route)
   }
 
