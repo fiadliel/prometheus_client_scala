@@ -20,6 +20,8 @@ final case class Histogram0 private[client] (name: MetricName,
     with MetricFamily {
   override val metricType = MetricType.Histogram
 
+  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+
   override def collect(): List[HistogramMetric] = {
     List(
       HistogramMetric(List.empty,

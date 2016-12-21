@@ -15,7 +15,7 @@ class DefaultRegistry extends Registry {
 
   override def collect(): Iterator[RegistryMetrics] = {
     collectors.toIterator.map { c =>
-      RegistryMetrics(c.name, c.help, c.metricType, c.collect())
+      RegistryMetrics(c.name, c.help, c.escapedHelp, c.metricType, c.collect())
     }
   }
 }

@@ -10,6 +10,8 @@ final case class Histogram1 private[client] (name: MetricName, help: String, lab
 
   override final val metricType = MetricType.Histogram
 
+  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+
   def labelValues([#labelValue1: String#]): LabelledHistogram =
     new LabelledHistogram(name, labels, adders(Tuple1([#labelValue1#])))
 
