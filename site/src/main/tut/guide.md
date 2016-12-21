@@ -121,12 +121,12 @@ implicit val defaultRegistry = DefaultRegistry()
 implicit val histogramBuckets = HistogramBuckets(1, 2, 5, 10, 20, 50, 100)
 
 val activeRequests = Gauge(metric"active_requests", "Active requests").labels().register
-val numErrors = Counter(metric"num_errors", "Total errors").labels().register
-val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register
+val numErrors = Counter(metric"total_errors", "Total errors").labels().register
+val requestLatency = Histogram(metric"db_request_duration_seconds", "Request latency\nfrom database").labels(label"sql").register
 
 activeRequests.set(50)
 numErrors.inc
-requestLatency.labelValues("/home").observe(17)
+requestLatency.labelValues("select \nname, age\nfrom\nusers").observe(17)
 implicitly[Registry].outputText
 ```
 
@@ -212,3 +212,4 @@ jmx.register
 
 println(implicitly[Registry].outputText)
 ```
+

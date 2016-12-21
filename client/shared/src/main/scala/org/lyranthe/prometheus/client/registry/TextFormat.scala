@@ -21,18 +21,18 @@ object TextFormat extends RegistryFormat {
   def output(values: => Iterator[RegistryMetrics]): Array[Byte] = {
     val outputStream = new ByteArrayOutputStream(4096)
 
-    def labelsToString(labels: List[LabelPair]) = {
-      if (labels.isEmpty)
+    def labelsToString(labelPairs: List[LabelPair]) = {
+      if (labelPairs.isEmpty)
         ""
       else
-        labels.map {
-          case LabelPair(label, metric) => s"""${label.name}="$metric""""
+        labelPairs.map { pair =>
+          s"""${pair.name.name}="${pair.escapedValue}""""
         }.mkString("{", ",", "}")
     }
 
     values.foreach { metric =>
       val sb = new StringBuilder
-      sb.append(s"# HELP ${metric.name.name} ${metric.help}\n")
+      sb.append(s"# HELP ${metric.name.name} ${metric.escapedHelp}\n")
       sb.append(s"# TYPE ${metric.name.name} ${metric.metricType.toString}\n")
       metric.metrics foreach { rm =>
         rm match {

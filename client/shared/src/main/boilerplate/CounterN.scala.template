@@ -10,6 +10,8 @@ final case class Counter1 private[client] (name: MetricName, help: String, label
 
   override final val metricType = MetricType.Counter
 
+  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+
   def labelValues([#labelValue1: String#]): LabelledCounter =
     new LabelledCounter(name, labels, adders(Tuple1([#labelValue1#])))
 

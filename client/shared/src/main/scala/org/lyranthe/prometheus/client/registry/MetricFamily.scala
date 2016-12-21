@@ -11,6 +11,8 @@ trait MetricFamily {
   def help: String
   def metricType: MetricType
 
+  private[client] def escapedHelp: String
+
   def register(implicit registry: Registry): this.type = {
     registry.register(this)
     this

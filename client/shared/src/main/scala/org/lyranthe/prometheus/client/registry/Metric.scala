@@ -7,7 +7,10 @@ sealed trait Metric {
 }
 
 case class Bucket(cumulativeCount: Long, upperBound: Double)
-case class LabelPair(name: LabelName, value: String)
+case class LabelPair(name: LabelName, value: String) {
+  final private[registry] val escapedValue: String =
+    value.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")
+}
 
 case class GaugeMetric(labels: List[LabelPair], value: Double)   extends Metric
 case class CounterMetric(labels: List[LabelPair], value: Double) extends Metric

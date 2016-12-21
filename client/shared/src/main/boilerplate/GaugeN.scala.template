@@ -10,6 +10,8 @@ final case class Gauge1 private[client] (name: MetricName, help: String, labels:
 
   override final val metricType = MetricType.Gauge
 
+  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+
   def labelValues([#labelValue1: String#]): LabelledGauge =
     new LabelledGauge(name, labels, adders(Tuple1([#labelValue1#])), initialValue)
 
