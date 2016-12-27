@@ -66,7 +66,7 @@ class PrometheusFilter @Inject()(implicit
     for {
       method        <- requestHeader.tags.get("ROUTE_VERB")
       routePattern  <- requestHeader.tags.get("ROUTE_PATTERN")
-      route         =  routePattern.replaceAll("<.*>", "").replaceAll("\\$", ":")
+      route         =  routePattern.replaceAll("<.*?>", "").replaceAll("\\$", ":")
     } yield RouteDetails(method, route)
   }
 
