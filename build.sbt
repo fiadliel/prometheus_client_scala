@@ -5,7 +5,7 @@ enablePlugins(ScalaJSPlugin)
 organization in Global := "org.lyranthe.prometheus"
 
 val scala211 = "2.11.8"
-val scala212 = "2.12.0"
+val scala212 = "2.12.1"
 
 version in ThisBuild := "git describe --tags --dirty --always".!!
   .stripPrefix("v")
