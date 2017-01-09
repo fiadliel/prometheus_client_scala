@@ -45,7 +45,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">PrometheusFilter</span><span class="result"> extends <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a></span>
+        <span class="name">PrometheusFilter</span><span class="result"> extends <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a></span>
       </span>
       </h4>
       
@@ -54,7 +54,7 @@
               
         </dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a>, <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.EssentialFilter" class="extype" target="_top">EssentialFilter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a>, <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.EssentialFilter" class="extype" target="_top">EssentialFilter</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -92,7 +92,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(registry:org.lyranthe.prometheus.client.Registry,executionContext:scala.concurrent.ExecutionContext):org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter"></a>
+      <a id="&lt;init&gt;()(implicitmat:akka.stream.Materializer,implicitregistry:org.lyranthe.prometheus.client.Registry,implicitexecutionContext:scala.concurrent.ExecutionContext):org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter"></a>
       <a id="&lt;init&gt;:PrometheusFilter"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -100,10 +100,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PrometheusFilter</span><span class="params">(<span name="registry">registry: <a href="../../../Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></span>, <span name="executionContext">executionContext: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span>
+        <span class="name">PrometheusFilter</span><span class="params">()</span><span class="params">(<span class="implicit">implicit </span><span name="mat">mat: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/akka/akka-stream_2.11/2.4.12/akka-stream_2.11-2.4.12-javadoc.jar/!/index.html#akka.stream.Materializer" class="extype" target="_top">Materializer</a></span>, <span name="registry">registry: <a href="../../../Registry.html" class="extype" name="org.lyranthe.prometheus.client.Registry">Registry</a></span>, <span name="executionContext">executionContext: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@&lt;init&gt;(registry:org.lyranthe.prometheus.client.Registry,executionContext:scala.concurrent.ExecutionContext):org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter" title="Permalink" target="_top">
+      <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@&lt;init&gt;()(implicitmat:akka.stream.Materializer,implicitregistry:org.lyranthe.prometheus.client.Registry,implicitexecutionContext:scala.concurrent.ExecutionContext):org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter" title="Permalink" target="_top">
         <img src="../../../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -180,7 +180,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="nextFilter">nextFilter: (<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.RequestHeader" class="extype" target="_top">RequestHeader</a>) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.Result" class="extype" target="_top">Result</a>]</span>)</span><span class="params">(<span name="requestHeader">requestHeader: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.RequestHeader" class="extype" target="_top">RequestHeader</a></span>)</span><span class="result">: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.Result" class="extype" target="_top">Result</a>]</span>
+        <span class="name">apply</span><span class="params">(<span name="nextFilter">nextFilter: (<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.RequestHeader" class="extype" target="_top">RequestHeader</a>) ⇒ <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.Result" class="extype" target="_top">Result</a>]</span>)</span><span class="params">(<span name="requestHeader">requestHeader: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.RequestHeader" class="extype" target="_top">RequestHeader</a></span>)</span><span class="result">: <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.Result" class="extype" target="_top">Result</a>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@apply(nextFilter:play.api.mvc.RequestHeader=&gt;scala.concurrent.Future[play.api.mvc.Result])(requestHeader:play.api.mvc.RequestHeader):scala.concurrent.Future[play.api.mvc.Result]" title="Permalink" target="_top">
@@ -197,7 +197,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="next">next: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.EssentialAction" class="extype" target="_top">EssentialAction</a></span>)</span><span class="result">: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.EssentialAction" class="extype" target="_top">EssentialAction</a></span>
+        <span class="name">apply</span><span class="params">(<span name="next">next: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.EssentialAction" class="extype" target="_top">EssentialAction</a></span>)</span><span class="result">: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.EssentialAction" class="extype" target="_top">EssentialAction</a></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@apply(next:play.api.mvc.EssentialAction):play.api.mvc.EssentialAction" title="Permalink" target="_top">
@@ -222,6 +222,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="play.api.mvc.EssentialFilter#asJava" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asJava:play.mvc.EssentialFilter"></a>
+      <a id="asJava:EssentialFilter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asJava</span><span class="result">: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.mvc.EssentialFilter" class="extype" target="_top">EssentialFilter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@asJava:play.mvc.EssentialFilter" title="Permalink" target="_top">
+        <img src="../../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>EssentialFilter</dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a>
       <a id="clone():AnyRef"></a>
@@ -353,6 +370,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter#mat" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mat:akka.stream.Materializer"></a>
+      <a id="mat:Materializer"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mat</span><span class="result">: <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/akka/akka-stream_2.11/2.4.12/akka-stream_2.11-2.4.12-javadoc.jar/!/index.html#akka.stream.Materializer" class="extype" target="_top">Materializer</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../../index.html#org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter@mat:akka.stream.Materializer" title="Permalink" target="_top">
+        <img src="../../../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="org.lyranthe.prometheus.client.integration.play.filters.PrometheusFilter">PrometheusFilter</a> → Filter</dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -517,9 +551,9 @@
 
         <div id="inheritedMembers">
         <div class="parent" name="play.api.mvc.Filter">
-              <h3>Inherited from <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a></h3>
+              <h3>Inherited from <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.Filter" class="extype" target="_top">Filter</a></h3>
             </div><div class="parent" name="play.api.mvc.EssentialFilter">
-              <h3>Inherited from <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.4.8/play_2.11-2.4.8-javadoc.jar/!/index.html#play.api.mvc.EssentialFilter" class="extype" target="_top">EssentialFilter</a></h3>
+              <h3>Inherited from <a href="https://oss.sonatype.org/service/local/repositories/public/archive/com/typesafe/play/play_2.11/2.5.10/play_2.11-2.5.10-javadoc.jar/!/index.html#play.api.mvc.EssentialFilter" class="extype" target="_top">EssentialFilter</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">

@@ -134,7 +134,7 @@ You can create a registry with a default implementation with:
 
 ```scala
 scala> implicit val defaultRegistry = DefaultRegistry()
-defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@702ae0c0
+defaultRegistry: org.lyranthe.prometheus.client.DefaultRegistry = org.lyranthe.prometheus.client.DefaultRegistry@4b361da0
 ```
 
 ```scala
@@ -144,39 +144,34 @@ histogramBuckets: org.lyranthe.prometheus.client.HistogramBuckets{val buckets: L
 scala> val activeRequests = Gauge(metric"active_requests", "Active requests").labels().register
 activeRequests: org.lyranthe.prometheus.client.gauge.Gauge0 = Counter(MetricName(active_requests))()
 
-scala> val numErrors = Counter(metric"num_errors", "Total errors").labels().register
-numErrors: org.lyranthe.prometheus.client.counter.Counter0 = Counter(MetricName(num_errors))()
+scala> val numErrors = Counter(metric"total_errors", "Total errors").labels().register
+numErrors: org.lyranthe.prometheus.client.counter.Counter0 = Counter(MetricName(total_errors))()
 
-scala> val requestLatency = Histogram(metric"request_latency", "Request latency").labels(label"path").register
-requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 = Histogram1(MetricName(request_latency),Request latency,List(LabelName(path)),List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))
+scala> val requestLatency = Histogram(metric"db_request_duration_seconds", "Request latency\nfrom database").labels(label"sql").register
+requestLatency: org.lyranthe.prometheus.client.histogram.Histogram1 =
+Histogram1(MetricName(db_request_duration_seconds),Request latency
+from database,List(LabelName(sql)),List(1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, Infinity))
 
 scala> activeRequests.set(50)
 
 scala> numErrors.inc
 
-scala> requestLatency.labelValues("/home").observe(17)
+scala> requestLatency.labelValues("select \nname, age\nfrom\nusers").observe(17)
 
 scala> implicitly[Registry].outputText
 res10: String =
 "# HELP active_requests Active requests
 # TYPE active_requests gauge
 active_requests 50.0
-# HELP num_errors Total errors
-# TYPE num_errors counter
-num_errors 1.0
-# HELP request_latency Request latency
-# TYPE request_latency histogram
-request_latency_bucket{le="1.0",path="/home"} 0
-request_latency_bucket{le="2.0",path="/home"} 0
-request_latency_bucket{le="5.0",path="/home"} 0
-request_latency_bucket{le="10.0",path="/home"} 0
-request_latency_bucket{le="20.0",path="/home"} 1
-request_latency_bucket{le="50.0",path="/home"} 1
-request_latency_bucket{le="100.0",path="/home"} 1
-request_latency_bucket{le="+Inf",path="/home"} 1
-request_latency_count{path="/home"} 1
-request_latency_sum{path="/home"} 17.0
-"
+# HELP db_request_duration_seconds Request latency\nfrom database
+# TYPE db_request_duration_seconds histogram
+db_request_duration_seconds_bucket{le="1.0",sql="select \nname, age\nfrom\nusers"} 0
+db_request_duration_seconds_bucket{le="2.0",sql="select \nname, age\nfrom\nusers"} 0
+db_request_duration_seconds_bucket{le="5.0",sql="select \nname, age\nfrom\nusers"} 0
+db_request_duration_seconds_bucket{le="10.0",sql="select \nname, age\nfrom\nusers"} 0
+db_request_duration_seconds_bucket{le="20.0",sql="select \nname, age\nfrom\nusers"} 1
+db_request_duration_seconds_bucket{le="50.0",sql="select \nname, age\nfrom\nusers"} 1
+db_request_duration_seconds_bucket{le="100.0",sql="select \nname, a...
 ```
 
 ## Using with FS2 Task (WIP)
@@ -221,14 +216,14 @@ res1: String =
 "# HELP request_latency Request latency
 # TYPE request_latency histogram
 request_latency_bucket{le="0.02",path="/home"} 0
-request_latency_bucket{le="0.05",path="/home"} 1
-request_latency_bucket{le="0.1",path="/home"} 1
-request_latency_bucket{le="0.2",path="/home"} 2
+request_latency_bucket{le="0.05",path="/home"} 0
+request_latency_bucket{le="0.1",path="/home"} 0
+request_latency_bucket{le="0.2",path="/home"} 1
 request_latency_bucket{le="0.5",path="/home"} 5
 request_latency_bucket{le="1.0",path="/home"} 9
 request_latency_bucket{le="+Inf",path="/home"} 9
 request_latency_count{path="/home"} 9
-request_latency_sum{path="/home"} 3.906276748
+request_latency_sum{path="/home"} 4.565567008
 "
 ```
 
@@ -290,31 +285,32 @@ res2: Boolean = false
 scala> println(implicitly[Registry].outputText)
 # HELP jvm_classloader JVM Classloader statistics
 # TYPE jvm_classloader gauge
-jvm_classloader{classloader="loaded"} 16806.0
-jvm_classloader{classloader="total-loaded"} 16888.0
-jvm_classloader{classloader="unloaded"} 82.0
+jvm_classloader{classloader="loaded"} 19205.0
+jvm_classloader{classloader="total-loaded"} 19562.0
+jvm_classloader{classloader="unloaded"} 357.0
 # HELP jvm_gc_stats JVM Garbage Collector Statistics
 # TYPE jvm_gc_stats gauge
-jvm_gc_stats{name="PS Scavenge",type="count"} 13.0
-jvm_gc_stats{name="PS Scavenge",type="time"} 0.281
+jvm_gc_stats{name="PS Scavenge",type="count"} 18.0
+jvm_gc_stats{name="PS Scavenge",type="time"} 0.522
 jvm_gc_stats{name="PS MarkSweep",type="count"} 5.0
-jvm_gc_stats{name="PS MarkSweep",type="time"} 0.366
+jvm_gc_stats{name="PS MarkSweep",type="time"} 0.353
 # HELP jvm_memory_usage JVM Memory Usage
 # TYPE jvm_memory_usage gauge
-jvm_memory_usage{region="heap",type="committed"} 1.055391744E9
+jvm_memory_usage{region="heap",type="committed"} 9.82515712E8
 jvm_memory_usage{region="heap",type="init"} 5.36870912E8
 jvm_memory_usage{region="heap",type="max"} 1.431830528E9
-jvm_memory_usage{region="heap",type="used"} 3.33734792E8
-jvm_memory_usage{region="non-heap",type="committed"} 1.7424384E8
+jvm_memory_usage{region="heap",type="used"} 5.51355496E8
+jvm_memory_usage{region="non-heap",type="committed"} 2.23240192E8
 jvm_memory_usage{region="non-heap",type="init"} 2555904.0
 jvm_memory_usage{region="non-heap",type="max"} -1.0
-jvm_memory_usage{region="non-heap",type="used"} 1.72039176E8
+jvm_memory_usage{region="non-heap",type="used"} 2.1956912E8
 # HELP jvm_start_time JVM Start Time
 # TYPE jvm_start_time gauge
-jvm_start_time 1.480356895385E9
+jvm_start_time 1.483973948357E9
 # HELP jvm_threads JVM Thread Information
 # TYPE jvm_threads gauge
 jvm_threads{type="non-daemon"} 12.0
 jvm_threads{type="daemon"} 5.0
 
 ```
+

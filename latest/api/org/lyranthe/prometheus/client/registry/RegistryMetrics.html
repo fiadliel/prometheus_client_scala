@@ -45,7 +45,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">RegistryMetrics</span><span class="params">(<span name="name">name: <a href="../MetricName.html" class="extype" name="org.lyranthe.prometheus.client.MetricName">MetricName</a></span>, <span name="help">help: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metricType">metricType: <a href="../MetricType.html" class="extype" name="org.lyranthe.prometheus.client.MetricType">MetricType</a></span>, <span name="metrics">metrics: <span class="extype" name="scala.List">List</span>[<a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a>]</span>)</span><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">RegistryMetrics</span><span class="params">(<span name="name">name: <a href="../MetricName.html" class="extype" name="org.lyranthe.prometheus.client.MetricName">MetricName</a></span>, <span name="help">help: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="escapedHelp">escapedHelp: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metricType">metricType: <a href="../MetricType.html" class="extype" name="org.lyranthe.prometheus.client.MetricType">MetricType</a></span>, <span name="metrics">metrics: <span class="extype" name="scala.List">List</span>[<a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a>]</span>)</span><span class="result"> extends <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a> with <a href="http://scala-lang.org/files/archive/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
       </span>
       </h4>
       
@@ -89,7 +89,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="org.lyranthe.prometheus.client.registry.RegistryMetrics#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(name:org.lyranthe.prometheus.client.MetricName,help:String,metricType:org.lyranthe.prometheus.client.MetricType,metrics:List[org.lyranthe.prometheus.client.registry.Metric]):org.lyranthe.prometheus.client.registry.RegistryMetrics"></a>
+      <a id="&lt;init&gt;(name:org.lyranthe.prometheus.client.MetricName,help:String,escapedHelp:String,metricType:org.lyranthe.prometheus.client.MetricType,metrics:List[org.lyranthe.prometheus.client.registry.Metric]):org.lyranthe.prometheus.client.registry.RegistryMetrics"></a>
       <a id="&lt;init&gt;:RegistryMetrics"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,10 +97,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">RegistryMetrics</span><span class="params">(<span name="name">name: <a href="../MetricName.html" class="extype" name="org.lyranthe.prometheus.client.MetricName">MetricName</a></span>, <span name="help">help: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metricType">metricType: <a href="../MetricType.html" class="extype" name="org.lyranthe.prometheus.client.MetricType">MetricType</a></span>, <span name="metrics">metrics: <span class="extype" name="scala.List">List</span>[<a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a>]</span>)</span>
+        <span class="name">RegistryMetrics</span><span class="params">(<span name="name">name: <a href="../MetricName.html" class="extype" name="org.lyranthe.prometheus.client.MetricName">MetricName</a></span>, <span name="help">help: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="escapedHelp">escapedHelp: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metricType">metricType: <a href="../MetricType.html" class="extype" name="org.lyranthe.prometheus.client.MetricType">MetricType</a></span>, <span name="metrics">metrics: <span class="extype" name="scala.List">List</span>[<a href="Metric.html" class="extype" name="org.lyranthe.prometheus.client.registry.Metric">Metric</a>]</span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.RegistryMetrics@&lt;init&gt;(name:org.lyranthe.prometheus.client.MetricName,help:String,metricType:org.lyranthe.prometheus.client.MetricType,metrics:List[org.lyranthe.prometheus.client.registry.Metric]):org.lyranthe.prometheus.client.registry.RegistryMetrics" title="Permalink" target="_top">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.RegistryMetrics@&lt;init&gt;(name:org.lyranthe.prometheus.client.MetricName,help:String,escapedHelp:String,metricType:org.lyranthe.prometheus.client.MetricType,metrics:List[org.lyranthe.prometheus.client.registry.Metric]):org.lyranthe.prometheus.client.registry.RegistryMetrics" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -222,6 +222,23 @@
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="org.lyranthe.prometheus.client.registry.RegistryMetrics#escapedHelp" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="escapedHelp:String"></a>
+      <a id="escapedHelp:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">escapedHelp</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#org.lyranthe.prometheus.client.registry.RegistryMetrics@escapedHelp:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
