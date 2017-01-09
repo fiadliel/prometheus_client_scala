@@ -192,6 +192,8 @@ val site =
       SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
                                        siteSubdirName in SiteScaladoc),
       siteMappings ++= tut.value,
+      UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
+        inProjects(clientJVM, macrosJVM, play25, protobuf, fs2JVM, monix21JVM, scalaz72),
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )
     .dependsOn(clientJVM, fs2JVM)

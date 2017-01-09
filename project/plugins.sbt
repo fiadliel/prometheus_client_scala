@@ -15,7 +15,7 @@ addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.1.10")
 
 addSbtPlugin("com.github.gseitz" % "sbt-protobuf" % "0.5.3")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.2.0-RC1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.2.0")
 addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.3")
 addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.2")
 addSbtPlugin("com.eed3si9n" % "sbt-doge" % "0.1.5")
