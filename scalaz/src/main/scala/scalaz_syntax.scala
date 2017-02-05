@@ -6,8 +6,7 @@ import scalaz.\/
 import scalaz.concurrent.Task
 
 object scalaz_syntax {
-  implicit class TaskExtraSyntax[A](val underlying: Task[A])
-      extends AnyVal {
+  implicit class TaskExtraSyntax[A](val underlying: Task[A]) extends AnyVal {
     def markSuccess(f: A => LabelledGauge)(implicit clock: Clock): Task[A] = {
       underlying.map { result =>
         f(result).setToCurrentTime()(clock)
@@ -15,7 +14,8 @@ object scalaz_syntax {
       }
     }
 
-    def count(f: Throwable \/ A => Option[(LabelledCounter, Double)]): Task[A] = {
+    def count(
+        f: Throwable \/ A => Option[(LabelledCounter, Double)]): Task[A] = {
       underlying.attempt.flatMap {
         case attempt =>
           f(attempt).foreach(counter => counter._1.incBy(counter._2))

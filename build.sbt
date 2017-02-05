@@ -7,9 +7,8 @@ organization in Global := "org.lyranthe.prometheus"
 val scala211 = "2.11.8"
 val scala212 = "2.12.1"
 
-version in ThisBuild := "git describe --tags --dirty --always".!!
-  .stripPrefix("v")
-  .trim
+version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
+  "v").trim
 scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
                                                      "-implicits",
                                                      "-implicits-show-all",
@@ -124,7 +123,7 @@ val monix21 =
     .dependsOn(client)
 
 val monix21JVM = monix21.jvm
-val monix21JS = monix21.js
+val monix21JS  = monix21.js
 
 val benchmark =
   project
@@ -191,7 +190,13 @@ val site =
                                        siteSubdirName in SiteScaladoc),
       siteMappings ++= tut.value,
       UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
-        inProjects(clientJVM, macrosJVM, play25, protobuf, fs2JVM, monix21JVM, scalaz72),
+        inProjects(clientJVM,
+                   macrosJVM,
+                   play25,
+                   protobuf,
+                   fs2JVM,
+                   monix21JVM,
+                   scalaz72),
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )
     .dependsOn(clientJVM, fs2JVM)

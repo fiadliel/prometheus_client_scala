@@ -16,7 +16,8 @@ final case class Counter0 private[client] (name: MetricName, help: String)
     with MetricFamily {
   override val metricType = MetricType.Counter
 
-  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+  override final val escapedHelp =
+    help.replace("\\", "\\\\").replace("\n", "\\n")
 
   override def collect(): List[Metric] =
     CounterMetric(List.empty, adder.sum) :: Nil

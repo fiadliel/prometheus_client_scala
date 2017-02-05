@@ -17,7 +17,8 @@ final case class Gauge0 private[client] (name: MetricName,
     with MetricFamily {
   override val metricType = MetricType.Gauge
 
-  override final val escapedHelp = help.replace("\\", "\\\\").replace("\n", "\\n")
+  override final val escapedHelp =
+    help.replace("\\", "\\\\").replace("\n", "\\n")
 
   override def collect(): List[Metric] =
     synchronized {

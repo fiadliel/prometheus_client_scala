@@ -25,9 +25,11 @@ object TextFormat extends RegistryFormat {
       if (labelPairs.isEmpty)
         ""
       else
-        labelPairs.map { pair =>
-          s"""${pair.name.name}="${pair.escapedValue}""""
-        }.mkString("{", ",", "}")
+        labelPairs
+          .map { pair =>
+            s"""${pair.name.name}="${pair.escapedValue}""""
+          }
+          .mkString("{", ",", "}")
     }
 
     values.foreach { metric =>

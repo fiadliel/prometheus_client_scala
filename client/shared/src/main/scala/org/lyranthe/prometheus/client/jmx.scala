@@ -17,7 +17,7 @@ object jmx {
   val gcUsage = new MetricFamily {
     override def name: MetricName = metric"jvm_gc_stats"
 
-    override def help: String = "JVM Garbage Collector Statistics"
+    override def help: String        = "JVM Garbage Collector Statistics"
     override def escapedHelp: String = help
 
     override def metricType = MetricType.Gauge
@@ -38,7 +38,7 @@ object jmx {
   val memUsage = new MetricFamily {
     override def name: MetricName = metric"jvm_memory_usage"
 
-    override def help: String = "JVM Memory Usage"
+    override def help: String        = "JVM Memory Usage"
     override def escapedHelp: String = help
 
     override def metricType = MetricType.Gauge
@@ -67,7 +67,7 @@ object jmx {
   val classLoader = new MetricFamily {
     override def name: MetricName = metric"jvm_classloader"
 
-    override def help: String = "JVM Classloader statistics"
+    override def help: String        = "JVM Classloader statistics"
     override def escapedHelp: String = help
 
     override def metricType = MetricType.Gauge
@@ -87,7 +87,7 @@ object jmx {
   val startTime = new MetricFamily {
     override def name: MetricName = metric"jvm_start_time"
 
-    override def help: String = "JVM Start Time"
+    override def help: String        = "JVM Start Time"
     override def escapedHelp: String = help
 
     override def metricType = MetricType.Gauge
@@ -100,7 +100,7 @@ object jmx {
   val threadData = new MetricFamily {
     override def name: MetricName = metric"jvm_threads"
 
-    override def help: String = "JVM Thread Information"
+    override def help: String        = "JVM Thread Information"
     override def escapedHelp: String = help
 
     override def metricType: MetricType = MetricType.Gauge

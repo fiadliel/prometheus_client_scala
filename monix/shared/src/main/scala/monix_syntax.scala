@@ -7,8 +7,7 @@ import monix.eval.Task
 import scala.util.{Failure, Success, Try}
 
 object monix_syntax {
-  implicit class TaskExtraSyntax[A](val underlying: Task[A])
-      extends AnyVal {
+  implicit class TaskExtraSyntax[A](val underlying: Task[A]) extends AnyVal {
     private def fold[U](value: Try[A])(fa: Throwable => U, fb: A => U): U = {
       value match {
         case Failure(t) => fa(t)
