@@ -46,8 +46,6 @@ val publishSettings = Seq(
   }
 )
 
-scalafmtConfig in ThisBuild := Some(file(".scalafmt.conf"))
-
 val macros =
   crossProject
     .in(file("macros"))
@@ -110,7 +108,7 @@ val scalaz72 =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.scalaz" %% "scalaz-concurrent" % "7.2.7"
+      libraryDependencies += "org.scalaz" %% "scalaz-concurrent" % "7.2.8"
     )
     .dependsOn(clientJVM)
 
@@ -121,7 +119,7 @@ val monix21 =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "io.monix" %%% "monix-eval" % "2.1.1"
+      libraryDependencies += "io.monix" %%% "monix-eval" % "2.1.2"
     )
     .dependsOn(client)
 
@@ -135,7 +133,7 @@ val benchmark =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.18"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.20"
     )
     .dependsOn(clientJVM)
 
@@ -148,7 +146,7 @@ val play24 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.4.8" % "provided" withSources ()
+        "com.typesafe.play" %% "play" % "2.4.10" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -162,7 +160,7 @@ val play25 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.5.10" % "provided" withSources ()
+        "com.typesafe.play" %% "play" % "2.5.12" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
