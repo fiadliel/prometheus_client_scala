@@ -14,4 +14,12 @@ object MetricType {
   case object Histogram extends MetricType {
     override val toString: String = "histogram"
   }
+
+  case object Summary extends MetricType {
+    override val toString: String = "summary"
+  }
+
+  case object Untyped extends MetricType {
+    override val toString: String = "untyped"
+  }
 }

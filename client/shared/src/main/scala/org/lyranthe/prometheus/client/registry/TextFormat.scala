@@ -38,12 +38,14 @@ object TextFormat extends RegistryFormat {
       sb.append(s"# TYPE ${metric.name.name} ${metric.metricType.toString}\n")
       metric.metrics foreach { rm =>
         rm match {
-          case GaugeMetric(labels, value) =>
-            sb.append(
-              s"${metric.name.name}${labelsToString(labels)} ${value}\n")
           case CounterMetric(labels, value) =>
             sb.append(
               s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+
+          case GaugeMetric(labels, value) =>
+            sb.append(
+              s"${metric.name.name}${labelsToString(labels)} ${value}\n")
+
           case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
             val labelStr = labelsToString(labels)
             buckets foreach { bucket =>
@@ -52,6 +54,19 @@ object TextFormat extends RegistryFormat {
             }
             sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")
+
+          case SummaryMetric(labels, sampleCount, sampleSum, quantiles) =>
+            val labelStr = labelsToString(labels)
+            quantiles foreach { quantile =>
+              sb.append(
+                s"${metric.name.name}${labelsToString(LabelPair(label"quantile", prometheusDoubleFormat(quantile.quantile)) :: labels)} ${quantile.value}\n")
+            }
+            sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
+            sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")
+
+          case UntypedMetric(labels, value) =>
+            sb.append(
+              s"${metric.name.name}${labelsToString(labels)} ${value}\n")
         }
       }
       outputStream.write(sb.toString.getBytes)

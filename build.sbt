@@ -125,6 +125,17 @@ val monix21 =
 val monix21JVM = monix21.jvm
 val monix21JS  = monix21.js
 
+val javabridge =
+  project
+    .in(file("javabridge"))
+    .settings(publishSettings)
+    .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.20"
+    )
+    .dependsOn(clientJVM)
+
 val benchmark =
   project
     .in(file("benchmark"))

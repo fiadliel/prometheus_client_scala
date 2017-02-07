@@ -6,6 +6,7 @@ sealed trait Metric {
   def labels: List[LabelPair]
 }
 
+case class Quantile(quantile: Double, value: Double)
 case class Bucket(cumulativeCount: Long, upperBound: Double)
 case class LabelPair(name: LabelName, value: String) {
   final private[registry] val escapedValue: String =
@@ -19,3 +20,9 @@ case class HistogramMetric(labels: List[LabelPair],
                            sampleSum: Double,
                            buckets: Array[Bucket])
     extends Metric
+case class SummaryMetric(labels: List[LabelPair],
+                         sampleCount: Long,
+                         sampleSum: Double,
+                         quantiles: Array[Quantile])
+    extends Metric
+case class UntypedMetric(labels: List[LabelPair], value: Double) extends Metric

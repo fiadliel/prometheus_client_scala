@@ -21,6 +21,13 @@ object ProtoFormat extends RegistryFormat {
       .build
   }
 
+  def convertQuantile(quantile: Quantile): PB.Quantile = {
+    PB.Quantile.newBuilder
+      .setValue(quantile.value)
+      .setQuantile(quantile.quantile)
+      .build
+  }
+
   def convertMetric(metric: Metric): PB.Metric = {
     import scala.collection.JavaConverters._
 
@@ -28,16 +35,29 @@ object ProtoFormat extends RegistryFormat {
     newMetric.addAllLabel(labelPairs(metric.labels).asJava)
 
     metric match {
-      case GaugeMetric(labels, value) =>
-        newMetric.setGauge(PB.Gauge.newBuilder.setValue(value))
       case CounterMetric(labels, value) =>
         newMetric.setCounter(PB.Counter.newBuilder.setValue(value))
+
+      case GaugeMetric(labels, value) =>
+        newMetric.setGauge(PB.Gauge.newBuilder.setValue(value))
+
       case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
         newMetric.setHistogram(
           PB.Histogram.newBuilder
             .setSampleCount(sampleCount)
             .setSampleSum(sampleSum)
             .addAllBucket(buckets.map(convertBucket).toIterable.asJava))
+
+      case SummaryMetric(labels, sampleCount, sampleSum, quantiles) =>
+        newMetric.setSummary(
+          PB.Summary.newBuilder
+            .setSampleCount(sampleCount)
+            .setSampleSum(sampleSum)
+            .addAllQuantile(quantiles.map(convertQuantile).toIterable.asJava)
+        )
+
+      case UntypedMetric(labels, value) =>
+        newMetric.setUntyped(PB.Untyped.newBuilder.setValue(value))
     }
 
     newMetric.build
@@ -48,6 +68,8 @@ object ProtoFormat extends RegistryFormat {
       case MetricType.Counter   => PB.MetricType.COUNTER
       case MetricType.Gauge     => PB.MetricType.GAUGE
       case MetricType.Histogram => PB.MetricType.HISTOGRAM
+      case MetricType.Summary   => PB.MetricType.SUMMARY
+      case MetricType.Untyped   => PB.MetricType.UNTYPED
     }
   }
 
