@@ -86,6 +86,20 @@ val protobuf =
     )
     .dependsOn(clientJVM)
 
+val cats =
+  crossProject
+    .in(file("cats"))
+    .settings(publishSettings)
+    .settings(
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.3"
+    )
+    .dependsOn(client)
+
+val catsJVM = cats.jvm
+val catsJS  = cats.js
+
 val fs2 =
   crossProject
     .in(file("fs2"))
