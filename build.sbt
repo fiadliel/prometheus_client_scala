@@ -82,6 +82,7 @@ val protobuf =
     .settings(PB.protobufSettings)
     .settings(
       scalaVersion := scala211,
+      version in protobufConfig := "3.3.0",
       crossScalaVersions := Seq(scala211, scala212)
     )
     .dependsOn(clientJVM)
