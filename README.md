@@ -4,14 +4,14 @@
 
 This Prometheus client offers an idiomatic API for instrumenting applications written in Scala. It tries to provide an API which is efficient, easy to use. Also, as far as possible, it tries to report API usage errors at compile time instead of runtime.
 
-Helper modules support Play controller timing, along with helper syntax for `fs2.Task`, `scalaz.concurrent.Task` and `monix.eval.Task`.
+Helper modules support Play controller timing, along with helper syntax for the `cats.effect.Sync` typeclass, `fs2.Task`, `scalaz.concurrent.Task` and `monix.eval.Task`.
 
 In addition, it offers some extra insight into your program by exposing some useful VM statistics.
 
 ## Adding the library to your build
 
 ```scala
-libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.8.4"
+libraryDependencies += "org.lyranthe.prometheus" %% "client" % "0.9.0-M1"
 ```
 
 ## Documentation
