@@ -197,6 +197,49 @@ class Module extends AbstractModule {
 }
 ```
 
+## Using with Akka HTTP
+
+The `akka-http` contrib module contains a special [directive](http://doc.akka.io/docs/akka-http/current/scala/http/routing-dsl/directives/index.html)
+to easily instrument your endpoints and a [route](http://doc.akka.io/docs/akka-http/current/scala/http/routing-dsl/routes.html) to
+expose the Prometheus metrics.
+
+Create a singleton instance of the `PrometheusMetrics` class in your `akka-http` service with:
+
+```scala
+import org.lyranthe.prometheus.client.DefaultRegistry
+import org.lyranthe.prometheus.client.integration.akkahttp._
+
+val prometheusMetrics = new PrometheusMetrics()(DefaultRegistry())
+``` 
+
+Add the `/metrics` endpoint to your Service with:
+
+```scala
+val routes = myController.routes ~ prometheusMetrics.routes
+
+val bindingFuture = Http().bindAndHandle(routes, "0.0.0.0", 8080)
+```
+
+`PrometheusMetrics` provides the `withMetrics` directive that can be used in the `akka-http` DSL to measure your endpoints with a
+Histogram metric named `http_request_duration_seconds` with the following labels:
+* method (the http method, i.e. GET / PUT)
+* path (the route path)
+* status (the http response code family, i.e. 2xx, 4xx, 5xx)
+
+The following shows how to use the `withMetrics` directive in the `akka-http` routing DSL.
+
+```scala
+import prometheusMetrics._
+val route =
+  path("hello") {
+    withMetrics() {
+      get {
+        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+      }
+    }
+  }
+```
+
 ## Exposing JMX Statistics
 
 Some JVM statistics can be exposed with:
