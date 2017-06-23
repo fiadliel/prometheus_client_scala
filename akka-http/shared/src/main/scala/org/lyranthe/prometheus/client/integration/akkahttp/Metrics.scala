@@ -18,11 +18,11 @@ trait Metrics {
 
 trait PrometheusRoutes extends Directives {
 
-  val metricsDirective: Directive[Unit]
+  val metricsPathDirective: Directive[Unit]
 
   implicit val registry: Registry
 
-  val routes: Route = metricsDirective {
+  val routes: Route = metricsPathDirective {
     get {
       complete(registry.outputText)
     }
@@ -30,8 +30,20 @@ trait PrometheusRoutes extends Directives {
 
 }
 
-class PrometheusMetrics(override val metricsDirective: Directive[Unit] = Directives.path("metrics"))(implicit val registry: Registry)
+/**
+  * Creates a PrometheusMetrics with a Routing directive to expose metrics and a custom DSL directive to monitor endpoints.
+  *
+  * @param metricsPathDirective the path directive to expose the metrics (default to /metrics)
+  * @param enableJMX if true expose jms statistics (default to true)
+  * @param registry the Prometheus Client Registry service
+  */
+class PrometheusMetrics(override val metricsPathDirective: Directive[Unit] = Directives.path("metrics"),
+                        enableJMX: Boolean = true)(implicit val registry: Registry)
   extends Metrics with PrometheusRoutes {
+
+  if (enableJMX) {
+    jmx.register()
+  }
 
   /**
     *
@@ -44,14 +56,14 @@ class PrometheusMetrics(override val metricsDirective: Directive[Unit] = Directi
   def withMetrics(endpoint: Option[String] = None): Directive0 = extractRequestContext.flatMap { ctx =>
     val timer = Timer()
     extractMatchedPath.flatMap { path =>
-      mapResponse { resp =>
+      mapResponse { response =>
         val label = endpoint.getOrElse(path.toString())
         val method = ctx.request.method.name
-        val statusCode = s"${resp.status.intValue / 100}xx"
+        val statusCode = s"${response.status.intValue / 100}xx"
 
         recordHttpRequestDuration(method, label, statusCode, timer)
 
-        resp
+        response
       }
     }
   }
