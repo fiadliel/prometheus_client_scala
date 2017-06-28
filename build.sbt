@@ -156,7 +156,7 @@ val play24 =
     .in(file("play24"))
     .settings(publishSettings)
     .settings(
-      yax(file("yax/play"), "play24"),
+      yax(file("yax/play"), "play245"),
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
@@ -170,11 +170,26 @@ val play25 =
     .in(file("play25"))
     .settings(publishSettings)
     .settings(
-      yax(file("yax/play"), "play25"),
+      yax(file("yax/play"), "play245", "play256"),
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
         "com.typesafe.play" %% "play" % "2.5.12" % "provided" withSources ()
+      )
+    )
+    .dependsOn(clientJVM)
+
+val play26 =
+  project
+    .in(file("play26"))
+    .settings(publishSettings)
+    .settings(
+      yax(file("yax/play"), "play256", "play26"),
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play" % "2.6.0" % "provided" withSources (),
+        "com.typesafe.play" %% "play-guice" % "2.6.0" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -207,7 +222,7 @@ val site =
       UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
         inProjects(clientJVM,
                    macrosJVM,
-                   play25,
+                   play26,
                    protobuf,
                    fs2JVM,
                    monix21JVM,

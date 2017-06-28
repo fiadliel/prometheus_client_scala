@@ -1,9 +1,12 @@
 package org.lyranthe.prometheus.client.integration.play.filters
 
 import com.google.inject.{Inject, Singleton}
-#+play25
+#+play256
 import akka.stream.Materializer
-#-play25
+#-play256
+#+play26
+import play.api.routing.Router.Attrs.HandlerDef
+#-play26
 import org.lyranthe.prometheus.client._
 import play.api.mvc._
 
@@ -14,9 +17,9 @@ private case class RouteDetails(method: String, route: String)
 
 @Singleton
 class PrometheusFilter @Inject()(implicit
-#+play25
+#+play256
   val mat: Materializer,
-#-play25
+#-play256
   registry: Registry,
   executionContext: ExecutionContext
 ) extends Filter {
@@ -64,8 +67,15 @@ class PrometheusFilter @Inject()(implicit
   private def getRouteDetails(
       requestHeader: RequestHeader): Option[RouteDetails] = {
     for {
+#+play245
       method        <- requestHeader.tags.get("ROUTE_VERB")
       routePattern  <- requestHeader.tags.get("ROUTE_PATTERN")
+#-play245
+#+play26
+      handlerDef    <- requestHeader.attrs.get(HandlerDef)
+      method        = handlerDef.method
+      routePattern  = handlerDef.path
+#-play26
       route         =  routePattern.replaceAll("<.*?>", "").replaceAll("\\$", ":")
     } yield RouteDetails(method, route)
   }
