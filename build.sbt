@@ -187,7 +187,7 @@ val akkaHttp =
       name := "akka-http",
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.7"
+      libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
     )
     .dependsOn(client)
 
