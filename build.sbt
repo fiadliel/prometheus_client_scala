@@ -180,19 +180,18 @@ val play25 =
     .dependsOn(clientJVM)
 
 val akkaHttp =
-  crossProject
+  project
     .in(file("akka-http"))
     .settings(publishSettings)
     .settings(
       name := "akka-http",
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
+      libraryDependencies ++= Seq(
+        "com.typesafe.akka" %% "akka-http" % "10.0.9" % "provided" withSources ()
+      )
     )
-    .dependsOn(client)
-
-val akkaHttpJVM = akkaHttp.jvm
-val akkaHttpJS  = akkaHttp.js
+    .dependsOn(clientJVM)
 
 // Site Settings
 import com.typesafe.sbt.site._
