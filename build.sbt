@@ -194,6 +194,20 @@ val play26 =
     )
     .dependsOn(clientJVM)
 
+val akkaHttp =
+  project
+    .in(file("akka-http"))
+    .settings(publishSettings)
+    .settings(
+      name := "akka-http",
+      scalaVersion := scala211,
+      crossScalaVersions := Seq(scala211, scala212),
+      libraryDependencies ++= Seq(
+        "com.typesafe.akka" %% "akka-http" % "10.0.9" % "provided" withSources ()
+      )
+    )
+    .dependsOn(clientJVM)
+
 // Site Settings
 import com.typesafe.sbt.site._
 import com.typesafe.sbt.site.SitePlugin.autoImport.siteSubdirName
