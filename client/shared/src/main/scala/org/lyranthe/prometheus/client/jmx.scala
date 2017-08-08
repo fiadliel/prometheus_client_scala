@@ -115,7 +115,7 @@ object jmx {
     }
   }
 
-  def register()(implicit registry: Registry): Boolean = {
+  def register()(implicit registry: Registry): Unit = {
     val results = Vector(
       gcUsage.register,
       memUsage.register,
@@ -123,7 +123,5 @@ object jmx {
       startTime.register,
       threadData.register
     )
-
-    results.forall(_ == true)
   }
 }
