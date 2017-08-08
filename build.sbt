@@ -73,7 +73,7 @@ val client =
 val clientJVM = client.jvm
 val clientJS  = client.js
 
-val protobuf33 =
+val protobuf =
   project
     .in(file("protobuf"))
     .settings(publishSettings)
@@ -195,7 +195,7 @@ val site =
                                        siteSubdirName in SiteScaladoc),
       siteMappings ++= tut.value,
       UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
-        inProjects(clientJVM, macrosJVM, play26, protobuf33, catsJVM),
+        inProjects(clientJVM, macrosJVM, play26, protobuf, catsJVM),
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )
-    .dependsOn(clientJVM, macrosJVM, play26, protobuf33, catsJVM)
+    .dependsOn(clientJVM, macrosJVM, play26, protobuf, catsJVM)
