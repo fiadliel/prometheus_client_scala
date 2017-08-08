@@ -1,11 +1,9 @@
-import sbtprotobuf.{ProtobufPlugin => PB}
-
 enablePlugins(ScalaJSPlugin)
 
 organization in Global := "org.lyranthe.prometheus"
 
-val scala211 = "2.11.8"
-val scala212 = "2.12.1"
+val scala211 = "2.11.11"
+val scala212 = "2.12.3"
 
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
   "v").trim
@@ -75,14 +73,16 @@ val client =
 val clientJVM = client.jvm
 val clientJS  = client.js
 
-val protobuf =
+val protobuf33 =
   project
     .in(file("protobuf"))
     .settings(publishSettings)
-    .settings(PB.protobufSettings)
     .settings(
+      PB.targets in Compile := Seq(
+        scalapb.gen() -> (sourceManaged in Compile).value
+      ),
       scalaVersion := scala211,
-      version in protobufConfig := "3.3.0",
+      PB.protocVersion := "-v330",
       crossScalaVersions := Seq(scala211, scala212)
     )
     .dependsOn(clientJVM)
@@ -94,51 +94,12 @@ val cats =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.3"
+      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.4"
     )
     .dependsOn(client)
 
 val catsJVM = cats.jvm
 val catsJS  = cats.js
-
-val fs2 =
-  crossProject
-    .in(file("fs2"))
-    .settings(publishSettings)
-    .settings(
-      scalaVersion := scala211,
-      crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "co.fs2" %%% "fs2-core" % "0.9.2"
-    )
-    .dependsOn(client)
-
-val fs2JVM = fs2.jvm
-val fs2JS  = fs2.js
-
-val scalaz72 =
-  project
-    .in(file("scalaz"))
-    .settings(publishSettings)
-    .settings(
-      scalaVersion := scala211,
-      crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.scalaz" %% "scalaz-concurrent" % "7.2.8"
-    )
-    .dependsOn(clientJVM)
-
-val monix21 =
-  crossProject
-    .in(file("monix"))
-    .settings(publishSettings)
-    .settings(
-      scalaVersion := scala211,
-      crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "io.monix" %%% "monix-eval" % "2.1.2"
-    )
-    .dependsOn(client)
-
-val monix21JVM = monix21.jvm
-val monix21JS  = monix21.js
 
 val benchmark =
   project
@@ -188,7 +149,7 @@ val play26 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.6.0" % "provided" withSources (),
+        "com.typesafe.play" %% "play"       % "2.6.0" % "provided" withSources (),
         "com.typesafe.play" %% "play-guice" % "2.6.0" % "provided" withSources ()
       )
     )
@@ -234,13 +195,7 @@ val site =
                                        siteSubdirName in SiteScaladoc),
       siteMappings ++= tut.value,
       UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
-        inProjects(clientJVM,
-                   macrosJVM,
-                   play26,
-                   protobuf,
-                   fs2JVM,
-                   monix21JVM,
-                   scalaz72),
+        inProjects(clientJVM, macrosJVM, play26, protobuf33, catsJVM),
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )
-    .dependsOn(clientJVM, fs2JVM)
+    .dependsOn(clientJVM, macrosJVM, play26, protobuf33, catsJVM)

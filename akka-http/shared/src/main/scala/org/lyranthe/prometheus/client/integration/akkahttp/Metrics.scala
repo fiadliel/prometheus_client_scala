@@ -37,9 +37,12 @@ trait PrometheusRoutes extends Directives {
   * @param enableJMX if true expose jms statistics (default to true)
   * @param registry the Prometheus Client Registry service
   */
-class PrometheusMetrics(override val metricsPathDirective: Directive[Unit] = Directives.path("metrics"),
-                        enableJMX: Boolean = true)(implicit val registry: Registry)
-  extends Metrics with PrometheusRoutes {
+class PrometheusMetrics(
+    override val metricsPathDirective: Directive[Unit] =
+      Directives.path("metrics"),
+    enableJMX: Boolean = true)(implicit val registry: Registry)
+    extends Metrics
+    with PrometheusRoutes {
 
   if (enableJMX) {
     jmx.register()
@@ -53,33 +56,39 @@ class PrometheusMetrics(override val metricsPathDirective: Directive[Unit] = Dir
     *
     * @param endpoint if None uses [[akka.http.scaladsl.server.Directives.extractMatchedPath]]
     */
-  def withMetrics(endpoint: Option[String] = None): Directive0 = extractRequestContext.flatMap { ctx =>
-    val timer = Timer()
-    extractMatchedPath.flatMap { path =>
-      mapResponse { response =>
-        val label = endpoint.getOrElse(path.toString())
-        val method = ctx.request.method.name
-        val statusCode = s"${response.status.intValue / 100}xx"
+  def withMetrics(endpoint: Option[String] = None): Directive0 =
+    extractRequestContext.flatMap { ctx =>
+      val timer = Timer()
+      extractMatchedPath.flatMap { path =>
+        mapResponse { response =>
+          val label      = endpoint.getOrElse(path.toString())
+          val method     = ctx.request.method.name
+          val statusCode = s"${response.status.intValue / 100}xx"
 
-        recordHttpRequestDuration(method, label, statusCode, timer)
+          recordHttpRequestDuration(method, label, statusCode, timer)
 
-        response
+          response
+        }
       }
     }
-  }
 
-  def recordHttpRequestDuration(method: String, endpoint: String, statusCode: String, timer: Timer): Unit =
-    httRequestDuration.labelValues(method, endpoint, statusCode).observeDuration(timer)
+  def recordHttpRequestDuration(method: String,
+                                endpoint: String,
+                                statusCode: String,
+                                timer: Timer): Unit =
+    httRequestDuration
+      .labelValues(method, endpoint, statusCode)
+      .observeDuration(timer)
 
   private val httpHistogramBuckets = {
-    val buckets = for (
-      p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10);
-      s <- Vector(1, 2, 5)
-    ) yield p * s
+    val buckets = for (p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10);
+                       s <- Vector(1, 2, 5)) yield p * s
     HistogramBuckets(buckets: _*)
   }
 
-  private val httRequestDuration = Histogram(metric"http_request_duration_seconds", "Duration of HTTP request in seconds")(httpHistogramBuckets)
-    .labels(label"method", label"path", label"status")
-    .register
+  private val httRequestDuration =
+    Histogram(metric"http_request_duration_seconds",
+              "Duration of HTTP request in seconds")(httpHistogramBuckets)
+      .labels(label"method", label"path", label"status")
+      .register
 }

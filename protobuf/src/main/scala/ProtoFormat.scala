@@ -2,7 +2,7 @@ package org.lyranthe.prometheus.client.registry
 
 import java.io.ByteArrayOutputStream
 
-import io.prometheus.client.{Metrics => PB}
+import io.prometheus.client.{metrics => PB}
 import org.lyranthe.prometheus.client._
 
 object ProtoFormat extends RegistryFormat {
@@ -11,36 +11,29 @@ object ProtoFormat extends RegistryFormat {
 
   def labelPairs(labels: List[LabelPair]): List[PB.LabelPair] = {
     labels.map(lp =>
-      PB.LabelPair.newBuilder.setName(lp.name.name).setValue(lp.value).build)
+      PB.LabelPair(name = Some(lp.name.name), value = Some(lp.value)))
   }
 
   def convertBucket(bucket: Bucket): PB.Bucket = {
-    PB.Bucket.newBuilder
-      .setCumulativeCount(bucket.cumulativeCount)
-      .setUpperBound(bucket.upperBound)
-      .build
+    PB.Bucket(cumulativeCount = Some(bucket.cumulativeCount),
+              upperBound = Some(bucket.upperBound))
   }
 
   def convertMetric(metric: Metric): PB.Metric = {
-    import scala.collection.JavaConverters._
-
-    val newMetric = PB.Metric.newBuilder
-    newMetric.addAllLabel(labelPairs(metric.labels).asJava)
+    val newMetric = PB.Metric(labelPairs(metric.labels))
 
     metric match {
       case GaugeMetric(labels, value) =>
-        newMetric.setGauge(PB.Gauge.newBuilder.setValue(value))
+        newMetric.copy(gauge = Some(PB.Gauge(value = Some(value))))
       case CounterMetric(labels, value) =>
-        newMetric.setCounter(PB.Counter.newBuilder.setValue(value))
+        newMetric.copy(counter = Some(PB.Counter(value = Some(value))))
       case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
-        newMetric.setHistogram(
-          PB.Histogram.newBuilder
-            .setSampleCount(sampleCount)
-            .setSampleSum(sampleSum)
-            .addAllBucket(buckets.map(convertBucket).toIterable.asJava))
+        newMetric.copy(
+          histogram = Some(
+            PB.Histogram(sampleCount = Some(sampleCount),
+                         sampleSum = Some(sampleSum),
+                         bucket = buckets.map(convertBucket))))
     }
-
-    newMetric.build
   }
 
   def convertMetricType(metricType: MetricType): PB.MetricType = {
@@ -57,12 +50,11 @@ object ProtoFormat extends RegistryFormat {
     val outputStream = new ByteArrayOutputStream(1024)
 
     values foreach { metric =>
-      val proto = PB.MetricFamily.newBuilder
-        .setName(metric.name.name)
-        .setHelp(metric.help)
-        .setType(convertMetricType(metric.metricType))
-        .addAllMetric(metric.metrics.map(convertMetric).asJava)
-        .build
+      val proto = PB
+        .MetricFamily(name = Some(metric.name.name),
+                      help = Some(metric.help),
+                      `type` = Some(convertMetricType(metric.metricType)),
+                      metric = metric.metrics.map(convertMetric))
 
       proto.writeDelimitedTo(outputStream)
     }
