@@ -1,7 +1,9 @@
 package org.lyranthe.prometheus.client.integration.akkahttp
 
-import akka.http.scaladsl.server.{Directive, Directive0, Directives, Route}
+import akka.http.scaladsl.server._
 import org.lyranthe.prometheus.client._
+
+import scala.util.control.NonFatal
 
 trait Metrics {
 
@@ -60,14 +62,21 @@ class PrometheusMetrics(
     extractRequestContext.flatMap { ctx =>
       val timer = Timer()
       extractMatchedPath.flatMap { path =>
+
+        val label      = endpoint.getOrElse(path.toString())
+        val method     = ctx.request.method.name
+
         mapResponse { response =>
-          val label      = endpoint.getOrElse(path.toString())
-          val method     = ctx.request.method.name
           val statusCode = s"${response.status.intValue / 100}xx"
-
           recordHttpRequestDuration(method, label, statusCode, timer)
-
           response
+        } & handleExceptions {
+          ExceptionHandler {
+            case NonFatal(e) =>
+              recordHttpRequestDuration(method, label, "5xx", timer)
+              // Propagate exception to the other handlers in the chain
+              throw e
+          }
         }
       }
     }
