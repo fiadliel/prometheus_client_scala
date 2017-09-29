@@ -18,6 +18,14 @@ publishArtifact in ThisBuild := false
 scalaVersion in ThisBuild := scala212
 crossScalaVersions in ThisBuild := Seq(scala211, scala212)
 
+// Add sonatype repository settings
+publishTo in ThisBuild := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
+
 val publishSettings = Seq(
   mimaPreviousArtifacts := Set(organization.value %% name.value % "0.2.0"),
   publishArtifact := true,
