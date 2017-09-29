@@ -47,8 +47,9 @@ object TextFormat extends RegistryFormat {
           case HistogramMetric(labels, sampleCount, sampleSum, buckets) =>
             val labelStr = labelsToString(labels)
             buckets foreach { bucket =>
-              sb.append(s"${metric.name.name}_bucket${labelsToString(
-                LabelPair(label"le", prometheusDoubleFormat(bucket.upperBound)) :: labels)} ${bucket.cumulativeCount}\n")
+              sb.append(s"${metric.name.name}_bucket${labelsToString(LabelPair(
+                label"le",
+                prometheusDoubleFormat(bucket.upperBound)) :: labels)} ${bucket.cumulativeCount}\n")
             }
             sb.append(s"${metric.name.name}_count${labelStr} ${sampleCount}\n")
             sb.append(s"${metric.name.name}_sum${labelStr} ${sampleSum}\n")

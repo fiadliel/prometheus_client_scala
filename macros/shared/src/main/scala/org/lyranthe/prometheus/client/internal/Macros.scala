@@ -15,8 +15,7 @@ object Macros {
         val fullMetric: StringBuffer = new StringBuffer
 
         rawParts zipAll (pieces map (_.tree), reify("").tree, reify("").tree) map {
-          case (Literal(Constant(rawPart: String)),
-                Literal(Constant(piece))) =>
+          case (Literal(Constant(rawPart: String)), Literal(Constant(piece))) =>
             fullMetric append rawPart
             fullMetric append piece.toString
 
@@ -47,8 +46,7 @@ object Macros {
         val fullMetric: StringBuffer = new StringBuffer
 
         rawParts zipAll (pieces map (_.tree), reify("").tree, reify("").tree) map {
-          case (Literal(Constant(rawPart: String)),
-                Literal(Constant(piece))) =>
+          case (Literal(Constant(rawPart: String)), Literal(Constant(piece))) =>
             fullMetric append rawPart
             fullMetric append piece.toString
 

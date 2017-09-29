@@ -5,6 +5,8 @@ organization in Global := "org.lyranthe.prometheus"
 val scala211 = "2.11.11"
 val scala212 = "2.12.3"
 
+import sys.process._
+
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
   "v").trim
 scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
@@ -13,8 +15,7 @@ scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
                                                      "-diagrams")
 sonatypeProfileName := "org.lyranthe"
 publishArtifact in ThisBuild := false
-enablePlugins(CrossPerProjectPlugin)
-scalaVersion in ThisBuild := scala211
+scalaVersion in ThisBuild := scala212
 crossScalaVersions in ThisBuild := Seq(scala211, scala212)
 
 val publishSettings = Seq(
@@ -108,7 +109,7 @@ val benchmark =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.20"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.26"
     )
     .dependsOn(clientJVM)
 
@@ -121,7 +122,7 @@ val play24 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.4.10" % "provided" withSources ()
+        "com.typesafe.play" %% "play" % "2.4.11" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -135,7 +136,7 @@ val play25 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.5.12" % "provided" withSources ()
+        "com.typesafe.play" %% "play" % "2.5.17" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -149,8 +150,8 @@ val play26 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play"       % "2.6.0" % "provided" withSources (),
-        "com.typesafe.play" %% "play-guice" % "2.6.0" % "provided" withSources ()
+        "com.typesafe.play" %% "play"       % "2.6.5" % "provided" withSources (),
+        "com.typesafe.play" %% "play-guice" % "2.6.5" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -169,20 +170,12 @@ val akkaHttp =
     )
     .dependsOn(clientJVM)
 
-// Site Settings
-import com.typesafe.sbt.site._
-import com.typesafe.sbt.site.SitePlugin.autoImport.siteSubdirName
-import com.typesafe.sbt.site.util.SiteHelpers
-import com.typesafe.sbt.SbtGhPages.GhPagesKeys.ghpagesNoJekyll
 import com.typesafe.sbt.SbtGit.GitKeys._
 
 val site =
   project
     .in(file("site"))
-    .enablePlugins(HugoPlugin)
-    .settings(unidocSettings)
-    .settings(tutSettings)
-    .settings(ghpages.settings)
+    .enablePlugins(HugoPlugin, GhpagesPlugin, ScalaUnidocPlugin, TutPlugin)
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
@@ -191,10 +184,10 @@ val site =
       includeFilter in Hugo := "*.css" | "*.js" | "*.png" | "*.jpg" | "*.txt" | "*.html" | "*.md" | "*.rst" | "*.woff" | "*.ttf",
       siteSubdirName in SiteScaladoc := "latest/api",
       ghpagesNoJekyll := false,
-      SiteHelpers.addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
-                                       siteSubdirName in SiteScaladoc),
+      addMappingsToSiteDir(mappings in (ScalaUnidoc, packageDoc),
+                           siteSubdirName in SiteScaladoc),
       siteMappings ++= tut.value,
-      UnidocKeys.unidocProjectFilter in (ScalaUnidoc, UnidocKeys.unidoc) :=
+      unidocProjectFilter in (ScalaUnidoc, unidoc) :=
         inProjects(clientJVM, macrosJVM, play26, protobuf, catsJVM),
       gitRemoteRepo := "git@github.com:fiadliel/prometheus_client_scala.git"
     )

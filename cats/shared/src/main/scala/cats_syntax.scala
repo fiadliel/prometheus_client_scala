@@ -6,8 +6,7 @@ import cats.implicits._
 import cats.effect.Sync
 
 object cats_syntax {
-  implicit class SyncExtraSyntax[F[_], A](val underlying: F[A])
-      extends AnyVal {
+  implicit class SyncExtraSyntax[F[_], A](val underlying: F[A]) extends AnyVal {
     def markSuccess(f: A => LabelledGauge)(implicit F: Sync[F],
                                            clock: Clock): F[A] = {
       underlying.map { result =>
