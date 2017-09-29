@@ -62,9 +62,8 @@ class PrometheusMetrics(
     extractRequestContext.flatMap { ctx =>
       val timer = Timer()
       extractMatchedPath.flatMap { path =>
-
-        val label      = endpoint.getOrElse(path.toString())
-        val method     = ctx.request.method.name
+        val label  = endpoint.getOrElse(path.toString())
+        val method = ctx.request.method.name
 
         mapResponse { response =>
           val statusCode = s"${response.status.intValue / 100}xx"
