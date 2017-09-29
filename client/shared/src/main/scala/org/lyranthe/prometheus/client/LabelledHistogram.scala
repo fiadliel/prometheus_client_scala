@@ -15,5 +15,5 @@ class LabelledHistogram private[client] (
     histogram.Histogram.observe(buckets, v)
 
   def observeDuration(timer: Timer)(implicit timeSource: NanoTimeSource): Unit =
-    histogram.Histogram.observe(buckets, timer.duration)
+    histogram.Histogram.observe(buckets, timer.seconds)
 }
