@@ -103,7 +103,7 @@ val cats =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.4"
+      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.5"
     )
     .dependsOn(client)
 
@@ -117,7 +117,7 @@ val benchmark =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.0.26"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.1.0"
     )
     .dependsOn(clientJVM)
 
@@ -144,7 +144,7 @@ val play25 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play" % "2.5.17" % "provided" withSources ()
+        "com.typesafe.play" %% "play" % "2.5.18" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -158,8 +158,8 @@ val play26 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play"       % "2.6.5" % "provided" withSources (),
-        "com.typesafe.play" %% "play-guice" % "2.6.5" % "provided" withSources ()
+        "com.typesafe.play" %% "play"       % "2.6.7" % "provided" withSources (),
+        "com.typesafe.play" %% "play-guice" % "2.6.7" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
