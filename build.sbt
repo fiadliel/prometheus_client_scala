@@ -1,4 +1,4 @@
-enablePlugins(ScalaJSPlugin)
+enablePlugins(ScalaJSPlugin, CrossPerProjectPlugin)
 
 organization in Global := "org.lyranthe.prometheus"
 
