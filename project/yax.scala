@@ -86,9 +86,9 @@ object yax {
   }
 
   // all non-hidden files
-  private def closure(src: File): List[sbt.Watched.WatchSource] =
+  private def closure(src: File): List[File] =
     if (src.isFile) {
-      if (src.isHidden) Nil else List(WatchSource(src))
+      if (src.isHidden) Nil else List(src)
     } else {
       src.listFiles.toList.flatMap(closure)
     }

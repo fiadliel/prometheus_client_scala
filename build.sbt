@@ -5,8 +5,6 @@ organization in Global := "org.lyranthe.prometheus"
 val scala211 = "2.11.11"
 val scala212 = "2.12.3"
 
-import sys.process._
-
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
   "v").trim
 scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",

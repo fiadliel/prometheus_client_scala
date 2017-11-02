@@ -2,10 +2,12 @@ addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.20")
 
 addSbtPlugin("pl.project13.scala" % "sbt-jmh"         % "0.2.27")
 addSbtPlugin("io.spray"           % "sbt-boilerplate" % "0.6.1")
-addSbtPlugin("org.tpolecat"       % "tut-plugin"      % "0.6.1")
-addSbtPlugin("com.geirsson"       % "sbt-scalafmt"    % "1.2.0")
+addSbtPlugin("org.tpolecat"       % "tut-plugin"      % "0.5.5")
 
-addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "2.0.0")
+addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.14")
+addSbtPlugin("com.lucidchart" % "sbt-scalafmt-coursier" % "1.14")
+
+addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "1.1.0")
 
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.0")
 addSbtPlugin("com.jsuereth"   % "sbt-pgp"      % "1.1.0")
@@ -13,7 +15,7 @@ addSbtPlugin("com.jsuereth"   % "sbt-pgp"      % "1.1.0")
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.1.18")
 
 addSbtPlugin(
-  "com.thesamet" % "sbt-protoc" % "0.99.12" exclude ("com.trueaccord.scalapb", "protoc-bridge_2.12"))
+  "com.thesamet" % "sbt-protoc" % "0.99.12" exclude ("com.trueaccord.scalapb", "protoc-bridge_2.10"))
 
 libraryDependencies += "com.trueaccord.scalapb" %% "compilerplugin-shaded" % "0.6.6"
 
