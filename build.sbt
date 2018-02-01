@@ -2,8 +2,8 @@ enablePlugins(ScalaJSPlugin, CrossPerProjectPlugin)
 
 organization in Global := "org.lyranthe.prometheus"
 
-val scala211 = "2.11.11"
-val scala212 = "2.12.3"
+val scala211 = "2.11.12"
+val scala212 = "2.12.4"
 
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
   "v").trim
@@ -13,7 +13,7 @@ scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
                                                      "-diagrams")
 sonatypeProfileName := "org.lyranthe"
 publishArtifact in ThisBuild := false
-scalaVersion in ThisBuild := scala212
+scalaVersion in ThisBuild := scala211
 crossScalaVersions in ThisBuild := Seq(scala211, scala212)
 
 // Add sonatype repository settings
@@ -96,7 +96,7 @@ val cats =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.5"
+      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.8"
     )
     .dependsOn(client)
 
@@ -110,7 +110,7 @@ val benchmark =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.1.0"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.2.0"
     )
     .dependsOn(clientJVM)
 
@@ -151,8 +151,8 @@ val play26 =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play"       % "2.6.7" % "provided" withSources (),
-        "com.typesafe.play" %% "play-guice" % "2.6.7" % "provided" withSources ()
+        "com.typesafe.play" %% "play"       % "2.6.11" % "provided" withSources (),
+        "com.typesafe.play" %% "play-guice" % "2.6.11" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
@@ -166,7 +166,7 @@ val akkaHttp =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.akka" %% "akka-http" % "10.0.10" % "provided" withSources ()
+        "com.typesafe.akka" %% "akka-http" % "10.0.11" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)
