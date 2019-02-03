@@ -3,7 +3,7 @@ enablePlugins(ScalaJSPlugin, CrossPerProjectPlugin)
 organization in Global := "org.lyranthe.prometheus"
 
 val scala211 = "2.11.12"
-val scala212 = "2.12.4"
+val scala212 = "2.12.8"
 
 version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
   "v").trim
