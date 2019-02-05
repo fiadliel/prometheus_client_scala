@@ -1,12 +1,13 @@
-enablePlugins(ScalaJSPlugin, CrossPerProjectPlugin)
+import scala.sys.process._
+
+enablePlugins(ScalaJSPlugin)
 
 organization in Global := "org.lyranthe.prometheus"
 
 val scala211 = "2.11.12"
-val scala212 = "2.12.4"
+val scala212 = "2.12.8"
 
-version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix(
-  "v").trim
+version in ThisBuild := "git describe --tags --dirty --always".!!.stripPrefix("v").trim
 scalacOptions in (Compile, doc) in ThisBuild ++= Seq("-groups",
                                                      "-implicits",
                                                      "-implicits-show-all",
@@ -96,7 +97,7 @@ val cats =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
-      libraryDependencies += "org.typelevel" %%% "cats-effect" % "0.8"
+      libraryDependencies += "org.typelevel" %%% "cats-effect" % "1.2.0"
     )
     .dependsOn(client)
 
@@ -110,7 +111,7 @@ val benchmark =
     .settings(
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211),
-      libraryDependencies += "io.prometheus" % "simpleclient" % "0.2.0"
+      libraryDependencies += "io.prometheus" % "simpleclient" % "0.6.0"
     )
     .dependsOn(clientJVM)
 
@@ -166,7 +167,8 @@ val akkaHttp =
       scalaVersion := scala211,
       crossScalaVersions := Seq(scala211, scala212),
       libraryDependencies ++= Seq(
-        "com.typesafe.akka" %% "akka-http" % "10.0.11" % "provided" withSources ()
+        "com.typesafe.akka" %% "akka-http" % "10.1.7" % "provided" withSources (),
+        "com.typesafe.akka" %% "akka-stream" % "2.5.20" % "provided" withSources ()
       )
     )
     .dependsOn(clientJVM)

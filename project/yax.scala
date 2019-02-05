@@ -98,6 +98,6 @@ object yax {
       Seq(sourceGenerators += foo(root, "main", flags: _*).taskValue)) ++
       inConfig(Test)(
         Seq(sourceGenerators += foo(root, "test", flags: _*).taskValue)) ++
-      Seq(watchSources := watchSources.value ++ closure(root))
+      Seq(watchSources ++= closure(root).get)
 
 }
