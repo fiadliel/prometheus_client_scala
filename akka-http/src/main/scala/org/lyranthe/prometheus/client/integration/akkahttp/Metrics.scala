@@ -32,6 +32,15 @@ trait PrometheusRoutes extends Directives {
 
 }
 
+object PrometheusMetrics {
+  val httpHistogramBuckets = {
+    val buckets =
+      for (p <- Vector[Double] (0.0001, 0.001, 0.01, 0.1, 1, 10);
+           s <- Vector (1, 2, 5) ) yield p * s
+    HistogramBuckets (buckets: _*)
+  }
+}
+
 /**
   * Creates a PrometheusMetrics with a Routing directive to expose metrics and a custom DSL directive to monitor endpoints.
   *
@@ -42,7 +51,8 @@ trait PrometheusRoutes extends Directives {
 class PrometheusMetrics(
     override val metricsPathDirective: Directive[Unit] =
       Directives.path("metrics"),
-    enableJMX: Boolean = true)(implicit val registry: Registry)
+    enableJMX: Boolean = true,
+    httpHistogramBuckets = PrometheusMetrics.httpHistogramBuckets)(implicit val registry: Registry)
     extends Metrics
     with PrometheusRoutes {
 
@@ -87,12 +97,6 @@ class PrometheusMetrics(
     httRequestDuration
       .labelValues(method, endpoint, statusCode)
       .observeDuration(timer)
-
-  private val httpHistogramBuckets = {
-    val buckets = for (p <- Vector[Double](0.0001, 0.001, 0.01, 0.1, 1, 10);
-                       s <- Vector(1, 2, 5)) yield p * s
-    HistogramBuckets(buckets: _*)
-  }
 
   private val httRequestDuration =
     Histogram(metric"http_request_duration_seconds",
